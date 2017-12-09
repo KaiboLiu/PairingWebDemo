@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>HTML5 Canvas arcTo()绘制弧线入门示例</title>
+</head>
+<body>
+
+<!-- 添加canvas标签，并加上红色边框以便于在页面上查看 -->
+<canvas id="myCanvas" width="800px" height="800px" style="border: 1px solid red;">
+您的浏览器不支持canvas标签。
+</canvas>
+
+<script type="text/javascript">
+//获取Canvas对象(画布)
+var canvas = document.getElementById("myCanvas");
+//简单地检测当前浏览器是否支持Canvas对象，以免在一些不支持html5的浏览器中提示语法错误
+if(canvas.getContext){  
+    //获取对应的CanvasRenderingContext2D对象(画笔)
+    var ctx = canvas.getContext("2d");  
+
+    
+    //设置字体样式
+    ctx.font = "30px italic";
+    //设置字体填充颜色
+    ctx.fillStyle = "black";
+    //从坐标点(50,50)开始绘制文字
+    ctx.fillText("Pairing Test by Kaibo", 270, 50);
+
+
+    ctx.beginPath();
+    ctx.strokeStyle = "black";
+    var circle = {
+        x : 400,    //圆心的x轴坐标值
+        y : 400,    //圆心的y轴坐标值
+        r : 300      //圆的半径
+    };
+    ctx.arc(circle.x, circle.y, circle.r, (-70/360)*Math.PI*2, Math.PI * 2 * (250/360), false);
+
+    ctx.stroke();
+
+
+    //端点1
+    var p0 = {
+        x : 400,
+        y : 400
+    };
+
+
+    ctx.beginPath();
+    var p1 = {
+        x : 698.391445,
+        y : 368.9750816
+    };
+   //指定绘制路径的起始点
+    ctx.moveTo(p1.x, p1.y);
+    //端点2
+    var p2 = {
+        x : 316.4224637,
+        y : 688.1228825         
+    };
+    //绘制与当前端点、端点1、端点2三个点所形成的夹角的两边相切并且半径为50px的圆的一段弧线
+    ctx.arcTo(p0.x, p0.y, p2.x, p2.y, 445.7082757);
+    
+    //设置线条颜色为红色
+    ctx.strokeStyle = "red";
+    //按照上述绘制路径绘制弧线
+    ctx.stroke();
+
+
+
+
+
+    ctx.beginPath();
+    var p1 = {
+        x : 669.4172648,
+        y : 531.9633943
+    };
+   //指定绘制路径的起始点
+    ctx.moveTo(p1.x, p1.y);
+    //端点2
+    var p2 = {
+        x : 558.406446,
+        y : 654.7693032         
+    };
+    //绘制与当前端点、端点1、端点2三个点所形成的夹角的两边相切并且半径为50px的圆的一段弧线
+    ctx.arcTo(p0.x, p0.y, p2.x, p2.y, 86.11437631);
+    
+    //设置线条颜色为蓝色
+    ctx.strokeStyle = "green";
+    //按照上述绘制路径绘制弧线
+    ctx.stroke();
+
+
+
+
+    ctx.beginPath();
+    var p1 = {
+        x : 695.369227,
+        y : 452.5073305
+    };
+   //指定绘制路径的起始点
+    ctx.moveTo(p1.x, p1.y);
+    //端点2
+    var p2 = {
+        x : 176.3285561,
+        y : 599.9276999         
+    };
+    //绘制与当前端点、端点1、端点2三个点所形成的夹角的两边相切并且半径为50px的圆的一段弧线
+    ctx.arcTo(p0.x, p0.y, p2.x, p2.y, 616.8406716);
+    
+    ctx.strokeStyle = "blue";
+    //按照上述绘制路径绘制弧线
+    ctx.stroke();
+
+
+
+
+    ctx.beginPath();
+    var p1 = {
+        x : 502.606043,
+        y : 118.0922138
+    };
+   //指定绘制路径的起始点
+    ctx.moveTo(p1.x, p1.y);
+    //端点2
+    var p2 = {
+        x : 297.393957,
+        y : 118.0922138         
+    };
+    //绘制与当前端点、端点1、端点2三个点所形成的夹角的两边相切并且半径为50px的圆的一段弧线
+    ctx.arcTo(p0.x, p0.y, p2.x, p2.y, 109.1910865);
+    
+    ctx.strokeStyle = "grey";
+    //按照上述绘制路径绘制弧线
+    ctx.stroke();
+
+
+
+
+    ctx.beginPath();
+    var p1 = {
+        x : 622.5502296,
+        y : 601.1750365
+    };
+   //指定绘制路径的起始点
+    ctx.moveTo(p1.x, p1.y);
+    //端点2
+    var p2 = {
+        x : 122.3820268,
+        y : 286.2974893         
+    };
+    //绘制与当前端点、端点1、端点2三个点所形成的夹角的两边相切并且半径为50px的圆的一段弧线
+    ctx.arcTo(p0.x, p0.y, p2.x, p2.y, 1715.40079);
+    
+    ctx.strokeStyle = "orange";
+    //按照上述绘制路径绘制弧线
+    ctx.stroke();
+
+
+}
+</script>
+</body>
+</html>
