@@ -68,12 +68,14 @@ def LoadData():
 			outFile = outFile + "0"
 		outFile = outFile + "%d" % (i+1)
 		print(outFile)
-		f.open(outDir+outFile,"w")
+		f = open(outDir+outFile,"w")
 
-		f.write(seq[i],ref[i],cf[i],vn[i])
+		f.write(seq[i]+ref[i]+cf[i]+vn[i])
 		beam_list = range(1,201)
 		tmp = range(300,801,100)
-		print(tmp)
+
+		beam_list[len(beam_list):len(beam_list)] = tmp
+		print(beam_list,len(beam_list))
 		#for beam_i in xrange()
 		f.close()
 
