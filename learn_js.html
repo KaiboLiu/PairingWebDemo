@@ -5,10 +5,23 @@
 <title>by lrushx</title>
 </head>
 <body>
-<h1>my web page</h1>
-<p id="demo">一个段落。</p>
-<button type="button" onclick="myFunction()">点击这里</button>
 <script src="myScript.js"></script>
+
+
+
+
+<p id="demo">Welcome!</p>
+<button type="button" onclick="myFunction()">click to check why you're here</button>
+<br>
+<button type="button" onclick="draw_4(N=1500,d=20,R=250,range=50,halfOpen=20)">draw circles</button>
+<br>
+<button type="button" onclick="draw_1_to_n(N=1500,d=20,R=250,halfOpen=20)">draw arc</button>
+<br>
+<!-- 添加canvas标签，并加上红色边框以便于在页面上查看 -->
+<canvas id="myCanvas" width="1200px" height="1200px" style="border: 1px solid red;">
+您的浏览器不支持canvas标签。
+</canvas>
+
 
 </body>
 </html>
