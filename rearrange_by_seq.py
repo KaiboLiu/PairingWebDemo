@@ -25,7 +25,8 @@ def LoadData():
 	refFile = "Mathewsdata."+RNAtype+".ref"
 	cfFile  = "Mathewsdata."+RNAtype+".contrafoldres"
 	vnFile  = "Mathewsdata."+RNAtype+".viennares"
-	subDir  = "linearcontrafold/run_16s/log.LinearContrafold."+RNAtype+".beam"
+	beamDir1= dataDir+"linearcontrafold/run_"+RNAtype+"/log.LinearContrafold."+RNAtype+".beam"
+	beamDir2= dataDir+"linearvienna/run_"+RNAtype+"/log.linearvienna."+RNAtype+".beam"
 	outDir  = "./rearranged_results/"
 
 	if not os.path.exists(outDir):
@@ -70,13 +71,40 @@ def LoadData():
 		print(outFile)
 		f = open(outDir+outFile,"w")
 
-		f.write(seq[i]+ref[i]+cf[i]+vn[i])
+		f.write(">>>>>>seq\n"+seq[i]+">>>>>>gold\n"+ref[i]+">>>>>>contrafold\n"+cf[i]+">>>>>>vienna\n"+vn[i])
+
+
 		beam_list = range(1,201)
 		tmp = range(300,801,100)
 
 		beam_list[len(beam_list):len(beam_list)] = tmp
-		print(beam_list,len(beam_list))
-		#for beam_i in xrange()
+		#print(beam_list,len(beam_list))
+		for beam_i in beam_list:
+			beamFile1 = beamDir1
+			beamFile2 = beamDir2
+			if (beam_i < 100):
+				beamFile1 = beamFile1 + "0"
+				beamFile2 = beamFile2 + "0"
+			if (beam_i < 10):
+				beamFile1 = beamFile1 + "0"
+				beamFile2 = beamFile2 + "0"
+			beamFile1 = beamFile1 + str(beam_i)	# generate file name like 'log.LinearContrafold.16s.beam011' to read
+			beamFile2 = beamFile2 + str(beam_i)	# generate file name like 'log.LinearVienna.16s.beam016' to read
+
+			fileIn  = open(beamFile1)
+			f.write(">>>>>>LinearContrafold"+beamFile1[-8:]+"\n")
+			lines = fileIn.readlines()
+			f.write(lines[7*i-4]+lines[7*i-3])	#information such as Viterbi score \n time, len, score, etc.
+			f.write(lines[7*i-1])			# pairing structure in beam file with linear algorithm
+			fileIn.close()
+
+			fileIn  = open(beamFile2)
+			f.write(">>>>>>linearvienna"+beamFile2[-8:]+"\n")
+			lines = fileIn.readlines()
+			f.write(lines[7*i-4]+lines[7*i-3])	#information such as Viterbi score \n time, len, score, etc.
+			f.write(lines[7*i-1])			# pairing structure in beam file with linear algorithm
+			fileIn.close()
+
 		f.close()
 
 
