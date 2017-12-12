@@ -1,6 +1,13 @@
 #!/usr/bin/env python
 
 '''
+Developer: Kaibo(lrushx)
+Email: liukaib@oregonstate.edu
+Process Time: Dec 08, 2017
+ */
+'''
+
+'''
 # for WebDemo in RNA project,
 # original pairing structures are saved in different files by models and beams.
 # now I need to put all pairing results for a single seq into one file, 
@@ -8,7 +15,21 @@
 # These new data files will listed by seq number(16s * 22, and 23s *5), 27 files in total.
 # if the current seq is #i, the line position for pairing structure in gold, LinearContrafold, vienna are all i, 
   however the line position in LinearContrafold and LinearViennabeam is 7*i, information of time, score is in 7*i-3 and 7*i-2
-# read a matrix, 5 columns, with 1~4 as 4 features and 5th as label.
+'''
+
+'''
+In the saved data file, .seq03 for example, there are 1656 lines(seq *2 + ref *2 + cf *2 + vn *2 + linearcf *206*4 + lineavnf *206*4)
+The structure of the file is:
+seq * 2 lines				----->  L1
+ref * 2 lines				----->  L3
+cf  * 2 lines				----->  L5
+vn  * 2 lines 				----->  L7
+linearcf.beam001 * 4 lines  ----->  L11 (with 2 lines of information above)
+lineavnf.beam001 * 4 lines  ----->  L16 (with 2 lines of information above)
+linearcf.beam002 * 4 lines
+lineavnf.beam002 * 4 lines
+linearcf.beam00i * 4 lines  ----->  L(8*i+3) (with 2 lines of information above), if i > 200, L[(i/100+198)*8+3]
+lineavnf.beam00i * 4 lines  ----->  L(8*i+7) (with 2 lines of information above), if i > 200, L[(i/100+198)*8+7]
 '''
 
 

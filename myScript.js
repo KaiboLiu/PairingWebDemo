@@ -3,9 +3,29 @@ function myFunction()
     document.getElementById("demo").innerHTML="This is a demo for pairing";
 }
 
+
+$("#import").click(function(){//点击导入按钮，使files触发点击事件，然后完成读取文件的操作。
+        $("#files").click();
+    });
+
+function import(){
+    var selectedFile = document.getElementById("files").files[0];//获取读取的File对象
+    var name = selectedFile.name;//读取选中文件的文件名
+    var size = selectedFile.size;//读取选中文件的大小
+    console.log("文件名:"+name+"大小："+size);
+
+    var reader = new FileReader();//这里是核心！！！读取操作就是由它完成的。
+    reader.readAsText(selectedFile);//读取文件的内容
+
+    reader.onload = function(){
+        console.log(this.result);//当读取完成之后会回调这个函数，然后此时文件的内容存储到了result中。直接操作即可。
+    }
+}
+
+
 function draw_4(N,d,R,range,halfOpen=20)
 {
-	drawframe(N,d,R,range,halfOpen)
+	drawframe(N,d,R,range,halfOpen);
 }
 
 
@@ -27,18 +47,18 @@ function drawframe(N,d,R,range,halfOpen=20)
 
 function drawcircle(x0,y0,R,halfOpen=20)
 {
-	//获取Canvas对象(画布)
+	//get canvas object
 	var canvas = document.getElementById("myCanvas");
-	//简单地检测当前浏览器是否支持Canvas对象，以免在一些不支持html5的浏览器中提示语法错误
+	//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
 	if(canvas.getContext)
 	{  
-    	//获取对应的CanvasRenderingContext2D对象(画笔)
+    	//get corresponding CanvasRenderingContext2D object(pen)
     	var ctx = canvas.getContext("2d");  
-	    //设置字体样式
+	    //set font and style
 	    ctx.font = "30px italic";
-	    //设置字体填充颜色
+	    //set fill style
 	    ctx.fillStyle = "black";
-	    //从坐标点(270,50)开始绘制文字
+	    //fill text at the position (420,40)
 	    ctx.fillText("Pairing Test by Kaibo", 420, 40);	
 	
 		
@@ -46,9 +66,9 @@ function drawcircle(x0,y0,R,halfOpen=20)
 	    ctx.beginPath();
 	    ctx.strokeStyle = "black";
 	    var circle = {
-	        x : x0,    //圆心的x轴坐标值
-	        y : y0,    //圆心的y轴坐标值
-	        r : R      //圆的半径
+	        x : x0,    //center x
+	        y : y0,    //center y
+	        r : R      //radius
 	    };
 	    ctx.arc(circle.x, circle.y, circle.r, ((halfOpen-90)/360) * 2*Math.PI, ((270-halfOpen)/360) * 2*Math.PI, false);	
 
@@ -59,16 +79,16 @@ function drawcircle(x0,y0,R,halfOpen=20)
 
 function drawaxis(N,x0,y0,R,extDis,range=50,halfOpen=20)
 {
-	//获取Canvas对象(画布)
+	//get canvas object
 	var canvas = document.getElementById("myCanvas");
-	//简单地检测当前浏览器是否支持Canvas对象，以免在一些不支持html5的浏览器中提示语法错误
+	//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
 	if(canvas.getContext)
 	{  
-    	//获取对应的CanvasRenderingContext2D对象(画笔)
+    	//get corresponding CanvasRenderingContext2D object(pen)
     	var ctx = canvas.getContext("2d");  
-	    //设置字体样式
+	    //set font and style
 	    ctx.font = "10px italic";
-	    //设置字体填充颜色
+	    //set fill style
 	    ctx.fillStyle = "black";
 	    offset = extDis/1.5;				// make numbers offset to left 
 	    var alpha;
@@ -103,7 +123,7 @@ function draw_1_to_n(N,d,R,halfOpen=20)
 {	
 	var a = R+d;
 	var b =3*R + 4*d;	//2*d is also ok
-	for (var i=1; i<N; i=i+2)
+	for (var i=1; i<N; i=i+10)
 	{
 		drawarc(0,i,N,a,a,R,'red',halfOpen);
 		drawarc(0,i,N,a,b,R,'green',halfOpen);
@@ -140,25 +160,25 @@ function drawarc(n1,n2,N,x0,y0,R,color,halfOpen=20)
 	}
 		
 
-	//获取Canvas对象(画布)
+	//get canvas object
 	var canvas = document.getElementById("myCanvas");
-	//简单地检测当前浏览器是否支持Canvas对象，以免在一些不支持html5的浏览器中提示语法错误
+	//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
 	if(canvas.getContext)
 	{  
-    	//获取对应的CanvasRenderingContext2D对象(画笔)
+    	//get corresponding CanvasRenderingContext2D object(pen)
     	var ctx = canvas.getContext("2d");  
 
 		ctx.beginPath();
-		ctx.moveTo(p1.x, p1.y);				//指定绘制路径的起始点
+		ctx.moveTo(p1.x, p1.y);				//assign the start position of drawing
 		if (arc)
 		{
-			ctx.arcTo(x0, y0, p2.x, p2.y, r);	//绘制与当前端点、端点1、端点2三个点所形成的夹角的两边相切并且半径为50px的圆的一段弧线
+			ctx.arcTo(x0, y0, p2.x, p2.y, r);	//draw an arc of radius r, tangent with 2 sides consisted by p1 to (x0,y0) to p2.
     	
 		}else
 		{
 			ctx.lineTo(p2.x,p2.y);
 		}
-    	ctx.strokeStyle = color;			//设置线条颜色为红色
+    	ctx.strokeStyle = color;			//set arc to red
     	ctx.stroke();
     }
 
@@ -177,25 +197,25 @@ function drawarc(n1,n2,N,x0,y0,R,color,halfOpen=20)
 	}
 		
 
-	//获取Canvas对象(画布)
+	//get canvas object
 	var canvas = document.getElementById("myCanvas");
-	//简单地检测当前浏览器是否支持Canvas对象，以免在一些不支持html5的浏览器中提示语法错误
+	//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
 	if(canvas.getContext)
 	{  
-    	//获取对应的CanvasRenderingContext2D对象(画笔)
+    	//get corresponding CanvasRenderingContext2D object(pen)
     	var ctx = canvas.getContext("2d");  
 
 		ctx.beginPath();
-		ctx.moveTo(p1.x, p1.y);				//指定绘制路径的起始点
+		ctx.moveTo(p1.x, p1.y);				//assign the start position of drawing
 		if (arc)
 		{
-			ctx.arcTo(x0, y0, p2.x, p2.y, r);	//绘制与当前端点、端点1、端点2三个点所形成的夹角的两边相切并且半径为50px的圆的一段弧线
+			ctx.arcTo(x0, y0, p2.x, p2.y, r);	//draw an arc of radius r, tangent with 2 sides consisted by p1 to (x0,y0) to p2.
     	
 		}else
 		{
 			ctx.lineTo(p2.x,p2.y);
 		}
-    	ctx.strokeStyle = color;			//设置线条颜色为红色
+    	ctx.strokeStyle = color;			//set arc to red
     	ctx.stroke();
     }
 */
@@ -208,18 +228,18 @@ function drawarc(n1,n2,N,x0,y0,R,color,halfOpen=20)
 	}
 	var r = R*Math.abs(Math.tan((deltaAlpha)/2));
 
-	//获取Canvas对象(画布)
+	//get canvas object
 	var canvas = document.getElementById("myCanvas");
-	//简单地检测当前浏览器是否支持Canvas对象，以免在一些不支持html5的浏览器中提示语法错误
+	//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
 	if(canvas.getContext)
 	{  
-    	//获取对应的CanvasRenderingContext2D对象(画笔)
+    	//get corresponding CanvasRenderingContext2D object(pen)
     	var ctx = canvas.getContext("2d");  
 
 		ctx.beginPath();
-		ctx.moveTo(p1.x, p1.y);				//指定绘制路径的起始点
-    	ctx.arcTo(x0, y0, p2.x, p2.y, r);	//绘制与当前端点、端点1、端点2三个点所形成的夹角的两边相切并且半径为50px的圆的一段弧线
-    	ctx.strokeStyle = color;			//设置线条颜色为红色
+		ctx.moveTo(p1.x, p1.y);				//assign the start position of drawing
+    	ctx.arcTo(x0, y0, p2.x, p2.y, r);	//draw an arc of radius r, tangent with 2 sides consisted by p1 to (x0,y0) to p2.
+    	ctx.strokeStyle = color;			//set arc to red
     	ctx.stroke();
     }
 */
