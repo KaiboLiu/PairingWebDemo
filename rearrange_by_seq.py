@@ -40,7 +40,7 @@ import pdb
 import os
 
 def LoadData():
-	RNAtype = "16s"
+	RNAtype = "23s"
 	dataDir = "../RNA_visual_dengde/"
 	seqFile = "Mathewsdata."+RNAtype+".seq"
 	refFile = "Mathewsdata."+RNAtype+".ref"

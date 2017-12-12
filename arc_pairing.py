@@ -27,40 +27,64 @@ linearcf.beam00i * 4 lines  ----->  L(8*i+3) (with 2 lines of information above)
 lineavnf.beam00i * 4 lines  ----->  L(8*i+7) (with 2 lines of information above), if i > 200, L[(i/100+198)*8+7]
 '''
 
-import numpy as np
 import sys
 import operator
 import pdb
 import os
+from collections import defaultdict
+logs = sys.stderr
 
 MAXLEN = 5650
 MINLEN = 0
 circular = True
 
+lbs = ['(', '[', '{', '<']
+rbs = [')', ']', '}', '>']
 
 def LoadData():
     RNAtype = "23s"
-    dataDir = "./rearranged_results/"
+    seqNo = 5
+
+    dataDir  = "./rearranged_results/"
     dataFile = "combine_"+RNAtype+".seq"
-    beamDir1= dataDir+"linearcontrafold/run_"+RNAtype+"/log.LinearContrafold."+RNAtype+".beam"
-    beamDir2= dataDir+"linearvienna/run_"+RNAtype+"/log.linearvienna."+RNAtype+".beam"
-    outDir  = "./pairing_for_js/"
+    outDir   = "./pairing_for_js/"
+    outFile  = "combine_pairing_"+RNAtype+".seq"
+    number   = str(seqNo)
+    if (seqNo < 10):
+        number = "0" + number
 
     if not os.path.exists(outDir):
         os.makedirs(outDir)
     
-    seqNo = 5
-    if (seqNo < 10):
-        dataFile = dataFile + "0"
-    dataFile = dataFile + str(seqNo)
-
     seq = []
-    fileIn  = open(dataDir+dataFile)
+    fileIn  = open(dataDir+dataFile+number)
     lines = fileIn.readlines();
     seq = lines[1][:-1]
-    print(seq,len(seq))
-
+    ref = lines[3][:-1]
+    cf  = lines[5][:-1]
+    vn  = lines[7][:-1]
     fileIn.close()
+
+    f = open(outDir+outFile+number,'w')
+    f.write("%s\n" %len(seq))
+    f.write(">>>>>>contrafold (missing/ hit/ wrong pairs)\n")
+    missing, hit, wrong = pairing(seq,ref,cf)
+    #f.write("\n".join(missing))
+    for pos in missing:
+        f.write("%s " % pos)
+    f.write("\n")
+    '''
+    f.write(missing)
+    f.write(hit)
+    f.write(wrong)
+    '''
+    #f.write(">>>>>>vienna(missing, hit, wrong pairs)\n")
+    #missing, hit, wrong = pairing(seq,ref,cf)
+
+
+    #f.write(">>>>>>LinearContrafold"+beamFile1[-8:]+"\n")
+    f.close()
+    
 
 
 
@@ -82,8 +106,10 @@ def agree(pres, pref, index):
 
 def pairing(seq,ref,res):
     #brackets for pseudoknot
-    lbs = ['(', '[', '{', '<']
-    rbs = [')', ']', '}', '>']
+    pairs = []
+    refpairs = []
+    respair = defaultdict(lambda: -1)
+    refpair = defaultdict(lambda: -1)    
 
     notes = ""
     #pairing in result
@@ -101,8 +127,8 @@ def pairing(seq,ref,res):
             pairs.append((left,i, stackindex))
             respair[left] = i
             respair[i] = left
-            pairset.add((left,i))
     notes += ";pair=%d" % (len(respair)//2)  
+
 
     #pairing in ref
     stacks = []
@@ -137,26 +163,36 @@ def pairing(seq,ref,res):
 
         if not ifdraw:
             continue
-        color = "gray!20"
-        missing.append((a,b))
+        #color = "gray!20"
+        #missing.append((a,b))
+        missing.append(a)
+        missing.append(b)
 
     hit, wrong = [], []
     #extract pairs from pairs, compare with refpair
     for a, b, stackindex in pairs:
         if stackindex > 0:
-            color = "red"
+            color = "wrong"
         else:
             if a in refpair and agree(respair, refpair, a):
-                color = "green"
+                color = hit
             elif b in refpair and agree(respair, refpair, b):
-                color = "green"
+                color = "hit"
             else:
-                color = "red"
-        if (color == "red"):
-            wrong.append((a,b))
+                color = "wrong"
+        if (color == "wrong"):
+            wrong.append(a)
+            wrong.append(b)
+            #wrong.append((a,b))
         else:
-            hit.append((a,b))
+            hit.append(a)
+            hit.append(b)
     print hit
+    print "-------"
+    print wrong
+
+    return missing, hit, wrong
+
 
 
 print("start")
