@@ -6,7 +6,11 @@
 </head>
 <body>
 <script src="myScript.js"></script>
+<!--
+<script src="jquery-3.2.1.min.js"></script>
+-->
 
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 
 
@@ -17,10 +21,12 @@
 <br>
 <button type="button" onclick="draw_1_to_n(N=1500,d=20,R=250,halfOpen=20)">draw arc</button>
 <br>
+
 <div>
     <input type="file" id="files" style="display:none" onchange="import();"/>
     <input type="button" id="import" value="导入"/>
 </div>
+
 <!-- 添加canvas标签，并加上红色边框以便于在页面上查看 -->
 <canvas id="myCanvas" width="1200px" height="1200px" style="border: 1px solid red;">
 您的浏览器不支持canvas标签。

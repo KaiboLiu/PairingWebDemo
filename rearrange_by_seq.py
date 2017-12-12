@@ -40,7 +40,7 @@ import pdb
 import os
 
 def LoadData():
-	RNAtype = "23s"
+	RNAtype = "16s"
 	dataDir = "../RNA_visual_dengde/"
 	seqFile = "Mathewsdata."+RNAtype+".seq"
 	refFile = "Mathewsdata."+RNAtype+".ref"
@@ -84,15 +84,15 @@ def LoadData():
 
 	N_seq = len(seq)
 	
-	for i in xrange(N_seq):
+	for i in xrange(1,N_seq+1):
 		outFile = "combine_"+RNAtype+".seq"
-		if i < 9:
+		if i < 10:
 			outFile = outFile + "0"
-		outFile = outFile + "%d" % (i+1)
+		outFile = outFile + "%d" % (i)
 		print(outFile)
 		f = open(outDir+outFile,"w")
 
-		f.write(">>>>>>seq\n"+seq[i]+">>>>>>gold\n"+ref[i]+">>>>>>contrafold\n"+cf[i]+">>>>>>vienna\n"+vn[i])
+		f.write(">>>>>>seq\n"+seq[i-1]+">>>>>>gold\n"+ref[i-1]+">>>>>>contrafold\n"+cf[i-1]+">>>>>>vienna\n"+vn[i-1])
 
 
 		beam_list = range(1,201)
