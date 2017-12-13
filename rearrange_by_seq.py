@@ -28,6 +28,7 @@ linearcf.beam001 * 4 lines  ----->  L11 (with 2 lines of information above)
 lineavnf.beam001 * 4 lines  ----->  L16 (with 2 lines of information above)
 linearcf.beam002 * 4 lines
 lineavnf.beam002 * 4 lines
+...
 linearcf.beam00i * 4 lines  ----->  L(8*i+3) (with 2 lines of information above), if i > 200, L[(i/100+198)*8+3]
 lineavnf.beam00i * 4 lines  ----->  L(8*i+7) (with 2 lines of information above), if i > 200, L[(i/100+198)*8+7]
 '''

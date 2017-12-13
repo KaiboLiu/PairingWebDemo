@@ -2,7 +2,7 @@ function myFunction()
 {
     document.getElementById("demo").innerHTML="This is a demo for pairing";
 }
-
+/*
 $(document).ready(function(){
 	$("#import").click(function(){//点击导入按钮，使files触发点击事件，然后完成读取文件的操作。
         $("#files").click();
@@ -22,6 +22,15 @@ function import(){
         console.log(this.result);//当读取完成之后会回调这个函数，然后此时文件的内容存储到了result中。直接操作即可。
     }
 }
+
+
+jQuery.get('https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_23s.seq05', function(data) {
+    var myvar = data;
+});
+
+*/
+
+
 
 function draw_4(N,d,R,range,halfOpen=20)
 {

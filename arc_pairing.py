@@ -69,10 +69,17 @@ def LoadData():
     f.write("%s\n" %len(seq))
     f.write(">>>>>>contrafold (missing/ hit/ wrong pairs)\n")
     missing, hit, wrong = pairing(seq,ref,cf)
-    #f.write("\n".join(missing))
     for pos in missing:
         f.write("%s " % pos)
     f.write("\n")
+
+    for pos in hit:
+        f.write("%s " % pos)
+    f.write("\n")
+
+    for pos in wrong:
+        f.write("%s " % pos)
+    f.write("\n")        
     '''
     f.write(missing)
     f.write(hit)
