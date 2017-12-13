@@ -2,6 +2,16 @@ function myFunction()
 {
     document.getElementById("demo").innerHTML="This is a demo for pairing";
 }
+
+$(document).ready(function(){
+	$("#readfile").click(function(){
+		$.get("https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_23s.seq05",function(data,status){
+			alert("数据: " + data + "\n状态: " + status);
+		});
+	});
+});
+
+
 /*
 $(document).ready(function(){
 	$("#import").click(function(){//点击导入按钮，使files触发点击事件，然后完成读取文件的操作。

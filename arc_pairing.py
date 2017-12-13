@@ -42,7 +42,7 @@ lbs = ['(', '[', '{', '<']
 rbs = [')', ']', '}', '>']
 
 def LoadData():
-    RNAtype = "23s"
+    RNAtype = "16s"
     seqNo = 5
 
     dataDir  = "./rearranged_results/"
