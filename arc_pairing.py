@@ -41,9 +41,9 @@ circular = True
 lbs = ['(', '[', '{', '<']
 rbs = [')', ']', '}', '>']
 
-def LoadData():
+def LoadSave(RNAtype,seqNo):
     RNAtype = "16s"
-    seqNo = 5
+    #seqNo = 5
 
     dataDir  = "./rearranged_results/"
     dataFile = "combine_"+RNAtype+".seq"
