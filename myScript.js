@@ -1,8 +1,30 @@
-function myFunction()
-{
+function myFunction(){
     document.getElementById("demo").innerHTML="This is a demo for pairing";
 }
 
+
+function load_go(d,R,range,halfOpen=20) {
+
+    $.getJSON("https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_23s.seq03", function(data,status) {
+        /*
+        list_all = $.extend(true, [], data.pairing);
+        list_all = data.pairing.slice();
+        list_all = JSON.parse(JSON.stringify(data));
+        */
+        /*alert("length of seq: " + tmp + "\n状态: " + status);	*/
+
+		var canvas = document.getElementById("myCanvas");
+		//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
+		drawframe(data.pairing[0],d,R,range,halfOpen);
+        fillcircles_left(data.pairing,d,R,range,halfOpen);
+    });
+    /*
+    alert("length of seq(loadInfo3:) " + tmp);
+    alert("length of seq(loadInfo2:) " + list_all[2]);
+    */
+}
+
+/*
 $(document).ready(function(){
 	$("#readfile").click(function(){
 		$$.get("https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_23s.seq05",function(data,status){
@@ -10,46 +32,48 @@ $(document).ready(function(){
 		});
 	});
 });
-
-
-/*
-$(document).ready(function(){
-	$("#import").click(function(){//点击导入按钮，使files触发点击事件，然后完成读取文件的操作。
-        $("#files").click();
-    });
-});
-
-function import(){
-    var selectedFile = document.getElementById("files").files[0];//获取读取的File对象
-    var name = selectedFile.name;//读取选中文件的文件名
-    var size = selectedFile.size;//读取选中文件的大小
-    console.log("文件名:"+name+"大小："+size);
-
-    var reader = new FileReader();//这里是核心！！！读取操作就是由它完成的。
-    reader.readAsText(selectedFile);//读取文件的内容
-
-    reader.onload = function(){
-        console.log(this.result);//当读取完成之后会回调这个函数，然后此时文件的内容存储到了result中。直接操作即可。
-    }
-}
-
-
-jQuery.get('https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_23s.seq05', function(data) {
-    var myvar = data;
-});
-
 */
 
+function fillcircles_left(data,d,R,range,halfOpen=20){
+	var a = R + d;
+	var b = 3*R + 4*d;	//2*d is also ok
+	//var data = loadInfo();
+	var N = data[0];
+	//var pairs;
 
-
-function draw_4(N,d,R,range,halfOpen=20)
-{
-	drawframe(N,d,R,range,halfOpen);
+	//fill circle top-left with cf_missing, cf_hit, cf_wrong
+	fillcircle(data[2],data[3],data[4],N,a,a,R,halfOpen);
+	//fill circle bottom-left with vn_missing, vn_hit, vn_wrong
+	fillcircle(data[5],data[6],data[7],N,a,b,R,halfOpen);
+	
 }
 
 
-function drawframe(N,d,R,range,halfOpen=20)
-{
+function fillcircle(missing,hit,wrong,N,x0,y0,R,halfOpen=20){
+
+	var n_pair = missing.length;
+	for (var i=0; i<n_pair; i=i+2){
+		drawarc(missing[i],missing[i+1],N,x0,y0,R,'grey',halfOpen);
+	}
+
+	n_pair = hit.length;
+	for (var i=0; i<n_pair; i=i+2){
+		drawarc(hit[i],hit[i+1],N,x0,y0,R,'blue',halfOpen);
+	}
+
+	n_pair = wrong.length;
+	for (var i=0; i<n_pair; i=i+2){
+		drawarc(wrong[i],wrong[i+1],N,x0,y0,R,'red',halfOpen);
+	}
+}
+
+/*
+function draw_4(N,d,R,range,halfOpen=20){
+	drawframe(N,d,R,range,halfOpen);
+}
+*/
+
+function drawframe(N,d,R,range,halfOpen=20){
 	var a = R+d;
 	var b =3*R + 4*d;	//2*d is also ok
 	drawcircle(a,a,R,halfOpen);
@@ -64,8 +88,7 @@ function drawframe(N,d,R,range,halfOpen=20)
 	drawaxis(N,b,b,R,extDis,range,halfOpen);
 }
 
-function drawcircle(x0,y0,R,halfOpen=20)
-{
+function drawcircle(x0,y0,R,halfOpen=20){
 	//get canvas object
 	var canvas = document.getElementById("myCanvas");
 	//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
@@ -96,8 +119,7 @@ function drawcircle(x0,y0,R,halfOpen=20)
 }
 
 
-function drawaxis(N,x0,y0,R,extDis,range=50,halfOpen=20)
-{
+function drawaxis(N,x0,y0,R,extDis,range=50,halfOpen=20){
 	//get canvas object
 	var canvas = document.getElementById("myCanvas");
 	//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
@@ -124,22 +146,21 @@ function drawaxis(N,x0,y0,R,extDis,range=50,halfOpen=20)
 
 	    // to draw the mark of 5'
     	alpha = 0;
-    	p.x = x0 + (R+extDis)*Math.sin(theta+alpha)-offset/2;
-		p.y = y0 - (R+extDis)*Math.cos(theta+alpha);
+    	p.x = x0 + (R+extDis)*Math.sin(theta+alpha)-2*offset;
+		p.y = y0 - (R+extDis)*Math.cos(theta+alpha)+offset;
     	ctx.fillText("5'", p.x, p.y);	
 
     	// to draw the mark of 3'
     	alpha = (360-2*halfOpen)/360 * 2*Math.PI;
-    	p.x = x0 + (R+extDis)*Math.sin(theta+alpha)-offset/2;
-		p.y = y0 - (R+extDis)*Math.cos(theta+alpha);
+    	p.x = x0 + (R+extDis)*Math.sin(theta+alpha)+1.5*offset;
+		p.y = y0 - (R+extDis)*Math.cos(theta+alpha)+offset;
     	ctx.fillText("3'", p.x, p.y);	
 
 	}
 }
 
 
-function draw_1_to_n(N,d,R,halfOpen=20)
-{	
+function draw_1_to_n(N,d,R,halfOpen=20){		// draw arcs from 1 to n
 	var a = R+d;
 	var b =3*R + 4*d;	//2*d is also ok
 	for (var i=1; i<N; i=i+10)
@@ -151,8 +172,7 @@ function draw_1_to_n(N,d,R,halfOpen=20)
 	}
 }
 
-function drawarc(n1,n2,N,x0,y0,R,color,halfOpen=20)
-{
+function drawarc(n1,n2,N,x0,y0,R,color,halfOpen=20){
 
 	var p1 = new Object;
 	var p2 = new Object;
