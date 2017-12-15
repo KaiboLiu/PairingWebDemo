@@ -1,7 +1,7 @@
 
 function load_go(d,R,range,halfOpen=20) {
 
-    $.getJSON("https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_16s.seq22", function(data,status) {
+    $.getJSON("https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_16s.seq16", function(data,status) {
         /*
         list_all = $.extend(true, [], data.pairing);
         list_all = data.pairing.slice();
