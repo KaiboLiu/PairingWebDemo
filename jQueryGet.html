@@ -8,14 +8,16 @@
 <script>
 $(document).ready(function(){
 	$("button").click(function(){
-		$.get("http://web.engr.oregonstate.edu/~liukaib/rearranged_results/combine_16s.seq01",function(data,status){
-			alert("数据: " + data + "\n状态: " + status);
+		$.get("https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_16s.seq05",function(data,status){
+			alert("missing: "+ $("#contrafold-missing").text(data) + "\n数据: " + data + "\n状态: " + status);
+			document.write(data);
 		});
 	});
 });
 </script>
 <!--
 $.get("https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/rearranged_results/combine_16s.seq01",function(data,status){
+jQuery.get("http://web.engr.oregonstate.edu/~liukaib/rearranged_results/combine_16s.seq01",function(data,status){
 -->
 </head>
 <body>

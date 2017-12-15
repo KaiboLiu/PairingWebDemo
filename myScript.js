@@ -5,7 +5,7 @@ function myFunction()
 
 $(document).ready(function(){
 	$("#readfile").click(function(){
-		$.get("https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_23s.seq05",function(data,status){
+		$$.get("https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_23s.seq05",function(data,status){
 			alert("数据: " + data + "\n状态: " + status);
 		});
 	});
