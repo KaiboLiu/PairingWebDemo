@@ -1,7 +1,3 @@
-function myFunction(){
-    document.getElementById("demo").innerHTML="This is a demo for pairing";
-}
-
 
 function load_go(d,R,range,halfOpen=20) {
 
@@ -15,13 +11,17 @@ function load_go(d,R,range,halfOpen=20) {
 
 		var canvas = document.getElementById("myCanvas");
 		//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
-		drawframe(data.pairing[0],d,R,range,halfOpen);
-        fillcircles_left(data.pairing,d,R,range,halfOpen);
+		drawframe(data.pairing[0],d,R,range,halfOpen,half="left");
+        fillcircles(data.pairing,d,R,range,halfOpen,0,half="left");
+
+        var beamsize = 100;
+
+        drawframe(data.pairing[0],d,R,range,halfOpen,half="right");
+        fillcircles(data.pairing,d,R,range,halfOpen,beamsize,half="right");
+
+        
+
     });
-    /*
-    alert("length of seq(loadInfo3:) " + tmp);
-    alert("length of seq(loadInfo2:) " + list_all[2]);
-    */
 }
 
 /*
@@ -34,18 +34,30 @@ $(document).ready(function(){
 });
 */
 
-function fillcircles_left(data,d,R,range,halfOpen=20){
+function fillcircles(data,d,R,range,halfOpen=20,beamsize=0,half="left"){
 	var a = R + d;
 	var b = 3*R + 4*d;	//2*d is also ok
 	//var data = loadInfo();
 	var N = data[0];
 	//var pairs;
+    var l;	//line number
+    if (beamsize <= 200){
+    	l= 6*beamsize+2
+    }else{
+    	l = (beamsize/100+198)*6+2;
+    }
 
-	//fill circle top-left with cf_missing, cf_hit, cf_wrong
-	fillcircle(data[2],data[3],data[4],N,a,a,R,halfOpen);
-	//fill circle bottom-left with vn_missing, vn_hit, vn_wrong
-	fillcircle(data[5],data[6],data[7],N,a,b,R,halfOpen);
-	
+	if (half == "left"){
+		//fill circle top-left with cf_missing, cf_hit, cf_wrong
+		fillcircle(data[l],data[l+1],data[l+2],N,a,a,R,halfOpen);
+		//fill circle bottom-left with vn_missing, vn_hit, vn_wrong
+		fillcircle(data[l+3],data[l+4],data[l+5],N,a,b,R,halfOpen);
+	}else{
+		//fill circle top-right with linearcf_missing, linearcf_hit, linearcf_wrong
+		fillcircle(data[l],data[l+1],data[l+2],N,b,a,R,halfOpen);
+		//fill circle bottom-right with linearvn_missing, linearvn_hit, linearvn_wrong
+		fillcircle(data[l+3],data[l+4],data[l+5],N,b,b,R,halfOpen);
+	}
 }
 
 
@@ -53,7 +65,7 @@ function fillcircle(missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 
 	var n_pair = missing.length;
 	for (var i=0; i<n_pair; i=i+2){
-		drawarc(missing[i],missing[i+1],N,x0,y0,R,'grey',halfOpen);
+		drawarc(missing[i],missing[i+1],N,x0,y0,R,'LightGray',halfOpen);
 	}
 
 	n_pair = hit.length;
@@ -73,20 +85,25 @@ function draw_4(N,d,R,range,halfOpen=20){
 }
 */
 
-function drawframe(N,d,R,range,halfOpen=20){
+function drawframe(N,d,R,range,halfOpen=20,half="left"){
 	var a = R+d;
 	var b =3*R + 4*d;	//2*d is also ok
-	drawcircle(a,a,R,halfOpen);
-	drawcircle(a,b,R,halfOpen);
-	drawcircle(b,a,R,halfOpen);
-	drawcircle(b,b,R,halfOpen);
-
 	var extDis = d/1.5;
-	drawaxis(N,a,a,R,extDis,range,halfOpen);
-	drawaxis(N,a,b,R,extDis,range,halfOpen);
-	drawaxis(N,b,a,R,extDis,range,halfOpen);
-	drawaxis(N,b,b,R,extDis,range,halfOpen);
+	
+	if (half == "left"){
+		drawcircle(a,a,R,halfOpen);
+		drawcircle(a,b,R,halfOpen);
+		drawaxis(N,a,a,R,extDis,range,halfOpen);
+		drawaxis(N,a,b,R,extDis,range,halfOpen);
+
+	}else{
+		drawcircle(b,a,R,halfOpen);
+		drawcircle(b,b,R,halfOpen);
+		drawaxis(N,b,a,R,extDis,range,halfOpen);
+		drawaxis(N,b,b,R,extDis,range,halfOpen);
+	}
 }
+
 
 function drawcircle(x0,y0,R,halfOpen=20){
 	//get canvas object
@@ -219,7 +236,8 @@ function drawarc(n1,n2,N,x0,y0,R,color,halfOpen=20){
 		}
     	ctx.strokeStyle = color;			//set arc to red
     	ctx.stroke();
-    }
+    };
+};
 
 /*
 
@@ -282,5 +300,14 @@ function drawarc(n1,n2,N,x0,y0,R,color,halfOpen=20){
     	ctx.stroke();
     }
 */
-}
+
+
+//change beam slidebar to tune beam size and draw
+  function change() {
+    var value = document.getElementById("beamslidebar").value;
+    document.getElementById("beamsize").innerHTML = value;
+    console.log(value);
+    //return value;
+  }
+
 

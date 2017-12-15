@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>by lrushx(Kaibo)</title>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+</head>
+<body>
+<div>
+<p>slide to adjust the beam size:
+<br>
+<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp<input id="beamslidebar" type="range" min="1" max="800" value="0" oninput="change()"/>&nbsp 800</p>
+<p id="beamsize">&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp 20</p>
+ </div>
+<script type="text/javascript">
+  function change() {
+    var value = document.getElementById("beamslidebar").value;
+    document.getElementById("beamsize").innerHTML = value;
+    console.log(value);
+  }
+</script>
+
+</body>
+</html>

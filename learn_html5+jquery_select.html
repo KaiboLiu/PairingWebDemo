@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>web demo for RNA pairing by lrushx(Kaibo)</title>
+<meta charset="UTF-8">
+<title>by lrushx(Kaibo)</title>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 </head>
 <body>
-<script src="myScript.js"></script>
+<div>
+<p>slide to adjust the beam size:
+<br>
+<br>
+&nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp<input id="beamslidebar" type="range" min="1" max="800" value="0" oninput="change()"/>&nbsp 800</p>
+<p id="beamsize">&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp 20</p>
+ </div>
+
 <script src="demo_selectSeq.js"></script>
-<!--
-<script src="jquery-3.2.1.min.js"></script>
--->
 
-
-<p id="demo">Welcome! This is a demo for RNA pairing</p>
-
-
-<select class="select" id="province" onchange="filterCity()">
+<select class="select" id="province" onchange="filterCity();">
   <option value="1">16s</option>
   <option value="2">23s</option>
 </select>
@@ -54,30 +54,5 @@
 
 
 <span id="option-container" style="visibility: hidden; position:absolute;"></span>
-<!--
-<button type="button" onclick="drawframe(N=1500,d=20,R=250,range=50,halfOpen=20)">draw circles</button>
-<br>
-<button type="button" onclick="draw_1_to_n(N=1500,d=20,R=250,halfOpen=20)">draw arc</button>
--->
-<button type="button" onclick="load_go(d=20,R=250,range=100,halfOpen=20)">draw</button>
-<br>
-
-<!--
-<div>
-    <input type="file" id="files" style="display:none" onchange="import();"/>
-    <input type="button" id="import" value="导入"/>
-</div>
--->
-<!-- 添加canvas标签，并加上红色边框以便于在页面上查看 -->
-<canvas id="myCanvas" width="1200px" height="1200px" style="border: 1px solid red;">
-您的浏览器不支持canvas标签。
-</canvas>
-
-<p>slide to adjust the beam size: 
-	&nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp
-	<input id="beamslidebar" type="range" min="1" max="800" value="0" oninput="change()"/>&nbsp 800</p>
-<p id="beamsize">&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp 20</p>
-
-
 </body>
 </html>
