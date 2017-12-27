@@ -32,12 +32,12 @@ save pairing results into file as json format:
 {"result":[N,seq,                                                           ----->index: 0-1
             cf_missing, cf_hit, cf_wrong,                                   ----->index: 2-4
             vn_missing, vn_hit, vn_wrong,                                   ----->index: 5-7
-            linearvn_b01_missing, linearvn_b01_hit, linearvn_b01_wrong,     ----->index: 8-10
+            linearcf_b01_missing, linearcf_b01_hit, linearcf_b01_wrong,     ----->index: 8-10
             linearvn_b01_missing, linearvn_b01_hit, linearvn_b01_wrong,     ----->index: 11-13
-            linearvn_b02_missing, linearvn_b02_hit, linearvn_b02_wrong,     ----->index: 14-16 (6*i+2~6*i+4,i is the beam number)
+            linearcf_b02_missing, linearcf_b02_hit, linearcf_b02_wrong,     ----->index: 14-16 (6*i+2~6*i+4,i is the beam number)
             linearvn_b02_missing, linearvn_b02_hit, linearvn_b02_wrong,     ----->index: 17-19 (6*i+5~6*i+7,i is the beam number)
             ...
-            linearvn_b800_missing, linearvn_b800_hit, linearvn_b800_wrong,  ----->index: 1238-1240 [(i/100+198)*6+2~(i/100+198)*6+5,i is the beam number which is > 200]
+            linearcf_b800_missing, linearcf_b800_hit, linearcf_b800_wrong,  ----->index: 1238-1240 [(i/100+198)*6+2~(i/100+198)*6+5,i is the beam number which is > 200]
             linearvn_b800_missing, linearvn_b800_hit, linearvn_b800_wrong,  ----->index: 1241-1243 [(i/100+198)*6+5~(i/100+198)*6+7,i is the beam number which is > 200]
 
              ]}
@@ -251,8 +251,8 @@ def pairing(seq,ref,res):
 
 
 print("start")
-for seq_No in xrange(1,23):      # xrange(1,23) if seq is 16s, xrange(1,6) if seq is 23s
-    LoadSave("16s",seq_No)
+for seq_No in xrange(1,6):      # xrange(1,23) if seq is 16s, xrange(1,6) if seq is 23s
+    LoadSave("23s",seq_No)
     print("finish seq %d" %(seq_No))
 print ("end")
 
