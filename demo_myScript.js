@@ -1,5 +1,6 @@
 var seriesNo = "16s";
 var seqNo = "seq01";
+var BeamFromBar = 20;
 
 
 function filterSeq(){
@@ -21,10 +22,13 @@ function comfirmSeq(){
 
 //change beam slidebar to tune beam size and draw
   function change() {
-    var value = document.getElementById("beamslidebar").value;
-    document.getElementById("beamsize").innerHTML = value;
+    BeamFromBar = document.getElementById("beamslidebar").value;
+    if (BeamFromBar > 200){
+    	BeamFromBar = (BeamFromBar - 200)*100 + 200;
+    }
+    document.getElementById("beamsize").innerHTML = BeamFromBar;
     load_go(d=20,R=250,range=100,halfOpen=20);
-    console.log(value);
+    console.log(BeamFromBar);
     //return value;
   }
 
@@ -59,9 +63,8 @@ function load_go(d,R,range,halfOpen=20) {
         fillcircles(data.pairing,d,R,range,halfOpen,0,half="left");
 
         //var beamsize = 100;
-        var beamsize = document.getElementById("beamslidebar").value;
         drawframe(data.pairing[0],d,R,range,halfOpen,half="right");
-        fillcircles(data.pairing,d,R,range,halfOpen,beamsize,half="right");
+        fillcircles(data.pairing,d,R,range,halfOpen,BeamFromBar,half="right");
     });
 }
 
