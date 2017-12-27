@@ -21,34 +21,34 @@
 </select>
 
 <select class="select" id="seqNo" onchange="comfirmSeq()">
-	<option data-c1="16s" value="01">seq01</option>
-	<option data-c1="16s" value="02">seq02</option>
-	<option data-c1="16s" value="03">seq03</option>
-	<option data-c1="16s" value="04">seq04</option>
-	<option data-c1="16s" value="05">seq05</option>
-	<option data-c1="16s" value="06">seq06</option>
-	<option data-c1="16s" value="07">seq07</option>
-	<option data-c1="16s" value="08">seq08</option>
-	<option data-c1="16s" value="09">seq09</option>
-	<option data-c1="16s" value="10">seq10</option>
-	<option data-c1="16s" value="11">seq11</option>
-	<option data-c1="16s" value="12">seq12</option>
-	<option data-c1="16s" value="13">seq13</option>
-	<option data-c1="16s" value="14">seq14</option>
-	<option data-c1="16s" value="15">seq15</option>
-	<option data-c1="16s" value="16">seq16</option>
-	<option data-c1="16s" value="17">seq17</option>
-	<option data-c1="16s" value="18">seq18</option>
-	<option data-c1="16s" value="19">seq19</option>
-	<option data-c1="16s" value="20">seq20</option>
-	<option data-c1="16s" value="21">seq21</option>
-	<option data-c1="16s" value="22">seq22</option>	
+	<option data-c1="16s" value="01">seq01: name</option>
+	<option data-c1="16s" value="02">seq02: name</option>
+	<option data-c1="16s" value="03">seq03: name</option>
+	<option data-c1="16s" value="04">seq04: name</option>
+	<option data-c1="16s" value="05">seq05: name</option>
+	<option data-c1="16s" value="06">seq06: name</option>
+	<option data-c1="16s" value="07">seq07: name</option>
+	<option data-c1="16s" value="08">seq08: name</option>
+	<option data-c1="16s" value="09">seq09: name</option>
+	<option data-c1="16s" value="10">seq10: name</option>
+	<option data-c1="16s" value="11">seq11: name</option>
+	<option data-c1="16s" value="12">seq12: name</option>
+	<option data-c1="16s" value="13">seq13: name</option>
+	<option data-c1="16s" value="14">seq14: name</option>
+	<option data-c1="16s" value="15">seq15: name</option>
+	<option data-c1="16s" value="16">seq16: name</option>
+	<option data-c1="16s" value="17">seq17: name</option>
+	<option data-c1="16s" value="18">seq18: name</option>
+	<option data-c1="16s" value="19">seq19: name</option>
+	<option data-c1="16s" value="20">seq20: name</option>
+	<option data-c1="16s" value="21">seq21: name</option>
+	<option data-c1="16s" value="22">seq22: name</option>	
 
-	<option data-c1="23s" value="01">seq01</option>
-	<option data-c1="23s" value="02">seq02</option>
-	<option data-c1="23s" value="03">seq03</option>
-	<option data-c1="23s" value="04">seq04</option>
-	<option data-c1="23s" value="05">seq05</option>
+	<option data-c1="23s" value="01">seq01: name</option>
+	<option data-c1="23s" value="02">seq02: name</option>
+	<option data-c1="23s" value="03">seq03: name</option>
+	<option data-c1="23s" value="04">seq04: name</option>
+	<option data-c1="23s" value="05">seq05: E. Coli</option>
 </select>
 
 
@@ -58,7 +58,7 @@
 <br>
 <button type="button" onclick="draw_1_to_n(N=1500,d=20,R=250,halfOpen=20)">draw arc</button>
 -->
-<button type="button" onclick="load_go(d=20,R=250,range=100,halfOpen=20)">draw</button>
+<button type="button" onclick="load_go(d=40,R=250,range=100,halfOpen=20)">draw</button>
 <p>sequence to be demostrated: <span id="seqShown" style="color:red;font-size:130%;"> 16s-seq01</span></p>
 <p>slide to adjust the beam size: 
 	&nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp
@@ -72,7 +72,12 @@
 </div>
 -->
 <!-- 添加canvas标签，并加上红色边框以便于在页面上查看 -->
+<!--
 <canvas id="myCanvas" width="1200px" height="1200px" style="border: 1px solid red;">
+您的浏览器不支持canvas标签。
+</canvas>
+-->
+<canvas id="myCanvas" width="1200px" height="1200px">
 您的浏览器不支持canvas标签。
 </canvas>
 

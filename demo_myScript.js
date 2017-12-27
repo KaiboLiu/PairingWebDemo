@@ -4,19 +4,22 @@ var BeamFromBar = 20;
 
 
 function filterSeq(){
-  var series = $("#series").find('option:selected').text(); // stores series
-  $("#option-container").children().appendTo("#seqNo"); // moves <option> contained in #option-container back to their <select>
-  var toMove = $("#seqNo").children("[data-c1!='"+series+"']"); // selects seqNo elements to move out
-  toMove.appendTo("#option-container"); // moves seqNo elements in #option-container
-  $("#seqNo").removeAttr("disabled"); // enables select
-  //var seqNo = $("#seqNo").find('option:selected').text();
-  //document.getElementById("seqShown").innerHTML = series + "-" + seqNo;
+	var series = $("#series").find('option:selected').text(); // stores series
+	$("#option-container").children().appendTo("#seqNo"); // moves <option> contained in #option-container back to their <select>
+	var toMove = $("#seqNo").children("[data-c1!='"+series+"']"); // selects seqNo elements to move out
+	toMove.appendTo("#option-container"); // moves seqNo elements in #option-container
+	$("#seqNo").removeAttr("disabled"); // enables select
+	//var seqNo = $("#seqNo").find('option:selected').text();
+	//document.getElementById("seqShown").innerHTML = series + "-" + seqNo;
+	comfirmSeq();
 }
 
 function comfirmSeq(){
 	seriesNo = $("#series").find('option:selected').text();
 	seqNo = $("#seqNo").find('option:selected').text();//	.slice(-2);
 	document.getElementById("seqShown").innerHTML = seriesNo + "-" + seqNo;
+	seqNo = seqNo.slice(0, 5);
+	load_go(d=40,R=250,range=100,halfOpen=20);
 	
 }
 
@@ -27,7 +30,7 @@ function comfirmSeq(){
     	BeamFromBar = (BeamFromBar - 200)*100 + 200;
     }
     document.getElementById("beamsize").innerHTML = BeamFromBar;
-    load_go(d=20,R=250,range=100,halfOpen=20);
+    load_go(d=40,R=250,range=100,halfOpen=20);
     console.log(BeamFromBar);
     //return value;
   }
@@ -80,7 +83,7 @@ $(document).ready(function(){
 
 function fillcircles(data,d,R,range,halfOpen=20,beamsize=0,half="left"){
 	var a = R + d;
-	var b = 3*R + 4*d;	//2*d is also ok
+	var b = 3*R + 3*d;	//2*d is also ok
 	//var data = loadInfo();
 	var N = data[0];
 	//var pairs;
@@ -130,10 +133,29 @@ function draw_4(N,d,R,range,halfOpen=20){
 */
 
 function drawframe(N,d,R,range,halfOpen=20,half="left"){
+	var H_title = 20;
 	var a = R+d;
-	var b =3*R + 4*d;	//2*d is also ok
-	var extDis = d/1.5;
+	var b =3*R + 3*d;	//2*d is also ok
+	var extDis = d/2.2;
 	
+	//get canvas object
+	var canvas = document.getElementById("myCanvas");
+	//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
+	if(canvas.getContext)
+	{  
+    	//get corresponding CanvasRenderingContext2D object(pen)
+    	var ctx = canvas.getContext("2d");  
+	    //set font and style
+	    ctx.font = "30px Courier";
+	    //set fill style
+	    ctx.fillStyle = "black";
+	    //fill text at the position (420,40)
+	    ctx.fillText("CONTRAfold", R-1.1*d, 21);	
+	    ctx.fillText("Vienna", R-0.3*d, a+a+0.5*d);	
+	    ctx.fillText("Linear CONTRAfold", b-3.4*d, 21);	
+	    ctx.fillText("Linear Vienna", b-2.7*d, a+a+0.5*d);	
+	}
+
 	if (half == "left"){
 		drawcircle(a,a,R,halfOpen);
 		drawcircle(a,b,R,halfOpen);
@@ -157,13 +179,6 @@ function drawcircle(x0,y0,R,halfOpen=20){
 	{  
     	//get corresponding CanvasRenderingContext2D object(pen)
     	var ctx = canvas.getContext("2d");  
-	    //set font and style
-	    ctx.font = "30px italic";
-	    //set fill style
-	    ctx.fillStyle = "black";
-	    //fill text at the position (420,40)
-	    ctx.fillText("Pairing Test by Kaibo", 420, 40);	
-	
 		
 	    //start to draw an open circle
 	    ctx.beginPath();
