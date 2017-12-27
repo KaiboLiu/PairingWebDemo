@@ -1,7 +1,14 @@
 
 function load_go(d,R,range,halfOpen=20) {
-
-    $.getJSON("https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_16s.seq13", function(data,status) {
+	var seqFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_16s.seq13";
+	/*
+	var seqNo = document.getElementById("beamslidebar").value;
+	if (seqNo < 10){
+		seqFile = seqFile + "0";
+	}
+	seqFile = seqFile + seqNo.toString(); 
+	*/
+    $.getJSON(seqFile, function(data,status) {
         /*
         list_all = $.extend(true, [], data.pairing);
         list_all = data.pairing.slice();
@@ -11,16 +18,19 @@ function load_go(d,R,range,halfOpen=20) {
 
 		var canvas = document.getElementById("myCanvas");
 		//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
+		if(canvas.getContext)
+		{  
+    		//get corresponding CanvasRenderingContext2D object(pen)
+    		var ctx = canvas.getContext("2d");  
+    		ctx.clearRect(1, 1, 1198, 1198);
+    	}
 		drawframe(data.pairing[0],d,R,range,halfOpen,half="left");
         fillcircles(data.pairing,d,R,range,halfOpen,0,half="left");
 
-        var beamsize = 100;
-
+        //var beamsize = 100;
+        var beamsize = document.getElementById("beamslidebar").value;
         drawframe(data.pairing[0],d,R,range,halfOpen,half="right");
         fillcircles(data.pairing,d,R,range,halfOpen,beamsize,half="right");
-
-        
-
     });
 }
 
@@ -306,6 +316,7 @@ function drawarc(n1,n2,N,x0,y0,R,color,halfOpen=20){
   function change() {
     var value = document.getElementById("beamslidebar").value;
     document.getElementById("beamsize").innerHTML = value;
+    load_go(d=20,R=250,range=100,halfOpen=20);
     console.log(value);
     //return value;
   }

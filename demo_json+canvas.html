@@ -16,7 +16,7 @@
 <p id="demo">Welcome! This is a demo for RNA pairing</p>
 
 
-<select class="select" id="province" onchange="filterCity()">
+<select class="select" id="province" onchange="filterSeq()">
   <option value="1">16s</option>
   <option value="2">23s</option>
 </select>
@@ -62,6 +62,11 @@
 <button type="button" onclick="load_go(d=20,R=250,range=100,halfOpen=20)">draw</button>
 <br>
 
+<p>slide to adjust the beam size: 
+	&nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp
+	<input id="beamslidebar" type="range" min="1" max="200" value="20" oninput="change()"/>&nbsp 200</p>
+<p id="beamsize">20</p>
+
 <!--
 <div>
     <input type="file" id="files" style="display:none" onchange="import();"/>
@@ -72,12 +77,6 @@
 <canvas id="myCanvas" width="1200px" height="1200px" style="border: 1px solid red;">
 您的浏览器不支持canvas标签。
 </canvas>
-
-<p>slide to adjust the beam size: 
-	&nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp
-	<input id="beamslidebar" type="range" min="1" max="800" value="0" oninput="change()"/>&nbsp 800</p>
-<p id="beamsize">&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp 20</p>
-
 
 </body>
 </html>
