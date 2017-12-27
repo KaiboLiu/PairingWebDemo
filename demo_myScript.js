@@ -1,6 +1,37 @@
+var seriesNo = "16s";
+var seqNo = "seq01";
+
+
+function filterSeq(){
+  var series = $("#series").find('option:selected').text(); // stores series
+  $("#option-container").children().appendTo("#seqNo"); // moves <option> contained in #option-container back to their <select>
+  var toMove = $("#seqNo").children("[data-c1!='"+series+"']"); // selects seqNo elements to move out
+  toMove.appendTo("#option-container"); // moves seqNo elements in #option-container
+  $("#seqNo").removeAttr("disabled"); // enables select
+  //var seqNo = $("#seqNo").find('option:selected').text();
+  //document.getElementById("seqShown").innerHTML = series + "-" + seqNo;
+}
+
+function comfirmSeq(){
+	seriesNo = $("#series").find('option:selected').text();
+	seqNo = $("#seqNo").find('option:selected').text();//	.slice(-2);
+	document.getElementById("seqShown").innerHTML = seriesNo + "-" + seqNo;
+	
+}
+
+//change beam slidebar to tune beam size and draw
+  function change() {
+    var value = document.getElementById("beamslidebar").value;
+    document.getElementById("beamsize").innerHTML = value;
+    load_go(d=20,R=250,range=100,halfOpen=20);
+    console.log(value);
+    //return value;
+  }
+
+
 
 function load_go(d,R,range,halfOpen=20) {
-	var seqFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_16s.seq13";
+	var seqFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
 	/*
 	var seqNo = document.getElementById("beamslidebar").value;
 	if (seqNo < 10){
@@ -311,14 +342,5 @@ function drawarc(n1,n2,N,x0,y0,R,color,halfOpen=20){
     }
 */
 
-
-//change beam slidebar to tune beam size and draw
-  function change() {
-    var value = document.getElementById("beamslidebar").value;
-    document.getElementById("beamsize").innerHTML = value;
-    load_go(d=20,R=250,range=100,halfOpen=20);
-    console.log(value);
-    //return value;
-  }
 
 

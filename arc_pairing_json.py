@@ -95,10 +95,6 @@ def LoadSave(RNAtype,seqNo):
     missing_hit_wrong = pairing(seq,ref,vn)     # pairing vn and compare with ref
     data[len(data):len(data)] = missing_hit_wrong
 
-    missing_hit_wrong = pairing(seq,ref,cf)     # pairing cf and compare with ref
-    data[len(data):len(data)] = missing_hit_wrong
-
-
     #       beam_list = range(1,201) + range(300,801,100)
     n_line = len(lines)
     for i in xrange(11,n_line,8):
