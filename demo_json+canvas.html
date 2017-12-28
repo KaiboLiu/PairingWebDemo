@@ -4,6 +4,12 @@
 <meta charset="utf-8">
 <title>web demo for RNA pairing by lrushx(Kaibo)</title>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<style>
+input[type="range"]{
+width:450px;
+}
+</style>
+
 </head>
 <body>
 <script src="demo_myScript.js"></script>
@@ -12,7 +18,7 @@
 -->
 
 
-<p id="demo">Welcome! This is a demo for RNA pairing. (Just choose the sequence you want, click "draw", then you can slide the value of beamsize or select another sequence anytime without clicking "draw". Enjoy!)</p>
+<p id="demo">Welcome! This is a demo for RNA pairing. <span style="">(Just choose the sequence you want, click "draw", then you can slide the value of beamsize or select another sequence anytime without clicking "draw". Enjoy!) </span></p>
 
 
 <select class="select" id="series" onchange="filterSeq()">
@@ -62,8 +68,19 @@
 <p>sequence to be demostrated: <span id="seqShown" style="color:red;font-size:130%;"> 16s-seq01</span></p>
 <p>slide to adjust the beam size: 
 	&nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp
-	<input id="beamslidebar" type="range" min="1" max="206" value="20" oninput="change()"/>&nbsp 206&nbsp&nbsp:  &nbsp&nbsp <span id="beamsize" style="color:red;font-size:140%;">20</span></p>
+	<input id="beamslidebar" type="range" list="beammarks" min="1" max="206" value="20" oninput="change()"/>&nbsp 800&nbsp&nbsp:  &nbsp&nbsp <span id="beamsize" style="color:red;font-size:140%;">20</span></p>
 
+<datalist id="beammarks">
+  <option value="1" label="1">
+  <option value="100" label="100">
+  <option value="200" label="200">
+  <option value="201" label="300">
+  <option value="202" label="400">
+  <option value="203" label="500">
+  <option value="204" label="600">
+  <option value="205" label="700">
+  <option value="206" label="800">
+</datalist>
 
 <!--
 <div>
