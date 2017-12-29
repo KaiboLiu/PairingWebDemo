@@ -146,8 +146,16 @@ def LoadSave(RNAtype,seqNo):
     f.close()
     
 
-
-
+def agree(pres, pref, a, b): ## pres[a] = b
+    if pref[a] == b:
+        return True
+    elif pref.get(a-1,-1) == b or pref.get(a+1,-1) == b:
+        return True
+    elif pref.get(b-1,-1) == a or pref.get(b+1,-1) == a:
+        return True
+    else:
+        return False
+'''
 def agree(pres, pref, index):
     if pres[index] == pref[index]:
         return True
@@ -161,7 +169,7 @@ def agree(pres, pref, index):
         return True
     else:
         return False
-
+'''
 '''
 def agree(pres, pref, index):
     if pres[index] == pref[index]:
@@ -216,9 +224,7 @@ def pairing(seq,ref,res):
     missing = []
     #extract pairs from refpairs, compare with respair
     for a, b, stackindex in refpairs:
-        if a in respair and agree(respair, refpair, a):
-            ifdraw = False
-        elif b in respair and agree(respair, refpair, b):
+        if agree(refpair, respair, a, b):
             ifdraw = False
         else:
             ifdraw = True
@@ -236,9 +242,7 @@ def pairing(seq,ref,res):
         if stackindex > 0:
             color = "wrong"
         else:
-            if a in refpair and agree(refpair, respair, a):
-                color = "hit"
-            elif b in refpair and agree(refpair, respair, b):
+            if agree(respair, refpair, a, b):
                 color = "hit"
             else:
                 color = "wrong"
