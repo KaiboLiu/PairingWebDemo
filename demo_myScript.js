@@ -108,7 +108,7 @@ function draw_4(N,d,R,circleScale,halfOpen=20){
 function drawFrame(N,d,R,circleScale,halfOpen=20,half="left"){
 	var a = R+d;
 	var b =3*R + 3*d;	//2*d is also ok
-	var extDis = d/2.2;
+	var extDis = d/2.8;
 	
 	//get canvas object
 	var canvas = document.getElementById("myCanvas");
