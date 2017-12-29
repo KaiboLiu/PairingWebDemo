@@ -56,10 +56,10 @@ MAXLEN = 5650
 MINLEN = 0
 circular = True
 
-lbs = ['(', '[', '{', '<']
-rbs = [')', ']', '}', '>']
-#lbs = ['('] # pseudoknot-free only, even for grey part
-#rbs = [')'] # pseudoknot-free only, even for grey part 
+#lbs = ['(', '[', '{', '<']
+#rbs = [')', ']', '}', '>']
+lbs = ['('] # pseudoknot-free only, even for grey part
+rbs = [')'] # pseudoknot-free only, even for grey part 
 
 def LoadSave(RNAtype,seqNo):
     #RNAtype = "16s"
