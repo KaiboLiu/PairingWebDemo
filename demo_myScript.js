@@ -19,7 +19,7 @@ function comfirmSeq(){
 	seriesNo = $("#series").find('option:selected').text();
 	seqNo = "seq" + $("#seqNo").find('option:selected').val();//.slice(-2);
 	//alert(seqNo);
-	document.getElementById("seqShown").innerHTML = seriesNo + "_" + $("#seqNo").find('option:selected').text().slice(7);
+	document.getElementById("seqShown").innerHTML = seriesNo + "_" + $("#seqNo").find('option:selected').text();//.slice(7);
 	load_go(d=40,R=250,circleScale=50,halfOpen=20);
 	
 }
@@ -39,15 +39,31 @@ function comfirmSeq(){
 
 
 function load_go(d,R,circleScale,halfOpen=20) {
-	var seqFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
+	var seqFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/rearranged_results/combine_"+seriesNo+"."+seqNo;
+    $.get(seqFile, function(data,status) {
+    	var lines = data.split("\n");
+		document.getElementById("seqName").innerHTML = lines[1];
+		document.getElementById("ref").innerHTML = lines[3];
+		document.getElementById("cf").innerHTML = lines[5];
+		document.getElementById("vn").innerHTML = lines[7];
+		var beamline = 8*BeamFromBar + 3;
+		if (BeamFromBar > 200){
+			beamline = 8*(BeamFromBar/100+198) + 3;
+		}
+		document.getElementById("lcf").innerHTML = lines[beamline];
+		document.getElementById("lvn").innerHTML = lines[beamline+4];
+    });
+
+
+	var pairingFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
 	/*
 	var seqNo = document.getElementById("beamslidebar").value;
 	if (seqNo < 10){
-		seqFile = seqFile + "0";
+		pairingFile = pairingFile + "0";
 	}
-	seqFile = seqFile + seqNo.toString(); 
+	pairingFile = pairingFile + seqNo.toString(); 
 	*/
-    $.getJSON(seqFile, function(data,status) {
+    $.getJSON(pairingFile, function(data,status) {
         /*
         list_all = $.extend(true, [], data.pairing);
         list_all = data.pairing.slice();
