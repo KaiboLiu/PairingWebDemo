@@ -254,7 +254,7 @@ function fillCircle(P_R,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 	var Recall = hit_pair/(hit_pair+missing_pair);// Sensitivity (recall) = #_of_correctly_predicted_pairs / #_of_gold_pairs
 */
 	var F = 2*P_R[0]*P_R[1] / (P_R[0] + P_R[1]);// F-score = 2PR / (P + R);
-
+	//alert(P_R);
 	var canvas = document.getElementById("myCanvas");
 	if(canvas.getContext)
 	{  
