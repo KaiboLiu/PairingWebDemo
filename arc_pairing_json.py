@@ -30,15 +30,15 @@ lineavnf.beam00i * 4 lines  ----->  L(8*i+7) (with 2 lines of information above)
 '''
 save pairing results into file as json format:
 {"result":[N,seq,                                                           ----->index: 0-1
-            cf_missing, cf_hit, cf_wrong,                                   ----->index: 2-4
-            vn_missing, vn_hit, vn_wrong,                                   ----->index: 5-7
-            linearcf_b01_missing, linearcf_b01_hit, linearcf_b01_wrong,     ----->index: 8-10
-            linearvn_b01_missing, linearvn_b01_hit, linearvn_b01_wrong,     ----->index: 11-13
-            linearcf_b02_missing, linearcf_b02_hit, linearcf_b02_wrong,     ----->index: 14-16 (6*i+2~6*i+4,i is the beam number)
-            linearvn_b02_missing, linearvn_b02_hit, linearvn_b02_wrong,     ----->index: 17-19 (6*i+5~6*i+7,i is the beam number)
+            [P,R],cf_missing, cf_hit, cf_wrong,                                   ----->index: 2-5
+            [P,R],vn_missing, vn_hit, vn_wrong,                                   ----->index: 6-9
+            [P,R],linearcf_b01_missing, linearcf_b01_hit, linearcf_b01_wrong,     ----->index: 10-13
+            [P,R],linearvn_b01_missing, linearvn_b01_hit, linearvn_b01_wrong,     ----->index: 14-17
+            [P,R],linearcf_b02_missing, linearcf_b02_hit, linearcf_b02_wrong,     ----->index: 18-21 (8*i+2~8*i+5,i is the beam number)
+            [P,R],linearvn_b02_missing, linearvn_b02_hit, linearvn_b02_wrong,     ----->index: 22-25 (8*i+6~8*i+9,i is the beam number)
             ...
-            linearcf_b800_missing, linearcf_b800_hit, linearcf_b800_wrong,  ----->index: 1238-1240 [(i/100+198)*6+2~(i/100+198)*6+5,i is the beam number which is > 200]
-            linearvn_b800_missing, linearvn_b800_hit, linearvn_b800_wrong,  ----->index: 1241-1243 [(i/100+198)*6+5~(i/100+198)*6+7,i is the beam number which is > 200]
+            [P,R],linearcf_b800_missing, linearcf_b800_hit, linearcf_b800_wrong,  ----->index: 1238-1240 [(i/100+198)*6+2~(i/100+198)*6+5,i is the beam number which is > 200]
+            [P,R],linearvn_b800_missing, linearvn_b800_hit, linearvn_b800_wrong,  ----->index: 1241-1243 [(i/100+198)*6+6~(i/100+198)*6+9,i is the beam number which is > 200]
 
              ]}
 The new pairing data files will listed by seq number(16s * 22, and 23s *5), 27 files in total.
@@ -91,22 +91,22 @@ def LoadSave(RNAtype,seqNo):
     #f.write("%s\n" %len(seq))
     #f.write(lines[1])
     #f.write(">>>>>>contrafold (missing/ hit/ wrong pairs)\n")
-    missing_hit_wrong = pairing(seq,ref,cf)     # pairing cf and compare with ref
-    data[len(data):len(data)] = missing_hit_wrong
+    P_R_missing_hit_wrong = pairing(seq,ref,cf)     # pairing cf and compare with ref
+    data[len(data):len(data)] = P_R_missing_hit_wrong
 
-    missing_hit_wrong = pairing(seq,ref,vn)     # pairing vn and compare with ref
-    data[len(data):len(data)] = missing_hit_wrong
+    P_R_missing_hit_wrong = pairing(seq,ref,vn)     # pairing vn and compare with ref
+    data[len(data):len(data)] = P_R_missing_hit_wrong
 
     #       beam_list = range(1,201) + range(300,801,100)
     n_line = len(lines)
     for i in xrange(11,n_line,8):
         linearcf_beam_i = lines[i][:-1]
-        missing_hit_wrong = pairing(seq,ref,linearcf_beam_i)     # pairing linearcf_beam_i and compare with ref
-        data[len(data):len(data)] = missing_hit_wrong
+        P_R_missing_hit_wrong = pairing(seq,ref,linearcf_beam_i)     # pairing linearcf_beam_i and compare with ref
+        data[len(data):len(data)] = P_R_missing_hit_wrong
         
         linearvn_beam_i = lines[i+4][:-1] 
-        missing_hit_wrong = pairing(seq,ref,linearvn_beam_i)     # pairing linearcf_beam_i and compare with ref
-        data[len(data):len(data)] = missing_hit_wrong
+        P_R_missing_hit_wrong = pairing(seq,ref,linearvn_beam_i)     # pairing linearcf_beam_i and compare with ref
+        data[len(data):len(data)] = P_R_missing_hit_wrong
 
     fileIn.close()
 
@@ -252,14 +252,15 @@ def pairing(seq,ref,res):
     #print hit
     #print "-------"
     #print wrong
-
-    return [missing, hit, wrong]
+    precision = len(hit)/2.0/len(pairs)
+    recall = len(hit)/2.0/len(refpairs)
+    return [[precision,recall],missing, hit, wrong]
 
 
 
 print("start")
-for seq_No in xrange(1,6):      # xrange(1,23) if seq is 16s, xrange(1,6) if seq is 23s
-    LoadSave("23s",seq_No)
+for seq_No in xrange(1,23):      # xrange(1,23) if seq is 16s, xrange(1,6) if seq is 23s
+    LoadSave("16s",seq_No)
     print("finish seq %d" %(seq_No))
 print ("end")
 

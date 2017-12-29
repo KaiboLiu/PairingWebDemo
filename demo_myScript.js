@@ -61,7 +61,7 @@ function load_go(d,R,circleScale,halfOpen=20) {
 		{  
     		//get corresponding CanvasRenderingContext2D object(pen)
     		var ctx = canvas.getContext("2d");  
-    		ctx.clearRect(1, 1, 1198, 1198);
+    		ctx.clearRect(1, 1, 1199, 1199);
     	}
 		drawFrame(data.pairing[0],d,R,circleScale,halfOpen,half="left");
         fillCircles(data.pairing,d,R,circleScale,halfOpen,0,half="left");
@@ -214,26 +214,26 @@ function fillCircles(data,d,R,circleScale,halfOpen=20,beamsize=0,half="left"){
 	//var pairs;
     var l;	//line number
     if (beamsize <= 200){
-    	l= 6*beamsize+2
+    	l= 8*beamsize+2
     }else{
-    	l = (beamsize/100+198)*6+2;
+    	l = (beamsize/100+198)*8+2;
     }
 
 	if (half == "left"){
 		//fill circle top-left with cf_missing, cf_hit, cf_wrong
-		fillCircle(data[l],data[l+1],data[l+2],N,a,a+H_title,R,halfOpen);
+		fillCircle(data[l],data[l+1],data[l+2],data[l+3],N,a,a+H_title,R,halfOpen);
 		//fill circle bottom-left with vn_missing, vn_hit, vn_wrong
-		fillCircle(data[l+3],data[l+4],data[l+5],N,a,b+2*H_title,R,halfOpen);
+		fillCircle(data[l+4],data[l+5],data[l+6],data[l+7],N,a,b+2*H_title,R,halfOpen);
 	}else{
 		//fill circle top-right with linearcf_missing, linearcf_hit, linearcf_wrong
-		fillCircle(data[l],data[l+1],data[l+2],N,b,a+H_title,R,halfOpen);
+		fillCircle(data[l],data[l+1],data[l+2],data[l+3],N,b,a+H_title,R,halfOpen);
 		//fill circle bottom-right with linearvn_missing, linearvn_hit, linearvn_wrong
-		fillCircle(data[l+3],data[l+4],data[l+5],N,b,b+2*H_title,R,halfOpen);
+		fillCircle(data[l+4],data[l+5],data[l+6],data[l+7],N,b,b+2*H_title,R,halfOpen);
 	}
 }
 
 
-function fillCircle(missing,hit,wrong,N,x0,y0,R,halfOpen=20){
+function fillCircle(P_R,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 
 	var missing_pair = missing.length;
 	for (var i=0; i<missing_pair; i=i+2){
@@ -249,10 +249,11 @@ function fillCircle(missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 	for (var i=0; i<wrong_pair; i=i+2){
 		drawArc(wrong[i],wrong[i+1],N,x0,y0,R,'red',halfOpen);
 	}
-
+/*
 	var P = hit_pair/(hit_pair+wrong_pair); // PPV (precision) = #_of_correctly_predicted_pairs / #_of_predicted_pairs
 	var Recall = hit_pair/(hit_pair+missing_pair);// Sensitivity (recall) = #_of_correctly_predicted_pairs / #_of_gold_pairs
-	var F = 2*P*Recall / (P + Recall);// F-score = 2PR / (P + R);
+*/
+	var F = 2*P_R[0]*P_R[1] / (P_R[0] + P_R[1]);// F-score = 2PR / (P + R);
 
 	var canvas = document.getElementById("myCanvas");
 	if(canvas.getContext)
@@ -262,8 +263,8 @@ function fillCircle(missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 	    //set fill style
 	    ctx.fillStyle = "black";
 	    //fill text at the position (420,40)
-	    ctx.fillText("(P="+(P*100).toFixed(2).toString()+
-	    			 ",R="+(Recall*100).toFixed(2).toString()+
+	    ctx.fillText("(P="+(P_R[0]*100).toFixed(2).toString()+
+	    			 ",R="+(P_R[1]*100).toFixed(2).toString()+
 	    			 ",F="+(F*100).toFixed(2).toString()+"); Pair="+((hit_pair+wrong_pair)/2).toString(),
 	    			 x0-R/1.4,y0-R-H_title/2);
 	}	
