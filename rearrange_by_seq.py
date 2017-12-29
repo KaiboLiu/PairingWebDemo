@@ -11,9 +11,9 @@ Process Time: Dec 08, 2017
 # for WebDemo in RNA project,
 # original pairing structures are saved in different files by models and beams.
 # now I need to put all pairing results for a single seq into one file, 
-  including gold, LinearContrafold, vienna, LinearContrafold beam001~800, LinearViennabeam001~800.
+  including ref, LinearContrafold, vienna, LinearContrafold beam001~800, LinearViennabeam001~800.
 # These new data files will listed by seq number(16s * 22, and 23s *5), 27 files in total.
-# if the current seq is #i, the line position for pairing structure in gold, LinearContrafold, vienna are all i, 
+# if the current seq is #i, the line position for pairing structure in ref, LinearContrafold, vienna are all i, 
   however the line position in LinearContrafold and LinearViennabeam is 7*i, information of time, score is in 7*i-3 and 7*i-2
 '''
 
@@ -93,7 +93,7 @@ def LoadData():
 		print(outFile)
 		f = open(outDir+outFile,"w")
 
-		f.write(">>>>>>seq\n"+seq[i-1]+">>>>>>gold\n"+ref[i-1]+">>>>>>contrafold\n"+cf[i-1]+">>>>>>vienna\n"+vn[i-1])
+		f.write(">>>>>>seq\n"+seq[i-1]+">>>>>>ref\n"+ref[i-1]+">>>>>>contrafold\n"+cf[i-1]+">>>>>>vienna\n"+vn[i-1])
 
 
 		beam_list = range(1,201)
