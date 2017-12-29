@@ -253,8 +253,8 @@ def pairing(seq,ref,res):
 
 
 print("start")
-for seq_No in xrange(1,6):      # xrange(1,23) if seq is 16s, xrange(1,6) if seq is 23s
-    LoadSave("23s",seq_No)
+for seq_No in xrange(1,23):      # xrange(1,23) if seq is 16s, xrange(1,6) if seq is 23s
+    LoadSave("16s",seq_No)
     print("finish seq %d" %(seq_No))
 print ("end")
 
