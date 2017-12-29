@@ -280,9 +280,9 @@ function fillCircle(P_R,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 	    ctx.fillStyle = "black";
 	    //fill text at the position (420,40)
 	    ctx.fillText("PPV="+(P_R[0]*100).toFixed(2).toString()+
-	    			 ",Sensitivity="+(P_R[1]*100).toFixed(2).toString()+
-	    			 " (F="+(F*100).toFixed(2).toString()+",Pair="+((hit_pair+wrong_pair)/2).toString()+")",
-	    			 x0-R/1.45,y0-R-H_title/2);
+	    			 ", Sensitivity="+(P_R[1]*100).toFixed(2).toString()+
+	    			 " (F="+(F*100).toFixed(2).toString()+", Pair="+((hit_pair+wrong_pair)/2).toString()+")",
+	    			 x0-R/1.4,y0-R-H_title/2);
 	}	
 }
 
