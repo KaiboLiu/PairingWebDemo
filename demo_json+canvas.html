@@ -18,43 +18,43 @@ width:450px;
 -->
 
 
-<p id="demo">Welcome! This is a demo for RNA pairing. <small>(Just choose the sequence you want, click "draw". <b>Anytime</b> you can slide the value of <b>beamsize</b>(1-200 by step 1, 200-800 by step 100) or select <b>another</b> sequence anytime <b>without</b> clicking "draw". Enjoy!) </small> </p>
+<p id="demo">Welcome! This is a demo for RNA pairing. <small>(Just choose the sequence you want starting from 'select'. <b>Anytime</b> you can slide the value of <b>beamsize</b>(1-200 by step 1, 200-800 by step 100) or select <b>another</b> sequence anytime <b>without</b> clicking "draw". Enjoy!) </small> </p>
 
 
 <select class="select" id="series" onchange="filterSeq()">
-  <option value="1">16s</option>
-  <option value="2">23s</option>
+  <option value="1">select</option>
+  <option value="2">16s</option>
+  <option value="3">23s</option>
 </select>
 
-<select class="select" id="seqNo" onchange="comfirmSeq()">
-	<option data-c1="16s" value="01">seq01: name</option>
-	<option data-c1="16s" value="02">seq02: name</option>
-	<option data-c1="16s" value="03">seq03: name</option>
-	<option data-c1="16s" value="04">seq04: name</option>
-	<option data-c1="16s" value="05">seq05: name</option>
-	<option data-c1="16s" value="06">seq06: name</option>
-	<option data-c1="16s" value="07">seq07: name</option>
-	<option data-c1="16s" value="08">seq08: name</option>
-	<option data-c1="16s" value="09">seq09: name</option>
-	<option data-c1="16s" value="10">seq10: name</option>
-	<option data-c1="16s" value="11">seq11: name</option>
-	<option data-c1="16s" value="12">seq12: name</option>
-	<option data-c1="16s" value="13">seq13: name</option>
-	<option data-c1="16s" value="14">seq14: name</option>
-	<option data-c1="16s" value="15">seq15: name</option>
-	<option data-c1="16s" value="16">seq16: name</option>
-	<option data-c1="16s" value="17">seq17: name</option>
-	<option data-c1="16s" value="18">seq18: name</option>
-	<option data-c1="16s" value="19">seq19: name</option>
-	<option data-c1="16s" value="20">seq20: name</option>
-	<option data-c1="16s" value="21">seq21: name</option>
-	<option data-c1="16s" value="22">seq22: name</option>	
-
-	<option data-c1="23s" value="01">seq01: name</option>
-	<option data-c1="23s" value="02">seq02: name</option>
-	<option data-c1="23s" value="03">seq03: name</option>
-	<option data-c1="23s" value="04">seq04: name</option>
-	<option data-c1="23s" value="05">seq05: E. Coli</option>
+<select class="select" id="seqNo" disabled onchange="comfirmSeq()">
+<option data-c1="16s" value="01">seq00: Z.mays (len:1490)</option>
+<option data-c1="16s" value="02">seq01: B.subtilis (len:1552)</option>
+<option data-c1="16s" value="03">seq02: E.coli (len:1542)</option>
+<option data-c1="16s" value="04">seq03: H.volcanii (len:1474)</option>
+<option data-c1="16s" value="05">seq04: D.melanogaster (len:1995)</option>
+<option data-c1="16s" value="06">seq05: T.gondii (len:1793)</option>
+<option data-c1="16s" value="07">seq06: H.sapiens.mito (len:0954)</option>
+<option data-c1="16s" value="08">seq07: B.burgdorferi (len:1537)</option>
+<option data-c1="16s" value="09">seq08: A.pyrophilus (len:1564)</option>
+<option data-c1="16s" value="10">seq09: P.staleyi (len:1525)</option>
+<option data-c1="16s" value="11">seq10: C.psittaci (len:1552)</option>
+<option data-c1="16s" value="12">seq11: C.elegans (len:0950)</option>
+<option data-c1="16s" value="13">seq12: F.ananassa (len:1804)</option>
+<option data-c1="16s" value="14">seq13: T.maritima (len:1562)</option>
+<option data-c1="16s" value="15">seq14: C.reinhardtii.chloro (len:1474)</option>
+<option data-c1="16s" value="16">seq15: M.polymorpha (len:1974)</option>
+<option data-c1="16s" value="17">seq16: A.fulgidus (len:1492)</option>
+<option data-c1="16s" value="18">seq17: H.sapiens (len:1870)</option>
+<option data-c1="16s" value="19">seq18: S.cerevisiae (len:1800)</option>
+<option data-c1="16s" value="20">seq19: P.occultum (len:1497)</option>
+<option data-c1="16s" value="21">seq20: C.reinhardtii.mito (len:1200)</option>
+<option data-c1="16s" value="22">seq21: G.intestinalis (len:1452)</option>
+<option data-c1="23s" value="01">seq00: H.pylori (len:2968)</option>
+<option data-c1="23s" value="02">seq01: T.thermophilus (len:2915)</option>
+<option data-c1="23s" value="03">seq02: B.subtilis (len:2927)</option>
+<option data-c1="23s" value="04">seq03: S.aureus (len:2923)</option>
+<option data-c1="23s" value="05">seq04: E.coli (len:2904)</option>
 </select>
 
 
@@ -64,8 +64,8 @@ width:450px;
 <br>
 <button type="button" onclick="draw_1_to_n(N=1500,d=20,R=250,halfOpen=20)">draw arc</button>
 -->
-<button type="button" onclick="load_go(d=40,R=250,range=100,halfOpen=20)">draw</button>
-<p>Sequence to be demostrated: <span id="seqShown" style="color:red;font-size:130%;"> 16s-seq01</span></p>
+<button type="button" onclick="load_go(d=40,R=250,circleScale=50,halfOpen=20)">draw</button>
+<p>Sequence to be demostrated: <span id="seqShown" style="color:red;font-size:130%;"> 16s_Z.mays (len:1490)</span></p>
 <p>Slide to adjust the beam size: 
 	&nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp
 	<input id="beamslidebar" type="range" list="beammarks" min="1" max="206" value="20" oninput="change()"/>&nbsp 800&nbsp&nbsp:  &nbsp&nbsp <span id="beamsize" style="color:red;font-size:140%;">20</span></p>
@@ -95,7 +95,7 @@ width:450px;
 </canvas>
 -->
 <canvas id="myCanvas" width="1200px" height="1200px">
-您的浏览器不支持canvas标签。
+Your browser doesn't support canvas tag.
 </canvas>
 
 </body>

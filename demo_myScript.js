@@ -1,3 +1,4 @@
+var H_title = 20;
 var seriesNo = "16s";
 var seqNo = "seq01";
 var BeamFromBar = 20;
@@ -16,10 +17,10 @@ function filterSeq(){
 
 function comfirmSeq(){
 	seriesNo = $("#series").find('option:selected').text();
-	seqNo = $("#seqNo").find('option:selected').text();//	.slice(-2);
-	document.getElementById("seqShown").innerHTML = seriesNo + "-" + seqNo;
-	seqNo = seqNo.slice(0, 5);
-	load_go(d=40,R=250,range=100,halfOpen=20);
+	seqNo = "seq" + $("#seqNo").find('option:selected').val();//.slice(-2);
+	//alert(seqNo);
+	document.getElementById("seqShown").innerHTML = seriesNo + "_" + $("#seqNo").find('option:selected').text().slice(7);
+	load_go(d=40,R=250,circleScale=50,halfOpen=20);
 	
 }
 
@@ -30,14 +31,14 @@ function comfirmSeq(){
     	BeamFromBar = (BeamFromBar - 200)*100 + 200;
     }
     document.getElementById("beamsize").innerHTML = BeamFromBar;
-    load_go(d=40,R=250,range=100,halfOpen=20);
+    load_go(d=40,R=250,circleScale=50,halfOpen=20);
     console.log(BeamFromBar);
     //return value;
   }
 
 
 
-function load_go(d,R,range,halfOpen=20) {
+function load_go(d,R,circleScale,halfOpen=20) {
 	var seqFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
 	/*
 	var seqNo = document.getElementById("beamslidebar").value;
@@ -62,12 +63,12 @@ function load_go(d,R,range,halfOpen=20) {
     		var ctx = canvas.getContext("2d");  
     		ctx.clearRect(1, 1, 1198, 1198);
     	}
-		drawframe(data.pairing[0],d,R,range,halfOpen,half="left");
-        fillcircles(data.pairing,d,R,range,halfOpen,0,half="left");
+		drawFrame(data.pairing[0],d,R,circleScale,halfOpen,half="left");
+        fillCircles(data.pairing,d,R,circleScale,halfOpen,0,half="left");
 
         //var beamsize = 100;
-        drawframe(data.pairing[0],d,R,range,halfOpen,half="right");
-        fillcircles(data.pairing,d,R,range,halfOpen,BeamFromBar,half="right");
+        drawFrame(data.pairing[0],d,R,circleScale,halfOpen,half="right");
+        fillCircles(data.pairing,d,R,circleScale,halfOpen,BeamFromBar,half="right");
     });
 }
 
@@ -81,59 +82,14 @@ $(document).ready(function(){
 });
 */
 
-function fillcircles(data,d,R,range,halfOpen=20,beamsize=0,half="left"){
-	var a = R + d;
-	var b = 3*R + 3*d;	//2*d is also ok
-	//var data = loadInfo();
-	var N = data[0];
-	//var pairs;
-    var l;	//line number
-    if (beamsize <= 200){
-    	l= 6*beamsize+2
-    }else{
-    	l = (beamsize/100+198)*6+2;
-    }
-
-	if (half == "left"){
-		//fill circle top-left with cf_missing, cf_hit, cf_wrong
-		fillcircle(data[l],data[l+1],data[l+2],N,a,a,R,halfOpen);
-		//fill circle bottom-left with vn_missing, vn_hit, vn_wrong
-		fillcircle(data[l+3],data[l+4],data[l+5],N,a,b,R,halfOpen);
-	}else{
-		//fill circle top-right with linearcf_missing, linearcf_hit, linearcf_wrong
-		fillcircle(data[l],data[l+1],data[l+2],N,b,a,R,halfOpen);
-		//fill circle bottom-right with linearvn_missing, linearvn_hit, linearvn_wrong
-		fillcircle(data[l+3],data[l+4],data[l+5],N,b,b,R,halfOpen);
-	}
-}
-
-
-function fillcircle(missing,hit,wrong,N,x0,y0,R,halfOpen=20){
-
-	var n_pair = missing.length;
-	for (var i=0; i<n_pair; i=i+2){
-		drawarc(missing[i],missing[i+1],N,x0,y0,R,'LightGray',halfOpen);
-	}
-
-	n_pair = hit.length;
-	for (var i=0; i<n_pair; i=i+2){
-		drawarc(hit[i],hit[i+1],N,x0,y0,R,'blue',halfOpen);
-	}
-
-	n_pair = wrong.length;
-	for (var i=0; i<n_pair; i=i+2){
-		drawarc(wrong[i],wrong[i+1],N,x0,y0,R,'red',halfOpen);
-	}
-}
 
 /*
-function draw_4(N,d,R,range,halfOpen=20){
-	drawframe(N,d,R,range,halfOpen);
+function draw_4(N,d,R,circleScale,halfOpen=20){
+	drawFrame(N,d,R,circleScale,halfOpen);
 }
 */
 
-function drawframe(N,d,R,range,halfOpen=20,half="left"){
-	var H_title = 20;
+function drawFrame(N,d,R,circleScale,halfOpen=20,half="left"){
 	var a = R+d;
 	var b =3*R + 3*d;	//2*d is also ok
 	var extDis = d/2.2;
@@ -150,28 +106,28 @@ function drawframe(N,d,R,range,halfOpen=20,half="left"){
 	    //set fill style
 	    ctx.fillStyle = "black";
 	    //fill text at the position (420,40)
-	    ctx.fillText("CONTRAfold", R-1.1*d, 21);	
-	    ctx.fillText("Vienna", R-0.3*d, a+a+0.5*d);	
-	    ctx.fillText("Linear CONTRAfold", b-3.4*d, 21);	
-	    ctx.fillText("Linear Vienna", b-2.7*d, a+a+0.5*d);	
+	    ctx.fillText("CONTRAfold", R-1.1*d, d-0.5*H_title);	
+	    ctx.fillText("Vienna", R-0.3*d, a+a+d+0.5*H_title);	
+	    ctx.fillText("Linear CONTRAfold", b-3.4*d, d-0.5*H_title);	
+	    ctx.fillText("Linear Vienna", b-2.7*d, a+a+d+0.5*H_title);	
 	}
 
 	if (half == "left"){
-		drawcircle(a,a,R,halfOpen);
-		drawcircle(a,b,R,halfOpen);
-		drawaxis(N,a,a,R,extDis,range,halfOpen);
-		drawaxis(N,a,b,R,extDis,range,halfOpen);
+		drawCircle(a,a+H_title,R,halfOpen);
+		drawCircle(a,b+2*H_title,R,halfOpen);
+		drawCircleMarks(N,a,a+H_title,R,extDis,circleScale,halfOpen);
+		drawCircleMarks(N,a,b+2*H_title,R,extDis,circleScale,halfOpen);
 
 	}else{
-		drawcircle(b,a,R,halfOpen);
-		drawcircle(b,b,R,halfOpen);
-		drawaxis(N,b,a,R,extDis,range,halfOpen);
-		drawaxis(N,b,b,R,extDis,range,halfOpen);
+		drawCircle(b,a+H_title,R,halfOpen);
+		drawCircle(b,b+2*H_title,R,halfOpen);
+		drawCircleMarks(N,b,a+H_title,R,extDis,circleScale,halfOpen);
+		drawCircleMarks(N,b,b+2*H_title,R,extDis,circleScale,halfOpen);
 	}
 }
 
 
-function drawcircle(x0,y0,R,halfOpen=20){
+function drawCircle(x0,y0,R,halfOpen=20){
 	//get canvas object
 	var canvas = document.getElementById("myCanvas");
 	//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
@@ -195,7 +151,7 @@ function drawcircle(x0,y0,R,halfOpen=20){
 }
 
 
-function drawaxis(N,x0,y0,R,extDis,range=50,halfOpen=20){
+function drawCircleMarks(N,x0,y0,R,extDis,circleScale=50,halfOpen=20){
 	//get canvas object
 	var canvas = document.getElementById("myCanvas");
 	//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
@@ -204,14 +160,15 @@ function drawaxis(N,x0,y0,R,extDis,range=50,halfOpen=20){
     	//get corresponding CanvasRenderingContext2D object(pen)
     	var ctx = canvas.getContext("2d");  
 	    //set font and style
-	    ctx.font = "10px italic";
+	    //ctx.font = "10px italic";
+	    ctx.font = "10px normal";
 	    //set fill style
 	    ctx.fillStyle = "black";
 	    offset = extDis/1.5;				// make numbers offset to left 
 	    var alpha;
 	    var p = new Object;
 	    var theta = halfOpen/360 * 2*Math.PI;
-	    for (var i=range; i<N-1; i=i+range)
+	    for (var i=circleScale; i<N-1; i=i+circleScale)
 	    {
 	    	alpha = i/(N-1) * (360-2*halfOpen)/360 * 2*Math.PI;
 	    	p.x = x0 + (R+extDis)*Math.sin(theta+alpha)-offset;
@@ -235,20 +192,85 @@ function drawaxis(N,x0,y0,R,extDis,range=50,halfOpen=20){
 	}
 }
 
-
+/*
 function draw_1_to_n(N,d,R,halfOpen=20){		// draw arcs from 1 to n
 	var a = R+d;
 	var b =3*R + 4*d;	//2*d is also ok
 	for (var i=1; i<N; i=i+10)
 	{
-		drawarc(0,i,N,a,a,R,'red',halfOpen);
-		drawarc(0,i,N,a,b,R,'green',halfOpen);
-		drawarc(0,i,N,b,a,R,'grey',halfOpen);
-		drawarc(0,i,N,b,b,R,'blue',halfOpen);
+		drawArc(0,i,N,a,a,R,'red',halfOpen);
+		drawArc(0,i,N,a,b,R,'green',halfOpen);
+		drawArc(0,i,N,b,a,R,'grey',halfOpen);
+		drawArc(0,i,N,b,b,R,'blue',halfOpen);
+	}
+}
+*/
+
+function fillCircles(data,d,R,circleScale,halfOpen=20,beamsize=0,half="left"){
+	var a = R + d;
+	var b = 3*R + 3*d;	//2*d is also ok
+	//var data = loadInfo();
+	var N = data[0];
+	//var pairs;
+    var l;	//line number
+    if (beamsize <= 200){
+    	l= 6*beamsize+2
+    }else{
+    	l = (beamsize/100+198)*6+2;
+    }
+
+	if (half == "left"){
+		//fill circle top-left with cf_missing, cf_hit, cf_wrong
+		fillCircle(data[l],data[l+1],data[l+2],N,a,a+H_title,R,halfOpen);
+		//fill circle bottom-left with vn_missing, vn_hit, vn_wrong
+		fillCircle(data[l+3],data[l+4],data[l+5],N,a,b+2*H_title,R,halfOpen);
+	}else{
+		//fill circle top-right with linearcf_missing, linearcf_hit, linearcf_wrong
+		fillCircle(data[l],data[l+1],data[l+2],N,b,a+H_title,R,halfOpen);
+		//fill circle bottom-right with linearvn_missing, linearvn_hit, linearvn_wrong
+		fillCircle(data[l+3],data[l+4],data[l+5],N,b,b+2*H_title,R,halfOpen);
 	}
 }
 
-function drawarc(n1,n2,N,x0,y0,R,color,halfOpen=20){
+
+function fillCircle(missing,hit,wrong,N,x0,y0,R,halfOpen=20){
+
+	var missing_pair = missing.length;
+	for (var i=0; i<missing_pair; i=i+2){
+		drawArc(missing[i],missing[i+1],N,x0,y0,R,'LightGray',halfOpen);
+	}
+
+	var hit_pair = hit.length;
+	for (var i=0; i<hit_pair; i=i+2){
+		drawArc(hit[i],hit[i+1],N,x0,y0,R,'blue',halfOpen);
+	}
+
+	var wrong_pair = wrong.length;
+	for (var i=0; i<wrong_pair; i=i+2){
+		drawArc(wrong[i],wrong[i+1],N,x0,y0,R,'red',halfOpen);
+	}
+
+	var P = hit_pair/(hit_pair+wrong_pair); // PPV (precision) = #_of_correctly_predicted_pairs / #_of_predicted_pairs
+	var Recall = hit_pair/(hit_pair+missing_pair);// Sensitivity (recall) = #_of_correctly_predicted_pairs / #_of_gold_pairs
+	var F = 2*P*Recall / (P + Recall);// F-score = 2PR / (P + R);
+
+	var canvas = document.getElementById("myCanvas");
+	if(canvas.getContext)
+	{  
+    	var ctx = canvas.getContext("2d");  
+	    ctx.font = "18px Courier";
+	    //set fill style
+	    ctx.fillStyle = "black";
+	    //fill text at the position (420,40)
+	    ctx.fillText("(P="+(P*100).toFixed(2).toString()+
+	    			 ",R="+(Recall*100).toFixed(2).toString()+
+	    			 ",F="+(F*100).toFixed(2).toString()+"); Pair="+((hit_pair+wrong_pair)/2).toString(),
+	    			 x0-R/1.4,y0-R-H_title/2);
+	}	
+}
+
+
+function drawArc(n1,n2,N,x0,y0,R,color,halfOpen=20){
 
 	var p1 = new Object;
 	var p2 = new Object;
