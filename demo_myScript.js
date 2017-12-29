@@ -25,7 +25,7 @@ function comfirmSeq(){
 }
 
 //change beam slidebar to tune beam size and draw
-  function change() {
+function change() {
     BeamFromBar = document.getElementById("beamslidebar").value;
     if (BeamFromBar > 200){
     	BeamFromBar = (BeamFromBar - 200)*100 + 200;
@@ -34,7 +34,7 @@ function comfirmSeq(){
     load_go(d=40,R=250,circleScale=50,halfOpen=20);
     console.log(BeamFromBar);
     //return value;
-  }
+}
 
 
 
@@ -307,7 +307,7 @@ function drawArc(n1,n2,N,x0,y0,R,color,halfOpen=20){
 	//if (Math.abs(n2-n1-(N-1)*90/(180-halfOpen)) < 2)
 	if (Math.abs(n2-n1-(N-1)*90/(180-halfOpen)) < Math.round(N/1000))	//2 is enough for N<=3000, if N is up to 4000, we can use 3 instead of 2
 	{
-		arc = false;		
+		arc = false;
 	} else
 	{
 		r = R * Math.abs(Math.tan((deltaAlpha)/2));	
