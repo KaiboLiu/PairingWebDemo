@@ -122,10 +122,10 @@ function drawFrame(N,d,R,circleScale,halfOpen=20,half="left"){
 	    //set fill style
 	    ctx.fillStyle = "black";
 	    //fill text at the position (420,40)
-	    ctx.fillText("CONTRAfold", R-1.1*d, d-0.5*H_title);	
-	    ctx.fillText("Vienna", R-0.3*d, a+a+d+0.5*H_title);	
-	    ctx.fillText("Linear CONTRAfold", b-3.4*d, d-0.5*H_title);	
-	    ctx.fillText("Linear Vienna", b-2.7*d, a+a+d+0.5*H_title);	
+	    ctx.fillText("CONTRAfold MFE", R-2*d, d-0.5*H_title);	
+	    ctx.fillText("Vienna RNAfold", R-2*d, a+a+d+0.5*H_title);	
+	    ctx.fillText("LinearFold-C", b-2.7*d, d-0.5*H_title);	//Linear CONTRAfold
+	    ctx.fillText("LinearFold-V", b-2.7*d, a+a+d+0.5*H_title);	//Linear Vienna
 	}
 
 	if (half == "left"){
@@ -275,14 +275,14 @@ function fillCircle(P_R,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 	if(canvas.getContext)
 	{  
     	var ctx = canvas.getContext("2d");  
-	    ctx.font = "18px Courier";
+	    ctx.font = "18px normal";
 	    //set fill style
 	    ctx.fillStyle = "black";
 	    //fill text at the position (420,40)
-	    ctx.fillText("(P="+(P_R[0]*100).toFixed(2).toString()+
-	    			 ",R="+(P_R[1]*100).toFixed(2).toString()+
-	    			 ",F="+(F*100).toFixed(2).toString()+"); Pair="+((hit_pair+wrong_pair)/2).toString(),
-	    			 x0-R/1.4,y0-R-H_title/2);
+	    ctx.fillText("PPV="+(P_R[0]*100).toFixed(2).toString()+
+	    			 ",Sensitivity="+(P_R[1]*100).toFixed(2).toString()+
+	    			 " (F="+(F*100).toFixed(2).toString()+",Pair="+((hit_pair+wrong_pair)/2).toString()+")",
+	    			 x0-R/1.45,y0-R-H_title/2);
 	}	
 }
 
