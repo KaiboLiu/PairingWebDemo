@@ -56,10 +56,10 @@ MAXLEN = 5650
 MINLEN = 0
 circular = True
 
-#lbs = ['(', '[', '{', '<']
-#rbs = [')', ']', '}', '>']
-lbs = ['('] # pseudoknot-free only, even for grey part
-rbs = [')'] # pseudoknot-free only, even for grey part 
+lbs = ['(', '[', '{', '<']
+rbs = [')', ']', '}', '>']
+#lbs = ['('] # pseudoknot-free only, even for grey part
+#rbs = [')'] # pseudoknot-free only, even for grey part 
 
 def LoadSave(RNAtype,seqNo):
     #RNAtype = "16s"
@@ -162,8 +162,13 @@ def agree(pres, pref, index):
     else:
         return False
 
-
-
+'''
+def agree(pres, pref, index):
+    if pres[index] == pref[index]:
+        return True
+    else:
+        return False
+'''
 def pairing(seq,ref,res):
     #brackets for pseudoknot
     pairs = []
@@ -231,9 +236,9 @@ def pairing(seq,ref,res):
         if stackindex > 0:
             color = "wrong"
         else:
-            if a in refpair and agree(respair, refpair, a):
-                color = hit
-            elif b in refpair and agree(respair, refpair, b):
+            if a in refpair and agree(refpair, respair, a):
+                color = "hit"
+            elif b in refpair and agree(refpair, respair, b):
                 color = "hit"
             else:
                 color = "wrong"

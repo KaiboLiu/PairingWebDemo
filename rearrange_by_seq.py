@@ -41,7 +41,7 @@ import pdb
 import os
 
 def LoadData():
-	RNAtype = "16s"
+	RNAtype = "23s"
 	dataDir = "../RNA_visual_dengde/"
 	seqFile = "Mathewsdata."+RNAtype+".seq"
 	refFile = "Mathewsdata."+RNAtype+".ref"
@@ -81,7 +81,7 @@ def LoadData():
 	fileIn.close()
 	
 
-	print(len(ref[3]),len(cf[3]), len(seq[3]))
+	# print(len(ref[3]),len(cf[3]), len(seq[3]))
 
 	N_seq = len(seq)
 	
