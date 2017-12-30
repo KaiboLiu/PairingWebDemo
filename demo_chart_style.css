@@ -3,6 +3,22 @@ width:450px;
 }
 span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden;}  
 
+div.scale_botton_411{
+    position: absolute;
+    top: 170px;
+    left: 1450px;
+    width: 180px;
+    height: 40px;
+}
+
+div.scale_botton_421{
+    position: absolute;
+    /*top: 800px;*/
+    top: 750px;
+    left: 1180px;
+    width: 180px;
+    height: 40px;
+}
 
 div.absolute411 {
     position: absolute;
