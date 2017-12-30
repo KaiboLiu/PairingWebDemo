@@ -21,6 +21,7 @@ function comfirmSeq(){
 	//alert(seqNo);
 	document.getElementById("seqShown").innerHTML = seriesNo + "_" + $("#seqNo").find('option:selected').text();//.slice(7);
 	load_go(d=40,R=250,circleScale=50,halfOpen=20);
+	plot_go();
 	
 }
 
@@ -389,4 +390,246 @@ function drawArc(n1,n2,N,x0,y0,R,color,halfOpen=20){
 */
 
 
+
+
+function plot_go(){
+  google.charts.load('current', {packages: ['corechart']});
+  google.charts.setOnLoadCallback(plot_4);  
+}
+
+  function plot_4() {
+    var pairingFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
+    $.getJSON(pairingFile, function(pairingData,status) {
+
+      // Figure 411, plot P/R/F-beam for LinearFold-C, data saved in data_C_1
+        var data_C_1 = new google.visualization.DataTable();
+        data_C_1.addColumn('number', 'Beam');
+        data_C_1.addColumn('number', 'PPV');
+        data_C_1.addColumn('number', 'Sensitivity');
+        data_C_1.addColumn('number', 'F-score');  
+        var l, beam = 1;
+        
+        
+        //data_C_1.addRow(['0', , , null]);
+        for (beam=1; beam<=200; beam=beam+1){
+          l = beam * 8 + 2;
+          data_C_1.addRow([beam, Math.round(pairingData.pairing[l][0]*10000)/100, 
+                                        Math.round(pairingData.pairing[l][1]*10000)/100, 
+                                        Math.round(pairingData.pairing[l][2]*10000)/100]);
+        }
+        for (beam=300; beam<=800; beam=beam+100){
+          l = (Math.round(beam/100)+198) * 8 + 2;  
+          data_C_1.addRow([beam, Math.round(pairingData.pairing[l][0]*10000)/100, Math.round(pairingData.pairing[l][1]*10000)/100, Math.round(pairingData.pairing[l][2]*10000)/100]);
+        }
+          
+        var options = {
+          legend:'bottom',
+          title:'Performance VS Beam size (CONTRAfold)',
+          //'is3D':true,
+          hAxis: {
+            //slantedText:true,
+            //slantedTextAngle:12,
+            scaleType: 'log',
+            //gridlines: {count: 40},
+            //ticks:['1','3','5','7'],
+            //ticks: [{v:'1', f:'1'}, {v:'100', f:'100'}, {v:'200', f:'200'}, {v:'500', f:'500'}, {v:'800', f:'800'}],//, 100, 200, 202, 204, 206]
+            //ticks: [1,50,100,150,200,{v:203, f:'500'},{v:206, f:'800'}],
+            title: 'Beam size'
+          },
+          vAxis: {
+            gridlines: {count: 5},
+            //viewWindow: {
+            //  max: 60,
+            //  min: 20,
+            //},
+            //minValue: 15,
+            title: 'Performance (%)'            
+          },
+          series: {
+            1: {curveType: 'function'}
+          }
+        };  
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div_411'));
+        chart.draw(data_C_1, options);
+
+
+
+
+        // Figure 412, plot R-P for LinearFold-C, data saved in data_C_2
+        var data_C_2 = new google.visualization.DataTable();
+        data_C_2.addColumn('number', 'PPV');
+        data_C_2.addColumn('number', 'LinearFold-C');
+        data_C_2.addColumn('number', 'CONTRAfold MFE');
+        var l;
+        data_C_2.addRow([Math.round(pairingData.pairing[2][0]*10000)/100, ,Math.round(pairingData.pairing[2][1]*10000)/100]);
+        for (var beam=1; beam<=200; beam=beam+1){
+          l = beam * 8 + 2;
+          data_C_2.addRow([Math.round(pairingData.pairing[l][0]*10000)/100, Math.round(pairingData.pairing[l][1]*10000)/100, null]);
+        }
+        
+        for (var beam=300; beam<=800; beam=beam+100){
+          l = (beam/100+198) * 8 + 2;
+          data_C_2.addRow([Math.round(pairingData.pairing[l][0]*10000)/100, Math.round(pairingData.pairing[l][1]*10000)/100, null]);
+        }
+        
+        var options = {
+          'legend':'bottom',
+          'title':'Sensitivity VS PPV (CONTRAfold)',          
+          //'width':400,
+          //'height':410,
+          hAxis: {
+            title: 'PPV (%)'
+          },
+          vAxis: {
+            title: 'Sensitivity (%)'
+          },
+          series: {
+            1: {curveType: 'function'}
+          }
+        };  
+
+        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div_412'));
+        chart.draw(data_C_2, options);
+
+
+
+
+      // Figure 421, plot P/R/F-beam for LinearFold-V, data saved in data_V_1
+        var data_V_1 = new google.visualization.DataTable();
+        data_V_1.addColumn('string', 'Beam');
+        data_V_1.addColumn('number', 'PPV');
+        data_V_1.addColumn('number', 'Sensitivity');
+        data_V_1.addColumn('number', 'F-score');  
+        var l, beam = 1;
+        
+        //alert(beam.toString());
+        data_V_1.addRow(['0', , , null]);
+        for (beam=1; beam<=200; beam=beam+1){
+          l = beam * 8 + 6;
+          data_V_1.addRow([beam.toString(), Math.round(pairingData.pairing[l][0]*10000)/100, 
+                                        Math.round(pairingData.pairing[l][1]*10000)/100, 
+                                        Math.round(pairingData.pairing[l][2]*10000)/100]);
+        }
+        for (beam=300; beam<=800; beam=beam+10){
+          l = (Math.round(beam/100)+198) * 8 + 2;  
+          data_V_1.addRow([beam.toString(), Math.round(pairingData.pairing[l][0]*10000)/100, Math.round(pairingData.pairing[l][1]*10000)/100, Math.round(pairingData.pairing[l][2]*10000)/100]);
+        }
+          
+        var options = {
+          legend:'bottom',
+          title:'Performance VS Beam size (Vienna)',
+          //'is3D':true,
+          hAxis: {
+            slantedText:true,
+            slantedTextAngle:9,
+            gridlines: {count: 8},
+            //ticks:['1','3','5','7'],
+            //ticks: [{v:'1', f:'1'}, {v:'100', f:'100'}, {v:'200', f:'200'}, {v:'500', f:'500'}, {v:'800', f:'800'}],//, 100, 200, 202, 204, 206]
+            //ticks: [1,50,100,150,200,{v:203, f:'500'},{v:206, f:'800'}],
+            title: 'Beam size'
+          },
+          vAxis: {
+            gridlines: {count: 5},
+            //viewWindow: {
+            //  max: 60,
+            //  min: 20,
+            //},
+            //minValue: 15,
+            title: 'Performance (%)'            
+          },
+          series: {
+            1: {curveType: 'function'}
+          }
+        };  
+
+        var chart = new google.visualization.LineChart(document.getElementById('chart_div_421'));
+        chart.draw(data_V_1, options);
+
+
+
+
+        // Figure 422, plot R-P for LinearFold-V, data saved in data_V_2
+        var data_V_2 = new google.visualization.DataTable();
+        data_V_2.addColumn('number', 'PPV');
+        data_V_2.addColumn('number', 'LinearFold-V');
+        data_V_2.addColumn('number', 'Vienna RNA');
+        var l;
+        data_V_2.addRow([Math.round(pairingData.pairing[6][0]*10000)/100, ,Math.round(pairingData.pairing[6][1]*10000)/100]);
+        for (var beam=1; beam<=200; beam=beam+1){
+          l = beam * 8 + 6;
+          data_V_2.addRow([Math.round(pairingData.pairing[l][0]*10000)/100, Math.round(pairingData.pairing[l][1]*10000)/100, null]);
+        }
+        
+        for (var beam=300; beam<=800; beam=beam+100){
+          l = (beam/100+198) * 8 + 2;
+          data_V_2.addRow([Math.round(pairingData.pairing[l][0]*10000)/100, Math.round(pairingData.pairing[l][1]*10000)/100, null]);
+        }
+        
+        var options = {
+          'legend':'bottom',
+          'title':'Sensitivity VS PPV (Vienna)',          
+          //'width':400,
+          //'height':410,
+          hAxis: {
+            title: 'PPV (%)'
+          },
+          vAxis: {
+            title: 'Sensitivity (%)'
+          },
+          series: {
+            1: {curveType: 'function'}
+          }
+        };  
+
+        var chart = new google.visualization.ScatterChart(document.getElementById('chart_div_422'));
+        chart.draw(data_V_2, options);
+    });
+  }
+
+
+
+/*
+google.charts.load('current', {packages: ['corechart']});
+google.charts.setOnLoadCallback(drawCurveTypes);
+
+function drawCurveTypes() {
+      var data_C_1 = new google.visualization.DataTable();
+      data_C_1.addColumn('number', 'Beam');
+      data_C_1.addColumn('number', 'P');
+      data_C_1.addColumn('number', 'R');
+      data_C_1.addColumn('number', 'F');
+
+      data_C_1.addRows([
+        [0, 0, 0,30],    [1, 10, 5,30],   [2, 23, 15,30],  [3, 17, 9,30],   [4, 18, 10,30],  [5, 9, 5,30],
+        [6, 11, 3,30],   [7, 27, 19,30],  [8, 33, 25,30],  [9, 40, 32,30],  [10, 32, 24,30], [11, 35, 27,30],
+        [12, 30, 22,30], [13, 40, 32,30], [14, 42, 34,30], [15, 47, 39,30], [16, 44, 36,30], [17, 48, 40,30],
+        [18, 52, 44,30], [19, 54, 46,30], [20, 42, 34,30], [21, 55, 47,30], [22, 56, 48,30], [23, 57, 49,30],
+        [24, 60, 52,30], [25, 50, 42,30], [26, 52, 44,30], [27, 51, 43,30], [28, 49, 41,30], [29, 53, 45,30],
+        [30, 55, 47,30], [31, 60, 52,30], [32, 61, 53,30], [33, 59, 51,30], [34, 62, 54,30], [35, 65, 57,30],
+        [36, 62, 54,30], [37, 58, 50,30], [38, 55, 47,30], [39, 61, 53,30], [40, 64, 56,30], [41, 65, 57,30],
+        [42, 63, 55,30], [43, 66, 58,30], [44, 67, 59,30], [45, 69, 61,30], [46, 69, 61,30], [47, 70, 62,30],
+        [48, 72, 64,30], [49, 68, 60,30], [50, 66, 58,30], [51, 65, 57,30], [52, 67, 59,30], [53, 70, 62,30],
+        [54, 71, 63,30], [55, 72, 64,30], [56, 73, 65,30], [57, 75, 67,30], [58, 70, 62,30], [59, 68, 60,30],
+        [60, 64, 56,30], [61, 60, 52,30], [62, 65, 57,30], [63, 67, 59,30], [64, 68, 60,30], [65, 69, 61,30],
+        [66, 70, 62,30], [67, 72, 64,30], [68, 75, 67,30], [69, 80, 72,30]
+      ]);
+
+      var options = {
+        hAxis: {
+          title: 'Beam size'
+        },
+        vAxis: {
+          title: 'Performance'
+        },
+        series: {
+          1: {curveType: 'function'}
+        }
+      };
+
+      var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
+      chart.draw(data_C_1, options);
+    }
+
+*/
 

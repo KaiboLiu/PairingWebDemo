@@ -1,0 +1,36 @@
+input[type="range"]{
+width:450px;
+}
+span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden;}  
+
+
+div.absolute411 {
+    position: absolute;
+    top: 140px;
+    left: 1150px;
+    width: 700px;
+    height: 300px;
+}
+div.absolute412 {
+    position: absolute;
+    top: 440px;
+    left: 1150px;
+    width: 700px;
+    height: 300px;    
+}
+
+
+div.absolute421 {
+    position: absolute;
+    top: 780px;
+    left: 1150px;
+    width: 700px;
+    height: 300px;
+}
+div.absolute422 {
+    position: absolute;
+    top: 1080px;
+    left: 1150px;
+    width: 700px;
+    height: 300px;
+}

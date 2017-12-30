@@ -4,35 +4,12 @@
 <meta charset="utf-8">
 <title>web demo for RNA pairing by lrushx(Kaibo)</title>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<style>
-input[type="range"]{
-width:450px;
-}
-span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden;}  
-div.absolute1 {
-    position: absolute;
-    top: 250px;
-    left: 1150px;
-    width: 400px;
-    height: 400px;
-    border: 3px solid #73AD21;
-}
-div.absolute2 {
-    position: absolute;
-    top: 250px;
-    left: 1550px;
-    width: 400px;
-    height: 400px;
-    border: 3px solid #73AD21;
-}
-</style>
-
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<link rel="stylesheet" type="text/css" href="demo_chart_style.css">
 </head>
+
 <body>
-<div id="chartContainer1" class="absolute1"></div>
-<div id="chartContainer2" class="absolute2"></div>
-<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-<script src="demo_chart.js"></script>
+
 <script src="demo_myScript.js"></script>
 <!--
 <script src="jquery-3.2.1.min.js"></script>
@@ -112,6 +89,11 @@ Your browser doesn't support canvas tag.
 <canvas id="myCanvas" width="1200px" height="1200px">
 Your browser doesn't support canvas tag.
 </canvas>
+
+<div id="chart_div_412" class="absolute412"></div>
+<div id="chart_div_411" class="absolute411"></div>
+<div id="chart_div_422" class="absolute422"></div>
+<div id="chart_div_421" class="absolute421"></div>
 
 <p>seq:<br><span id="seqName"></span></p>
 <p>ref: <br><span id="ref"></span></p>
