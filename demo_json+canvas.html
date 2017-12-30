@@ -9,10 +9,30 @@ input[type="range"]{
 width:450px;
 }
 span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden;}  
+div.absolute1 {
+    position: absolute;
+    top: 250px;
+    left: 1150px;
+    width: 400px;
+    height: 400px;
+    border: 3px solid #73AD21;
+}
+div.absolute2 {
+    position: absolute;
+    top: 250px;
+    left: 1550px;
+    width: 400px;
+    height: 400px;
+    border: 3px solid #73AD21;
+}
 </style>
 
 </head>
 <body>
+<div id="chartContainer1" class="absolute1"></div>
+<div id="chartContainer2" class="absolute2"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="demo_chart.js"></script>
 <script src="demo_myScript.js"></script>
 <!--
 <script src="jquery-3.2.1.min.js"></script>

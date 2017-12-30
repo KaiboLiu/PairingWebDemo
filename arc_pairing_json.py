@@ -256,8 +256,8 @@ def pairing(seq,ref,res):
     #print hit
     #print "-------"
     #print wrong
-    precision = len(hit)/2.0/len(pairs)
-    recall = len(hit)/2.0/len(refpairs)
+    precision = round(len(hit)/2.0/len(pairs),4)
+    recall = round(len(hit)/2.0/len(refpairs),4)
     return [[precision,recall],missing, hit, wrong]
 
 

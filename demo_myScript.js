@@ -88,22 +88,6 @@ function load_go(d,R,circleScale,halfOpen=20) {
     });
 }
 
-/*
-$(document).ready(function(){
-	$("#readfile").click(function(){
-		$$.get("https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_23s.seq05",function(data,status){
-			alert("数据: " + data + "\n状态: " + status);
-		});
-	});
-});
-*/
-
-
-/*
-function draw_4(N,d,R,circleScale,halfOpen=20){
-	drawFrame(N,d,R,circleScale,halfOpen);
-}
-*/
 
 function drawFrame(N,d,R,circleScale,halfOpen=20,half="left"){
 	var a = R+d;
@@ -249,7 +233,7 @@ function fillCircles(data,d,R,circleScale,halfOpen=20,beamsize=0,half="left"){
 }
 
 
-function fillCircle(P_R,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
+function fillCircle(P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 
 	var missing_pair = missing.length;
 	for (var i=0; i<missing_pair; i=i+2){
@@ -269,8 +253,8 @@ function fillCircle(P_R,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 	var P = hit_pair/(hit_pair+wrong_pair); // PPV (precision) = #_of_correctly_predicted_pairs / #_of_predicted_pairs
 	var Recall = hit_pair/(hit_pair+missing_pair);// Sensitivity (recall) = #_of_correctly_predicted_pairs / #_of_gold_pairs
 */
-	var F = 2*P_R[0]*P_R[1] / (P_R[0] + P_R[1]);// F-score = 2PR / (P + R);
-	//alert(P_R);
+	//var F = 2*P_R[0]*P_R_F[1] / (P_R[0] + P_R_F[1]);// F-score = 2PR / (P + R);
+	//alert(P_R_F);
 	var canvas = document.getElementById("myCanvas");
 	if(canvas.getContext)
 	{  
@@ -279,10 +263,15 @@ function fillCircle(P_R,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 	    //set fill style
 	    ctx.fillStyle = "black";
 	    //fill text at the position (420,40)
-	    ctx.fillText("PPV="+(P_R[0]*100).toFixed(2).toString()+
+	    ctx.fillText("PPV="+(P_R_F[0]*100).toString()+		//(P_R_F[0]*100).toFixed(2).toString()
+	    			 ", Sensitivity="+(P_R_F[1]*100).toFixed(2).toString()+
+	    			 " (F="+(P_R_F[2]*100).toFixed(2).toString()+", Pair="+((hit_pair+wrong_pair)/2).toString()+")",
+	    			 x0-R/1.4,y0-R-H_title/2);
+	    /*ctx.fillText("PPV="+(P_R[0]*100).toFixed(2).toString()+
 	    			 ", Sensitivity="+(P_R[1]*100).toFixed(2).toString()+
 	    			 " (F="+(F*100).toFixed(2).toString()+", Pair="+((hit_pair+wrong_pair)/2).toString()+")",
 	    			 x0-R/1.4,y0-R-H_title/2);
+	    */
 	}	
 }
 
