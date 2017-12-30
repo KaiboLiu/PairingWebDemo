@@ -91,22 +91,22 @@ def LoadSave(RNAtype,seqNo):
     #f.write("%s\n" %len(seq))
     #f.write(lines[1])
     #f.write(">>>>>>contrafold (missing/ hit/ wrong pairs)\n")
-    P_R_missing_hit_wrong = pairing(seq,ref,cf)     # pairing cf and compare with ref
-    data[len(data):len(data)] = P_R_missing_hit_wrong
+    P_R_F_missing_hit_wrong = pairing(seq,ref,cf)     # pairing cf and compare with ref
+    data[len(data):len(data)] = P_R_F_missing_hit_wrong
 
-    P_R_missing_hit_wrong = pairing(seq,ref,vn)     # pairing vn and compare with ref
-    data[len(data):len(data)] = P_R_missing_hit_wrong
+    P_R_F_missing_hit_wrong = pairing(seq,ref,vn)     # pairing vn and compare with ref
+    data[len(data):len(data)] = P_R_F_missing_hit_wrong
 
     #       beam_list = range(1,201) + range(300,801,100)
     n_line = len(lines)
     for i in xrange(11,n_line,8):
         linearcf_beam_i = lines[i][:-1]
-        P_R_missing_hit_wrong = pairing(seq,ref,linearcf_beam_i)     # pairing linearcf_beam_i and compare with ref
-        data[len(data):len(data)] = P_R_missing_hit_wrong
+        P_R_F_missing_hit_wrong = pairing(seq,ref,linearcf_beam_i)     # pairing linearcf_beam_i and compare with ref
+        data[len(data):len(data)] = P_R_F_missing_hit_wrong
         
         linearvn_beam_i = lines[i+4][:-1] 
-        P_R_missing_hit_wrong = pairing(seq,ref,linearvn_beam_i)     # pairing linearcf_beam_i and compare with ref
-        data[len(data):len(data)] = P_R_missing_hit_wrong
+        P_R_F_missing_hit_wrong = pairing(seq,ref,linearvn_beam_i)     # pairing linearcf_beam_i and compare with ref
+        data[len(data):len(data)] = P_R_F_missing_hit_wrong
 
     fileIn.close()
 
@@ -258,13 +258,14 @@ def pairing(seq,ref,res):
     #print wrong
     precision = round(len(hit)/2.0/len(pairs),4)
     recall = round(len(hit)/2.0/len(refpairs),4)
-    return [[precision,recall],missing, hit, wrong]
+    Fscore = round(2*precision*recall/(precision+recall),4)
+    return [[precision,recall,Fscore],missing, hit, wrong]
 
 
 
 print("start")
-for seq_No in xrange(1,6):      # xrange(1,23) if seq is 16s, xrange(1,6) if seq is 23s
-    LoadSave("23s",seq_No)
+for seq_No in xrange(1,23):      # xrange(1,23) if seq is 16s, xrange(1,6) if seq is 23s
+    LoadSave("16s",seq_No)
     print("finish seq %d" %(seq_No))
 print ("end")
 
