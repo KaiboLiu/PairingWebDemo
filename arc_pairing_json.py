@@ -30,15 +30,15 @@ lineavnf.beam00i * 4 lines  ----->  L(8*i+7) (with 2 lines of information above)
 '''
 save pairing results into file as json format:
 {"result":[N,seq,                                                           ----->index: 0-1
-            [P,R],cf_missing, cf_hit, cf_wrong,                                   ----->index: 2-5
-            [P,R],vn_missing, vn_hit, vn_wrong,                                   ----->index: 6-9
-            [P,R],linearcf_b01_missing, linearcf_b01_hit, linearcf_b01_wrong,     ----->index: 10-13
-            [P,R],linearvn_b01_missing, linearvn_b01_hit, linearvn_b01_wrong,     ----->index: 14-17
-            [P,R],linearcf_b02_missing, linearcf_b02_hit, linearcf_b02_wrong,     ----->index: 18-21 (8*i+2~8*i+5,i is the beam number)
-            [P,R],linearvn_b02_missing, linearvn_b02_hit, linearvn_b02_wrong,     ----->index: 22-25 (8*i+6~8*i+9,i is the beam number)
+            [P,R,f],cf_missing, cf_hit, cf_wrong,                                   ----->index: 2-5
+            [P,R,f],vn_missing, vn_hit, vn_wrong,                                   ----->index: 6-9
+            [P,R,f],linearcf_b01_missing, linearcf_b01_hit, linearcf_b01_wrong,     ----->index: 10-13
+            [P,R,f],linearvn_b01_missing, linearvn_b01_hit, linearvn_b01_wrong,     ----->index: 14-17
+            [P,R,f],linearcf_b02_missing, linearcf_b02_hit, linearcf_b02_wrong,     ----->index: 18-21 (8*i+2~8*i+5,i is the beam number)
+            [P,R,f],linearvn_b02_missing, linearvn_b02_hit, linearvn_b02_wrong,     ----->index: 22-25 (8*i+6~8*i+9,i is the beam number)
             ...
-            [P,R],linearcf_b800_missing, linearcf_b800_hit, linearcf_b800_wrong,  ----->index: 1238-1240 [(i/100+198)*6+2~(i/100+198)*6+5,i is the beam number which is > 200]
-            [P,R],linearvn_b800_missing, linearvn_b800_hit, linearvn_b800_wrong,  ----->index: 1241-1243 [(i/100+198)*6+6~(i/100+198)*6+9,i is the beam number which is > 200]
+            [P,R,f],linearcf_b800_missing, linearcf_b800_hit, linearcf_b800_wrong,  ----->index: 1238-1241 [(i/100+198)*6+2~(i/100+198)*6+5,i is the beam number which is > 200]
+            [P,R,f],linearvn_b800_missing, linearvn_b800_hit, linearvn_b800_wrong,  ----->index: 1242-1245 [(i/100+198)*6+6~(i/100+198)*6+9,i is the beam number which is > 200]
 
              ]}
 The new pairing data files will listed by seq number(16s * 22, and 23s *5), 27 files in total.
