@@ -492,6 +492,7 @@ function plot_411(pairingList){
     var logOptions = {
       legend:'top',
       title:'Performance VS Beam size (LinearFold-C)',
+      focusTarget: 'category',
       //'is3D':true,
       hAxis: {
         //slantedText:true,
@@ -516,6 +517,8 @@ function plot_411(pairingList){
     var linearOptions = {
       legend:'top',
       title:'Performance VS Beam size (LinearFold-C)',
+      focusTarget: 'category',
+      //dataOpacity: 0.5,
       //'is3D':true,
       hAxis: {
         slantedText:true,
@@ -686,6 +689,7 @@ function plot_421(pairingList){
     var logOptions = {
       legend:'top',
       title:'Performance VS Beam size (LinearFold-V)',
+      focusTarget: 'category',      
       //'is3D':true,
       hAxis: {
         //slantedText:true,
@@ -710,6 +714,7 @@ function plot_421(pairingList){
     var linearOptions = {
       legend:'top',
       title:'Performance VS Beam size (LinearFold-V)',
+      focusTarget: 'category',
       //'is3D':true,
       hAxis: {
         slantedText:true,
