@@ -545,8 +545,8 @@ function plot_411(pairingList){
         title: 'Performance (%)',
       },
       series: {
-        2: {lineWidth: 1, lineDashStyle: [14, 2, 7, 2]},
-        3: {lineWidth: 1, lineDashStyle: [14, 2, 7, 2]},
+        2: {lineWidth: 1, lineDashStyle: [8, 10]},
+        3: {lineWidth: 1, lineDashStyle: [8, 10]},
           //type: 'scatter'
       },
       curveType: 'function',
@@ -578,8 +578,8 @@ function plot_411(pairingList){
         title: 'Performance (%)'            
       },
       series: {
-        2: {lineWidth: 1, lineDashStyle: [14, 2, 7, 2]},
-        3: {lineWidth: 1, lineDashStyle: [14, 2, 7, 2]},
+        2: {lineWidth: 1, lineDashStyle: [8, 10]},
+        3: {lineWidth: 1, lineDashStyle: [8, 10]},
       },
       pointSize: 0.1,
       //dataOpacity: 0.6
@@ -795,8 +795,8 @@ function plot_421(pairingList){
         title: 'Performance (%)',
       },
       series: {
-        2: {lineWidth: 1, lineDashStyle: [14, 2, 7, 2]},
-        3: {lineWidth: 1, lineDashStyle: [14, 2, 7, 2]},
+        2: {lineWidth: 1, lineDashStyle: [8, 10]},
+        3: {lineWidth: 1, lineDashStyle: [8, 10]},
           //type: 'scatter'
       },
       curveType: 'function',
@@ -825,8 +825,8 @@ function plot_421(pairingList){
         title: 'Performance (%)'            
       },
       series: {
-        2: {lineWidth: 1, lineDashStyle: [14, 2, 7, 2]},
-        3: {lineWidth: 1, lineDashStyle: [14, 2, 7, 2]},
+        2: {lineWidth: 1, lineDashStyle: [8, 10]},
+        3: {lineWidth: 1, lineDashStyle: [8, 10]},
       },
       pointSize: 0.1,
       //dataOpacity: 0.6
