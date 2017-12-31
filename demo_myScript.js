@@ -422,15 +422,20 @@ function plot_411(pairingList){
 // data_C_1_log is data for log view, use number as x label       
     var data_C_1_log = new google.visualization.DataTable();
     data_C_1_log.addColumn('number', 'Beam');
+    //data_C_1_log.addColumn({type: 'string', role: 'domain'});
     data_C_1_log.addColumn('number', 'PPV');
     data_C_1_log.addColumn('number', 'Sensitivity');
     //data_C_1_log.addColumn('number', 'F-score');  
+    data_C_1_log.addColumn('number', 'PPV_CONTRAflod');
+    data_C_1_log.addColumn('number', 'Sensitivity_CONTRAflod');
+
     var l, beam = 1;
     min_P_C = 100;
     max_P_C = 0;
     min_R_C = 100;
     max_R_C = 0; 
 
+    //data_C_1_log.addRow([1,Math.round(pairingList[10][0]*10000)/100, Math.round(pairingList[10][1]*10000)/100, Math.round(pairingList[2][0]*10000)/100, Math.round(pairingList[2][1]*10000)/100]); 
     for (beam=1; beam<=200; beam=beam+1){
       l = beam * 8 + 2;
       if (pairingList[l][0] < min_P_C) min_P_C = pairingList[l][0];		// pairingList[l][0] is P
@@ -438,7 +443,9 @@ function plot_411(pairingList){
       if (pairingList[l][1] < min_R_C) min_R_C = pairingList[l][1];		// pairingList[l][0] is R
       if (pairingList[l][1] > max_R_C) max_R_C = pairingList[l][1];
       data_C_1_log.addRow([beam, Math.round(pairingList[l][0]*10000)/100, 
-                                 Math.round(pairingList[l][1]*10000)/100]); 
+								 Math.round(pairingList[l][1]*10000)/100,
+								 Math.round(pairingList[2][0]*10000)/100, 
+								 Math.round(pairingList[2][1]*10000)/100]); 
                                  //Math.round(pairingList[l][2]*10000)/100]);
     }
     for (beam=300; beam<=800; beam=beam+100){
@@ -448,7 +455,9 @@ function plot_411(pairingList){
       if (pairingList[l][1] < min_R_C) min_R_C = pairingList[l][1];		// pairingList[l][0] is R
       if (pairingList[l][1] > max_R_C) max_R_C = pairingList[l][1];      
       data_C_1_log.addRow([beam, Math.round(pairingList[l][0]*10000)/100, 
-                                 Math.round(pairingList[l][1]*10000)/100]);
+								 Math.round(pairingList[l][1]*10000)/100,
+								 Math.round(pairingList[2][0]*10000)/100, 
+								 Math.round(pairingList[2][1]*10000)/100]); 
                                  //Math.round(pairingList[l][2]*10000)/100]);
     }
 
@@ -458,18 +467,24 @@ function plot_411(pairingList){
     data_C_1_linear.addColumn('number', 'PPV');
     data_C_1_linear.addColumn('number', 'Sensitivity');
     //data_C_1_linear.addColumn('number', 'F-score');  
+    data_C_1_linear.addColumn('number', 'PPV_CONTRAflod');
+    data_C_1_linear.addColumn('number', 'Sensitivity_CONTRAflod');
     //var l, beam = 1;
     //data_C_1_linear.addRow(['0', , null]);  // linear view with string x label starts from 0, instead of 1
     for (beam=1; beam<=200; beam=beam+1){
       l = beam * 8 + 2;
       data_C_1_linear.addRow([''+beam, Math.round(pairingList[l][0]*10000)/100, 
-                                       Math.round(pairingList[l][1]*10000)/100]); 
+                                       Math.round(pairingList[l][1]*10000)/100,
+									   Math.round(pairingList[2][0]*10000)/100, 
+									   Math.round(pairingList[2][1]*10000)/100]); 
                                        //Math.round(pairingList[l][2]*10000)/100]);
     }
     for (beam=300; beam<=800; beam=beam+20){
       l = (Math.round(beam/100)+198) * 8 + 2;  
       data_C_1_linear.addRow([''+beam, Math.round(pairingList[l][0]*10000)/100, 
-                                       Math.round(pairingList[l][1]*10000)/100]);                                       
+                                       Math.round(pairingList[l][1]*10000)/100,
+									   Math.round(pairingList[2][0]*10000)/100, 
+									   Math.round(pairingList[2][1]*10000)/100]);                                       
                                        //Math.round(pairingList[l][2]*10000)/100]);
     }
 	
@@ -511,8 +526,10 @@ function plot_411(pairingList){
         title: 'Performance (%)'            
       },
       series: {
-        2: {curveType: 'function'}
-      }
+        2: {lineWidth: 1, lineDashStyle: [14, 2, 7, 2]},
+        3: {lineWidth: 1, lineDashStyle: [14, 2, 7, 2]},
+          //type: 'scatter'
+      },
     };  
     var linearOptions = {
       legend:'top',
@@ -539,8 +556,9 @@ function plot_411(pairingList){
         title: 'Performance (%)'            
       },
       series: {
-        1: {curveType: 'function'}
-      }
+        2: {lineWidth: 1, lineDashStyle: [14, 2, 7, 2]},
+        3: {lineWidth: 1, lineDashStyle: [14, 2, 7, 2]},
+      },
     };  
     //var chart = new google.visualization.LineChart(chartDiv);
     //chart.draw(data_C_1, options);
@@ -564,18 +582,30 @@ function plot_412(pairingList){
 ////// Figure 412, plot R-P for LinearFold-C, data saved in data_C_2
     var data_C_2 = new google.visualization.DataTable();
     data_C_2.addColumn('number', 'PPV');
+    data_C_2.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});	// Use custom HTML content for the domain tooltip.
     data_C_2.addColumn('number', 'LinearFold-C');
     data_C_2.addColumn('number', 'CONTRAfold MFE');
     var l;
-    data_C_2.addRow([Math.round(pairingList[2][0]*10000)/100, ,Math.round(pairingList[2][1]*10000)/100]);
+    var label1 = data_C_2.getColumnLabel(2);
+    var label2 = data_C_2.getColumnLabel(3);
+    var xLabel = data_C_2.getColumnLabel(0);
+    var P_tmp = Math.round(pairingList[2][0]*10000)/100;
+    var R_tmp = Math.round(pairingList[2][1]*10000)/100;
+    
+    data_C_2.addRow([P_tmp, createCustomHTMLContent_2(0, label2, xLabel, 'Sensitivity', P_tmp, R_tmp), , R_tmp]);
+
     for (var beam=1; beam<=200; beam=beam+1){
       l = beam * 8 + 2;
-      data_C_2.addRow([Math.round(pairingList[l][0]*10000)/100, Math.round(pairingList[l][1]*10000)/100, null]);
+      P_tmp = Math.round(pairingList[l][0]*10000)/100;
+      R_tmp = Math.round(pairingList[l][1]*10000)/100;
+      data_C_2.addRow([P_tmp, createCustomHTMLContent_2(beam, label1, xLabel, 'Sensitivity', P_tmp, R_tmp), R_tmp, null]);
     }
     
     for (var beam=300; beam<=800; beam=beam+100){
       l = (beam/100+198) * 8 + 2;
-      data_C_2.addRow([Math.round(pairingList[l][0]*10000)/100, Math.round(pairingList[l][1]*10000)/100, null]);
+      P_tmp = Math.round(pairingList[l][0]*10000)/100;
+      R_tmp = Math.round(pairingList[l][1]*10000)/100;
+      data_C_2.addRow([P_tmp, createCustomHTMLContent_2(beam, label1, xLabel, 'Sensitivity', P_tmp, R_tmp), R_tmp, null]);
     }
     
     var options = {
@@ -597,10 +627,11 @@ function plot_412(pairingList){
        		min: min_R_C,
      	},
       },
+      focusTarget: 'category',
+      tooltip: { isHtml: true },
       //series: {
       //  2: {curveType: 'function'}
       //}
-
 
       series: {
         1: {
@@ -811,6 +842,25 @@ function plot_422(pairingList){
 
 
 }
+
+
+function createCustomHTMLContent_2(beam, legendLabel, xLabel, yLabel, P, R) {
+/*	var customedHTML = '<p>' + legendLabel + '<br>' +
+					xLabel + ': <b>' + P +'</b><br>' +
+					yLabel + ': <b>' + R +'</b>';
+	if (beam > 0) customedHTML += '<br>at beam size: <b>' + beam +'</b>';
+	customedHTML += '</p>';
+	return customedHTML;*/
+	var customedHTML = '<p style="font-family:verdana;">&nbsp&nbsp' + legendLabel + '<br>&nbsp&nbsp' +
+					xLabel + ': <b>' + P.toFixed(2) +'%</b>&nbsp&nbsp<br>&nbsp&nbsp' +
+					yLabel + ': <b>' + R.toFixed(2) +'%</b>&nbsp&nbsp';
+	if (beam > 0) customedHTML += '<br>&nbsp&nbspat beam size: <b>' + beam +'</b>&nbsp&nbsp';
+	customedHTML += '<br>';
+	customedHTML += '</p>';
+	return customedHTML;
+}
+
+
 /*
 google.charts.load('current', {packages: ['corechart']});
 google.charts.setOnLoadCallback(drawCurveTypes);
