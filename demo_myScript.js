@@ -4,6 +4,11 @@ var seqNo = "seq01";
 var BeamFromBar = 20;
 var min_P_C, max_P_C, min_R_C, max_R_C; 
 var min_P_V, max_P_V, min_R_V, max_R_V; 
+var slide_highlight_style_P = 'point { size: 7; shape-type: star; shape-dent:0.5 ; shape-sides: 5; fill-color: #6ca1f7; visible:true}';
+var slide_highlight_style_R = 'point { size: 7; shape-type: star; shape-dent:0.5 ; shape-sides: 4; fill-color: #db3232; visible:true}';
+var logView = true;
+
+
 
 function filterSeq(){
 	var series = $("#series").find('option:selected').text(); // stores series
@@ -22,6 +27,7 @@ function comfirmSeq(){
 	//alert(seqNo);
 	document.getElementById("seqShown").innerHTML = seriesNo + "_" + $("#seqNo").find('option:selected').text();//.slice(7);
 	load_go(d=40,R=250,circleScale=50,halfOpen=20);
+	//logView = true;
 	plot_go();
 	
 }
@@ -34,6 +40,7 @@ function change() {
     }
     document.getElementById("beamsize").innerHTML = BeamFromBar;
     load_go(d=40,R=250,circleScale=50,halfOpen=20);
+    plot_go();
     console.log(BeamFromBar);
     //return value;
 }
@@ -424,7 +431,9 @@ function plot_411(pairingList){
     data_C_1_log.addColumn('number', 'Beam');
     //data_C_1_log.addColumn({type: 'string', role: 'domain'});
     data_C_1_log.addColumn('number', 'PPV');
+    data_C_1_log.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
     data_C_1_log.addColumn('number', 'Sensitivity');
+    data_C_1_log.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
     //data_C_1_log.addColumn('number', 'F-score');  
     data_C_1_log.addColumn('number', 'PPV_CONTRAflod');
     data_C_1_log.addColumn('number', 'Sensitivity_CONTRAflod');
@@ -442,11 +451,10 @@ function plot_411(pairingList){
       if (pairingList[l][0] > max_P_C) max_P_C = pairingList[l][0];
       if (pairingList[l][1] < min_R_C) min_R_C = pairingList[l][1];		// pairingList[l][0] is R
       if (pairingList[l][1] > max_R_C) max_R_C = pairingList[l][1];
-      data_C_1_log.addRow([beam, Math.round(pairingList[l][0]*10000)/100, 
-								 Math.round(pairingList[l][1]*10000)/100,
+      data_C_1_log.addRow([beam, Math.round(pairingList[l][0]*10000)/100, ,
+								 Math.round(pairingList[l][1]*10000)/100, ,
 								 Math.round(pairingList[2][0]*10000)/100, 
 								 Math.round(pairingList[2][1]*10000)/100]); 
-                                 //Math.round(pairingList[l][2]*10000)/100]);
     }
     for (beam=300; beam<=800; beam=beam+100){
       l = (beam/100+198) * 8 + 2;  
@@ -454,12 +462,17 @@ function plot_411(pairingList){
       if (pairingList[l][0] > max_P_C) max_P_C = pairingList[l][0];
       if (pairingList[l][1] < min_R_C) min_R_C = pairingList[l][1];		// pairingList[l][0] is R
       if (pairingList[l][1] > max_R_C) max_R_C = pairingList[l][1];      
-      data_C_1_log.addRow([beam, Math.round(pairingList[l][0]*10000)/100, 
-								 Math.round(pairingList[l][1]*10000)/100,
+      data_C_1_log.addRow([beam, Math.round(pairingList[l][0]*10000)/100, ,
+								 Math.round(pairingList[l][1]*10000)/100, ,
 								 Math.round(pairingList[2][0]*10000)/100, 
 								 Math.round(pairingList[2][1]*10000)/100]); 
-                                 //Math.round(pairingList[l][2]*10000)/100]);
     }
+
+// highlight by customizing individual point   
+    var rowIndex = BeamFromBar;
+    if (rowIndex > 200) rowIndex = rowIndex / 100 + 198;
+	data_C_1_log.setValue(rowIndex-1, 2, slide_highlight_style_P);	//[beam, P, style, R, null, P_fix, R_fix],
+	data_C_1_log.setValue(rowIndex-1, 4, slide_highlight_style_R);	//[beam, P, style, R, style, P_fix, R_fix],
 
 // data_C_1_linear is data for linear view, use string as x label      
     var data_C_1_linear = new google.visualization.DataTable();
@@ -514,23 +527,28 @@ function plot_411(pairingList){
         //slantedTextAngle:12,
         scaleType: 'log',
         //gridlines: {count: 40},
-        title: 'Beam size'
+        title: 'Beam size',
       },
+
       vAxis: {
         //gridlines: {count: 4},
         viewWindow: {
           max: Math.max(max_P_C, max_R_C),
           min: Math.min(min_P_C, min_R_C),
         },
-        //minValue: 15,
-        title: 'Performance (%)'            
+        //minValue: Math.min(min_P_C, min_R_C), maxValue: Math.max(max_P_C, max_R_C),
+        title: 'Performance (%)',
       },
       series: {
         2: {lineWidth: 1, lineDashStyle: [14, 2, 7, 2]},
         3: {lineWidth: 1, lineDashStyle: [14, 2, 7, 2]},
           //type: 'scatter'
       },
+      curveType: 'function',
+      pointSize: 0.2,
+      //dataOpacity: 0.3
     };  
+
     var linearOptions = {
       legend:'top',
       title:'Performance VS Beam size (LinearFold-C)',
@@ -563,18 +581,21 @@ function plot_411(pairingList){
     //var chart = new google.visualization.LineChart(chartDiv);
     //chart.draw(data_C_1, options);
     function drawLinearChart() {
+    	logView = false;
 	    var linearChart = new google.visualization.LineChart(chartDiv);
 	    linearChart.draw(data_C_1_linear, linearOptions);
 	    button.innerText = 'Switch to Log Scale View';
 	    button.onclick = drawLogChart;
     }    
 	function drawLogChart() {
+		logView = true;
 	    var LogChart = new google.visualization.LineChart(chartDiv);
 	    LogChart.draw(data_C_1_log, logOptions);
 	    button.innerText = 'Switch to Linear Scale View';
 	    button.onclick = drawLinearChart;
     }    
-    drawLogChart();
+    if (logView) drawLogChart();
+    else drawLinearChart();
 }
 
 
