@@ -594,9 +594,22 @@ function plot_412(pairingList){
        		min: min_R_C,
      	},
       },
+      //series: {
+      //  2: {curveType: 'function'}
+      //}
+
+
       series: {
-        2: {curveType: 'function'}
-      }
+        1: {
+          pointSize: 12,
+          pointShape: {
+            type: 'star',
+            sides: 5,
+            dent: 0.6
+          },
+          type: 'scatter'
+        }
+      },
     };  
     //var chart = new google.visualization.ScatterChart(document.getElementById('chart_div_422'));
     var chart = new google.visualization.LineChart(document.getElementById('chart_div_412'));
@@ -776,8 +789,16 @@ function plot_422(pairingList){
      	},
       },
       series: {
-        1: {curveType: 'function'}
-      }
+        1: {
+          pointSize: 12,
+          pointShape: {
+            type: 'star',
+            sides: 5,
+            dent: 0.6
+          },
+          type: 'scatter'
+        }
+      },
     };  
     //var chart = new google.visualization.ScatterChart(document.getElementById('chart_div_422'));
     var chart = new google.visualization.LineChart(document.getElementById('chart_div_422'));
