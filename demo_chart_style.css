@@ -8,9 +8,9 @@ div.scale_botton_411{
     /*top: 170px;
     left: 1450px;*/
     top: 148px;
-    left: 1560px;
-    /*width: 180px;
-    height: 20px;*/
+    left: 1530px;
+    width: 180px;
+    /*height: 20px;*/
 }
 
 div.scale_botton_421{
@@ -18,23 +18,23 @@ div.scale_botton_421{
     /*top: 800px;
     left: 1450px;*/
     top: 778px;
-    left: 1560px;
-    /*width: 180px;
-    height: 40px;*/
+    left: 1530px;
+    width: 180px;
+    /*height: 40px;*/
 }
 
 
 div.absolute411 {
     position: absolute;
     top: 140px;
-    left: 1150px;
+    left: 1120px;
     width: 700px;
     height: 300px;
 }
 div.absolute412 {
     position: absolute;
     top: 440px;
-    left: 1150px;
+    left: 1120px;
     width: 700px;
     height: 300px;    
 }
@@ -43,14 +43,14 @@ div.absolute412 {
 div.absolute421 {
     position: absolute;
     top: 770px;
-    left: 1150px;
+    left: 1120px;
     width: 700px;
     height: 300px;
 }
 div.absolute422 {
     position: absolute;
     top: 1070px;
-    left: 1150px;
+    left: 1120px;
     width: 700px;
     height: 300px;
 }

@@ -2,10 +2,6 @@ var H_title = 20;
 var seriesNo = "16s";
 var seqNo = "seq01";
 var BeamFromBar = 20;
-var title11 = "CONTRAfold MFE";
-var title21 = "Vienna RNAfold";
-var title12 = "LinearFold-C";
-var title22 = "LinearFold-V";
 var min_P_C, max_P_C, min_R_C, max_R_C; 
 var min_P_V, max_P_V, min_R_V, max_R_V; 
 //var slide_highlight_style_P = 'point { size: 7; shape-type: star; shape-dent:0.5 ; shape-sides: 5; fill-color: #6ca1f7; visible:true}';
@@ -124,10 +120,10 @@ function drawFrame(N,d,R,circleScale,halfOpen=20,half="left"){
 	    //set fill style
 	    ctx.fillStyle = "black";
 	    //fill text at the position (420,40)
-	    ctx.fillText(title11, R-2*d, d-0.5*H_title);	
-	    ctx.fillText(title21, R-2*d, a+a+d+0.5*H_title);	
-	    ctx.fillText(title12, b-2.7*d, d-0.5*H_title);	//Linear CONTRAfold
-	    ctx.fillText(title22, b-2.7*d, a+a+d+0.5*H_title);	//Linear Vienna
+	    ctx.fillText("CONTRAfold MFE", R-2*d, d-0.5*H_title);	
+	    ctx.fillText("Vienna RNAfold", R-2*d, a+a+d+0.5*H_title);	
+	    ctx.fillText("LinearFold-C", b-2.7*d, d-0.5*H_title);	//Linear CONTRAfold
+	    ctx.fillText("LinearFold-V", b-2.7*d, a+a+d+0.5*H_title);	//Linear Vienna
 	}
 
 	if (half == "left"){
@@ -435,17 +431,17 @@ function plot_411(pairingList){
     var button = document.getElementById('change_chart_411');
     var chartDiv = document.getElementById('chart_div_411')
  
-// data_C_1 is data ready for log or linear view, to be transfered later
-    var data_C_1 = new google.visualization.DataTable();
-    data_C_1.addColumn('number', 'Beam');
-    //data_C_1.addColumn({type: 'string', role: 'domain'});
-    data_C_1.addColumn('number', 'PPV');
-    data_C_1.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
-    data_C_1.addColumn('number', 'Sensitivity');
-    data_C_1.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
-    //data_C_1.addColumn('number', 'F-score');  
-    data_C_1.addColumn('number', 'PPV_'+title11);
-    data_C_1.addColumn('number', 'Sensitivity_'+title11);
+// data_C_1_log is data for log view, use number as x label       
+    var data_C_1_log = new google.visualization.DataTable();
+    data_C_1_log.addColumn('number', 'Beam');
+    //data_C_1_log.addColumn({type: 'string', role: 'domain'});
+    data_C_1_log.addColumn('number', 'PPV');
+    data_C_1_log.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
+    data_C_1_log.addColumn('number', 'Sensitivity');
+    data_C_1_log.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
+    //data_C_1_log.addColumn('number', 'F-score');  
+    data_C_1_log.addColumn('number', 'PPV_CONTRAflod');
+    data_C_1_log.addColumn('number', 'Sensitivity_CONTRAflod');
 
     var l, beam = 1;
     min_P_C = 100;
@@ -453,16 +449,16 @@ function plot_411(pairingList){
     min_R_C = 100;
     max_R_C = 0; 
    
-    for (beam=1; beam<=200; beam+=1){
+    for (beam=1; beam<=200; beam=beam+1){
       l = beam * 8 + 2;
       if (pairingList[l][0] < min_P_C) min_P_C = pairingList[l][0];		// pairingList[l][0] is P
       if (pairingList[l][0] > max_P_C) max_P_C = pairingList[l][0];
       if (pairingList[l][1] < min_R_C) min_R_C = pairingList[l][1];		// pairingList[l][0] is R
       if (pairingList[l][1] > max_R_C) max_R_C = pairingList[l][1];
-      data_C_1.addRow([beam, Math.round(pairingList[l][0]*10000)/100, ,
-							 Math.round(pairingList[l][1]*10000)/100, ,
-							 Math.round(pairingList[2][0]*10000)/100, 
-							 Math.round(pairingList[2][1]*10000)/100]); 
+      data_C_1_log.addRow([beam, Math.round(pairingList[l][0]*10000)/100, ,
+								 Math.round(pairingList[l][1]*10000)/100, ,
+								 Math.round(pairingList[2][0]*10000)/100, 
+								 Math.round(pairingList[2][1]*10000)/100]); 
     }
     for (beam=300; beam<=800; beam=beam+100){
       l = (beam/100+198) * 8 + 2;  
@@ -470,17 +466,46 @@ function plot_411(pairingList){
       if (pairingList[l][0] > max_P_C) max_P_C = pairingList[l][0];
       if (pairingList[l][1] < min_R_C) min_R_C = pairingList[l][1];		// pairingList[l][0] is R
       if (pairingList[l][1] > max_R_C) max_R_C = pairingList[l][1];      
-      data_C_1.addRow([beam, Math.round(pairingList[l][0]*10000)/100, ,
-							 Math.round(pairingList[l][1]*10000)/100, ,
-							 Math.round(pairingList[2][0]*10000)/100, 
-							 Math.round(pairingList[2][1]*10000)/100]); 
+      data_C_1_log.addRow([beam, Math.round(pairingList[l][0]*10000)/100, ,
+								 Math.round(pairingList[l][1]*10000)/100, ,
+								 Math.round(pairingList[2][0]*10000)/100, 
+								 Math.round(pairingList[2][1]*10000)/100]); 
     }
 
 	// highlight by customizing individual point   
     var rowIndex = BeamFromBar;
     if (rowIndex > 200) rowIndex = rowIndex / 100 + 198;
-	data_C_1.setValue(rowIndex-1, 2, slide_highlight_style_P);	//[beam, P, style, R, null, P_fix, R_fix],
-	data_C_1.setValue(rowIndex-1, 4, slide_highlight_style_R);	//[beam, P, style, R, style, P_fix, R_fix],
+	data_C_1_log.setValue(rowIndex-1, 2, slide_highlight_style_P);	//[beam, P, style, R, null, P_fix, R_fix],
+	data_C_1_log.setValue(rowIndex-1, 4, slide_highlight_style_R);	//[beam, P, style, R, style, P_fix, R_fix],
+
+
+// data_C_1_linear is data for linear view, use string as x label      
+    var data_C_1_linear = new google.visualization.DataTable();
+    data_C_1_linear.addColumn('string', 'Beam');
+    data_C_1_linear.addColumn('number', 'PPV');
+    data_C_1_linear.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
+    data_C_1_linear.addColumn('number', 'Sensitivity');
+    data_C_1_linear.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
+    data_C_1_linear.addColumn('number', 'PPV_CONTRAflod');
+    data_C_1_linear.addColumn('number', 'Sensitivity_CONTRAflod');
+
+    for (beam=1; beam<=200; beam=beam+1){
+      l = beam * 8 + 2;
+      data_C_1_linear.addRow([''+beam, Math.round(pairingList[l][0]*10000)/100, ,
+                                       Math.round(pairingList[l][1]*10000)/100, ,
+									   Math.round(pairingList[2][0]*10000)/100, 
+									   Math.round(pairingList[2][1]*10000)/100]); 
+    }
+    for (beam=300; beam<=800; beam=beam+20){
+      l = (Math.round(beam/100)+198) * 8 + 2;  
+      data_C_1_linear.addRow([''+beam, Math.round(pairingList[l][0]*10000)/100, ,
+                                       Math.round(pairingList[l][1]*10000)/100, ,
+									   Math.round(pairingList[2][0]*10000)/100, 
+									   Math.round(pairingList[2][1]*10000)/100]);
+    }
+	// highlight by customizing individual point
+	data_C_1_linear.setValue(rowIndex-1, 2, slide_highlight_style_P);	//[beam, P, style, R, null, P_fix, R_fix],
+	data_C_1_linear.setValue(rowIndex-1, 4, slide_highlight_style_R);	//[beam, P, style, R, style, P_fix, R_fix],
 
 	//var max_tmp = max_P_C, min_tmp = min_P_C;
     min_P_C = 5 * Math.floor(min_P_C*100/5);
@@ -505,6 +530,8 @@ function plot_411(pairingList){
       backgroundColor: { fill:'transparent' },
       //'is3D':true,
       hAxis: {
+        //slantedText:true,
+        //slantedTextAngle:12,
         scaleType: 'log',
         //gridlines: {count: 40},
         title: 'Beam size (log scale view)',
@@ -534,12 +561,15 @@ function plot_411(pairingList){
       title:'Performance VS Beam size (LinearFold-C)',
       focusTarget: 'category',
       backgroundColor: { fill:'transparent' },
+      //'is3D':true,
       hAxis: {
-        //slantedText:true,
-        //slantedTextAngle:9,
-        //gridlines: {count: 2},
-        title: 'Beam size (linear scale view)',
-        //ticks: [{v:1, f:'1'}, {v:100, f:'100'}, {v:200, f:'200'}, {v:500, f:'500'}, {v:206, f:'800'}],//[1, 100, 200, 500, 800]        
+        slantedText:true,
+        slantedTextAngle:9,
+        gridlines: {count: 2},
+        title: 'Beam size (linear scale view)'            
+        //ticks:['1','3','5','7'],
+        //ticks: [{v:'1', f:'1'}, {v:'100', f:'100'}, {v:'200', f:'200'}, {v:'500', f:'500'}, {v:'800', f:'800'}],//, 100, 200, 202, 204, 206]
+        //ticks: [1,50,100,150,200,{v:203, f:'500'},{v:206, f:'800'}],
       },
       vAxis: {
         //gridlines: {count: 5},
@@ -547,6 +577,7 @@ function plot_411(pairingList){
           max: Math.max(max_P_C, max_R_C),
           min: Math.min(min_P_C, min_R_C),
         },
+        //minValue: 15,
         title: 'Performance (%)'            
       },
       series: {
@@ -556,37 +587,21 @@ function plot_411(pairingList){
       //pointSize: 0.1,
       //dataOpacity: 0.6
     };  
-/*
-// data_C_1_log is data for log view, use number as x label   
-	function to_data_log(data){	// x from [1,2,3,...,200,201,...,206] to [1,2,3,..,200,300,400,..,800]
-		for (var i = 201; i <= 206; i++){
-			data.setValue(i-1,0,(i-200)*100+200);
-		}
-		return data;
-	}
-// data_C_1_linear is data for linear view, use string as x label      
-	function to_data_linear(data){	// x from [1,2,3,..,200,300,400,..,800] to [1,2,3,...,200,201,...,206]
-		for (var i = 201; i <= 206; i++){
-			data.setValue(i-1,0,i);
-		}
-		return data;
-	}
-*/
     //var chart = new google.visualization.LineChart(chartDiv);
     //chart.draw(data_C_1, options);
-	function drawLogChart() {
-		logView1 = true;
-	    var LogChart = new google.visualization.LineChart(chartDiv);
-	    LogChart.draw(data_C_1, logOptions);
-	    button.innerText = 'Switch to Linear Scale View';
-	    button.onclick = drawLinearChart;
-    }    
     function drawLinearChart() {
     	logView1 = false;
 	    var linearChart = new google.visualization.LineChart(chartDiv);
-	    linearChart.draw(data_C_1, linearOptions);
+	    linearChart.draw(data_C_1_linear, linearOptions);
 	    button.innerText = 'Switch to Log Scale View';
 	    button.onclick = drawLogChart;
+    }    
+	function drawLogChart() {
+		logView1 = true;
+	    var LogChart = new google.visualization.LineChart(chartDiv);
+	    LogChart.draw(data_C_1_log, logOptions);
+	    button.innerText = 'Switch to Linear Scale View';
+	    button.onclick = drawLinearChart;
     }    
     if (logView1) drawLogChart();
     else drawLinearChart();
@@ -598,27 +613,30 @@ function plot_412(pairingList){
     var data_C_2 = new google.visualization.DataTable();
     data_C_2.addColumn('number', 'PPV');
     data_C_2.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});	// Use custom HTML content for the domain tooltip.
-    data_C_2.addColumn('number', title12);
+    data_C_2.addColumn('number', 'LinearFold-C');
     data_C_2.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
-    data_C_2.addColumn('number', title11);
+    data_C_2.addColumn('number', 'CONTRAfold MFE');
     var l;
+    var label1 = data_C_2.getColumnLabel(2);
+    var label2 = data_C_2.getColumnLabel(4);
+    var xLabel = data_C_2.getColumnLabel(0);
     var P_tmp = Math.round(pairingList[2][0]*10000)/100;
     var R_tmp = Math.round(pairingList[2][1]*10000)/100;
     
-    data_C_2.addRow([P_tmp, createCustomHTMLContent_2(0, title11, P_tmp, R_tmp), , , R_tmp]);	// row for fixed R-P(CONTRAfold MFE)
+    data_C_2.addRow([P_tmp, createCustomHTMLContent_2(0, label2, xLabel, 'Sensitivity', P_tmp, R_tmp), , , R_tmp]);	// row for fixed R-P(CONTRAfold MFE)
 
     for (var beam=1; beam<=200; beam=beam+1){
       l = beam * 8 + 2;
       P_tmp = Math.round(pairingList[l][0]*10000)/100;
       R_tmp = Math.round(pairingList[l][1]*10000)/100;
-      data_C_2.addRow([P_tmp, createCustomHTMLContent_2(beam, title12, P_tmp, R_tmp), R_tmp, , null]);
+      data_C_2.addRow([P_tmp, createCustomHTMLContent_2(beam, label1, xLabel, 'Sensitivity', P_tmp, R_tmp), R_tmp, , null]);
     }
     
     for (var beam=300; beam<=800; beam=beam+100){
       l = (beam/100+198) * 8 + 2;
       P_tmp = Math.round(pairingList[l][0]*10000)/100;
       R_tmp = Math.round(pairingList[l][1]*10000)/100;
-      data_C_2.addRow([P_tmp, createCustomHTMLContent_2(beam, title12, P_tmp, R_tmp), R_tmp, , null]);
+      data_C_2.addRow([P_tmp, createCustomHTMLContent_2(beam, label1, xLabel, 'Sensitivity', P_tmp, R_tmp), R_tmp, , null]);
     }
 
     // highlight by customizing individual point   
@@ -687,8 +705,8 @@ function plot_421(pairingList){
     data_V_1_log.addColumn('number', 'Sensitivity');
     data_V_1_log.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
     //data_V_1_log.addColumn('number', 'F-score');  
-    data_V_1_log.addColumn('number', 'PPV_'+title21);
-    data_V_1_log.addColumn('number', 'Sensitivity_'+title21);
+    data_V_1_log.addColumn('number', 'PPV_Vienna');
+    data_V_1_log.addColumn('number', 'Sensitivity_Vienna');
 
     var l, beam = 1;
     min_P_V = 100;
@@ -733,8 +751,8 @@ function plot_421(pairingList){
     data_V_1_linear.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
     data_V_1_linear.addColumn('number', 'Sensitivity');
     data_V_1_linear.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
-    data_V_1_linear.addColumn('number', 'PPV_'+title21);
-    data_V_1_linear.addColumn('number', 'Sensitivity_'+title21);
+    data_V_1_linear.addColumn('number', 'PPV_Vienna');
+    data_V_1_linear.addColumn('number', 'Sensitivity_Vienna');
 
     for (beam=1; beam<=200; beam=beam+1){
       l = beam * 8 + 6;
@@ -845,27 +863,30 @@ function plot_422(pairingList){
     var data_V_2 = new google.visualization.DataTable();
     data_V_2.addColumn('number', 'PPV');
     data_V_2.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});	// Use custom HTML content for the domain tooltip.
-    data_V_2.addColumn('number', title22);
+    data_V_2.addColumn('number', 'LinearFold-V');
     data_V_2.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
-    data_V_2.addColumn('number', title21);
+    data_V_2.addColumn('number', 'Vienna RNAfold');
     var l;
+    var label1 = data_V_2.getColumnLabel(2);
+    var label2 = data_V_2.getColumnLabel(4);
+    var xLabel = data_V_2.getColumnLabel(0);
     var P_tmp = Math.round(pairingList[6][0]*10000)/100;
     var R_tmp = Math.round(pairingList[6][1]*10000)/100;
     
-    data_V_2.addRow([P_tmp, createCustomHTMLContent_2(0, title21, P_tmp, R_tmp), , , R_tmp]);	// row for fixed R-P(Vienna RNAfold)
+    data_V_2.addRow([P_tmp, createCustomHTMLContent_2(0, label2, xLabel, 'Sensitivity', P_tmp, R_tmp), , , R_tmp]);	// row for fixed R-P(CONTRAfold MFE)
 
     for (var beam=1; beam<=200; beam=beam+1){
       l = beam * 8 + 6;
       P_tmp = Math.round(pairingList[l][0]*10000)/100;
       R_tmp = Math.round(pairingList[l][1]*10000)/100;
-      data_V_2.addRow([P_tmp, createCustomHTMLContent_2(beam, title22, P_tmp, R_tmp), R_tmp, , null]);
+      data_V_2.addRow([P_tmp, createCustomHTMLContent_2(beam, label1, xLabel, 'Sensitivity', P_tmp, R_tmp), R_tmp, , null]);
     }
     
     for (var beam=300; beam<=800; beam=beam+100){
       l = (beam/100+198) * 8 + 6;
       P_tmp = Math.round(pairingList[l][0]*10000)/100;
       R_tmp = Math.round(pairingList[l][1]*10000)/100;
-      data_V_2.addRow([P_tmp, createCustomHTMLContent_2(beam, title22, P_tmp, R_tmp), R_tmp, , null]);
+      data_V_2.addRow([P_tmp, createCustomHTMLContent_2(beam, label1, xLabel, 'Sensitivity', P_tmp, R_tmp), R_tmp, , null]);
     }
 
     // highlight by customizing individual point   
@@ -920,7 +941,7 @@ function plot_422(pairingList){
 }
 
 
-function createCustomHTMLContent_2(beam, legendLabel, P, R) {
+function createCustomHTMLContent_2(beam, legendLabel, xLabel, yLabel, P, R) {
 /*	var customedHTML = '<p>' + legendLabel + '<br>' +
 					xLabel + ': <b>' + P +'</b><br>' +
 					yLabel + ': <b>' + R +'</b>';
@@ -928,8 +949,8 @@ function createCustomHTMLContent_2(beam, legendLabel, P, R) {
 	customedHTML += '</p>';
 	return customedHTML;*/
 	var customedHTML = '<p style="font-family:verdana;">&nbsp&nbsp' + legendLabel + '<br>&nbsp&nbsp' +
-					'PPV: <b>' + P.toFixed(2) +'%</b>&nbsp&nbsp<br>&nbsp&nbsp' +
-					'Sensitivity: <b>' + R.toFixed(2) +'%</b>&nbsp&nbsp';
+					xLabel + ': <b>' + P.toFixed(2) +'%</b>&nbsp&nbsp<br>&nbsp&nbsp' +
+					yLabel + ': <b>' + R.toFixed(2) +'%</b>&nbsp&nbsp';
 	if (beam > 0) customedHTML += '<br>&nbsp&nbspat beam size: <b>' + beam +'</b>&nbsp&nbsp';
 	customedHTML += '<br>';
 	customedHTML += '</p>';
