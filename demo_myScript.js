@@ -438,6 +438,174 @@ function plot_411(pairingList){
 // data_C_1 is data ready for log or linear view, to be transfered later
     var data_C_1 = new google.visualization.DataTable();
     data_C_1.addColumn('number', 'Beam');
+    data_C_1.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}});	// Use custom HTML content for the domain tooltip.
+    data_C_1.addColumn('number', 'PPV');
+    data_C_1.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
+    data_C_1.addColumn('number', 'Sensitivity');
+    data_C_1.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
+    //data_C_1.addColumn('number', 'F-score');  
+    data_C_1.addColumn('number', 'PPV_'+title11);
+    data_C_1.addColumn('number', 'Sensitivity_'+title11);
+
+    var l, beam = 1;
+    min_P_C = pairingList[2][0]; //100;
+    max_P_C = pairingList[2][0]; //0;
+    min_R_C = pairingList[2][1]; //100;
+    max_R_C = pairingList[2][1]; //0;
+
+	var P_fix = Math.round(pairingList[2][0]*10000)/100;
+	var R_fix = Math.round(pairingList[2][1]*10000)/100;   
+	var P, R;
+
+    for (beam=1; beam<=200; beam+=1){
+      l = beam * 8 + 2;
+	  if (pairingList[l][0] < min_P_C) min_P_C = pairingList[l][0];		// pairingList[l][0] is P
+	  if (pairingList[l][0] > max_P_C) max_P_C = pairingList[l][0];
+	  if (pairingList[l][1] < min_R_C) min_R_C = pairingList[l][1];		// pairingList[l][0] is R
+	  if (pairingList[l][1] > max_R_C) max_R_C = pairingList[l][1];
+	  P = Math.round(pairingList[l][0]*10000)/100;
+	  R = Math.round(pairingList[l][1]*10000)/100;
+	  data_C_1.addRow([beam, createCustomHTMLContent_1(beam, data_C_1.getColumnLabel(2), data_C_1.getColumnLabel(4), data_C_1.getColumnLabel(6), data_C_1.getColumnLabel(7), P, R, P_fix, R_fix), 
+							 P, , R, , P_fix, R_fix]);
+    }
+    for (beam=300; beam<=800; beam=beam+100){
+      l = (beam/100+198) * 8 + 2;  
+	  if (pairingList[l][0] < min_P_C) min_P_C = pairingList[l][0];		// pairingList[l][0] is P
+	  if (pairingList[l][0] > max_P_C) max_P_C = pairingList[l][0];
+	  if (pairingList[l][1] < min_R_C) min_R_C = pairingList[l][1];		// pairingList[l][0] is R
+	  if (pairingList[l][1] > max_R_C) max_R_C = pairingList[l][1];      
+	  P = Math.round(pairingList[l][0]*10000)/100;
+	  R = Math.round(pairingList[l][1]*10000)/100;
+	  data_C_1.addRow([beam, createCustomHTMLContent_1(beam, data_C_1.getColumnLabel(2), data_C_1.getColumnLabel(4), data_C_1.getColumnLabel(6), data_C_1.getColumnLabel(7), P, R, P_fix, R_fix), 
+							 P, , R, , P_fix, R_fix]);
+    }
+
+	// highlight by customizing individual point   
+    var rowIndex = BeamFromBar;
+    if (rowIndex > 200) rowIndex = rowIndex / 100 + 198;
+	data_C_1.setValue(rowIndex-1, 3, slide_highlight_style_P);	//[beam, P, style, R, null, P_fix, R_fix],
+	data_C_1.setValue(rowIndex-1, 5, slide_highlight_style_R);	//[beam, P, style, R, style, P_fix, R_fix],
+
+	//var max_tmp = max_P_C, min_tmp = min_P_C;
+    min_P_C = 5 * Math.floor(min_P_C*100/5);
+    max_P_C = 5 * Math.ceil(max_P_C*100/5);
+//    if ((max_P_C - min_P_C) % 10 != 0){
+//  	if (max_P_C - max_tmp < min_tmp - min_P_C) min_P_C -= 5;
+//    	else max_P_C += 5;
+//    }
+//    max_tmp = max_R_C, min_tmp = min_R_C;
+    min_R_C = 5 * Math.floor(min_R_C*100/5);
+    max_R_C = 5 * Math.ceil(max_R_C*100/5);
+//    if ((max_R_C - min_R_C) % 10 != 0){
+//    	if (max_R_C - max_tmp < min_tmp - min_R_C) min_R_C -= 5;
+//    	else max_R_C += 5;
+//    }    
+
+    var logOptions = {
+      legend:'top',
+      title:'Performance VS Beam size (LinearFold-C)',
+      focusTarget: 'category',
+      tooltip: { isHtml: true },
+      backgroundColor: { fill:'transparent' },
+      //'is3D':true,
+      hAxis: {
+        scaleType: 'log',
+        //gridlines: {count: 40},
+        title: 'Beam size (log scale view)',
+      },
+
+      vAxis: {
+        //gridlines: {count: 4},
+        viewWindow: {
+          max: Math.max(max_P_C, max_R_C),
+          min: Math.min(min_P_C, min_R_C),
+        },
+        //minValue: Math.min(min_P_C, min_R_C), maxValue: Math.max(max_P_C, max_R_C),
+        title: 'Performance (%)',
+      },
+      series: {
+        2: {lineWidth: 1, lineDashStyle: [8, 10]},
+        3: {lineWidth: 1, lineDashStyle: [8, 10]},
+          //type: 'scatter'
+      },
+      curveType: 'function',
+      //pointSize: 0.1,
+      //dataOpacity: 0.6
+    };  
+
+    var linearOptions = {
+      legend:'top',
+      title:'Performance VS Beam size (LinearFold-C)',
+      focusTarget: 'category',
+      tooltip: { isHtml: true },
+      backgroundColor: { fill:'transparent' },
+      hAxis: {
+        //slantedText:true,
+        //slantedTextAngle:9,
+        //gridlines: {count: 2},
+        title: 'Beam size (linear scale view)',
+        //ticks: [{v:1, f:'1'}, {v:100, f:'100'}, {v:200, f:'200'}, {v:500, f:'500'}, {v:206, f:'800'}],//[1, 100, 200, 500, 800]        
+      },
+      vAxis: {
+        //gridlines: {count: 5},
+        viewWindow: {
+          max: Math.max(max_P_C, max_R_C),
+          min: Math.min(min_P_C, min_R_C),
+        },
+        title: 'Performance (%)'            
+      },
+      series: {
+        2: {lineWidth: 1, lineDashStyle: [8, 10]},
+        3: {lineWidth: 1, lineDashStyle: [8, 10]},
+      },
+      //pointSize: 0.1,
+      //dataOpacity: 0.6
+    };  
+/////////////
+// data_C_1_log is data for log view, use number as x label   
+	function to_data_log(data){	// x from [1,2,3,...,200,201,...,206] to [1,2,3,..,200,300,400,..,800]
+		for (var i = 201; i <= 206; i++){
+			data.setValue(i-1,0,(i-200)*100+200);
+		}
+		return data;
+	}
+// data_C_1_linear is data for linear view, use string as x label      
+	function to_data_linear(data){	// x from [1,2,3,..,200,300,400,..,800] to [1,2,3,...,200,201,...,206]
+		for (var i = 201; i <= 206; i++){
+			data.setValue(i-1,0,i);
+		}
+		return data;
+	}
+////////////
+    //var chart = new google.visualization.LineChart(chartDiv);
+    //chart.draw(data_C_1, options);
+	function drawLogChart() {
+		logView1 = true;
+	    var LogChart = new google.visualization.LineChart(chartDiv);
+	    LogChart.draw(data_C_1, logOptions);
+	    button.innerText = 'Switch to Linear Scale View';
+	    button.onclick = drawLinearChart;
+    }    
+    function drawLinearChart() {
+    	logView1 = false;
+	    var linearChart = new google.visualization.LineChart(chartDiv);
+	    linearChart.draw(data_C_1, linearOptions);
+	    button.innerText = 'Switch to Log Scale View';
+	    button.onclick = drawLogChart;
+    }    
+    if (logView1) drawLogChart();
+    else drawLinearChart();
+}
+
+/*
+function plot_411(pairingList){
+////// Figure 411, plot P/R-beam for LinearFold-C, data saved in data_C_1_log or data_C_1_linear, used in log/linear view
+    var button = document.getElementById('change_chart_411');
+    var chartDiv = document.getElementById('chart_div_411')
+ 
+// data_C_1 is data ready for log or linear view, to be transfered later
+    var data_C_1 = new google.visualization.DataTable();
+    data_C_1.addColumn('number', 'Beam');
     //data_C_1.addColumn({type: 'string', role: 'domain'});
     data_C_1.addColumn('number', 'PPV');
     data_C_1.addColumn({'type': 'string', 'role': 'style'});	//Customizing individual points
@@ -448,10 +616,10 @@ function plot_411(pairingList){
     data_C_1.addColumn('number', 'Sensitivity_'+title11);
 
     var l, beam = 1;
-    min_P_C = 100;
-    max_P_C = 0;
-    min_R_C = 100;
-    max_R_C = 0; 
+    min_P_C = pairingList[2][0]; //100;
+    max_P_C = pairingList[2][0]; //0;
+    min_R_C = pairingList[2][1]; //100;
+    max_R_C = pairingList[2][1]; //0;
    
     for (beam=1; beam<=200; beam+=1){
       l = beam * 8 + 2;
@@ -485,19 +653,18 @@ function plot_411(pairingList){
 	//var max_tmp = max_P_C, min_tmp = min_P_C;
     min_P_C = 5 * Math.floor(min_P_C*100/5);
     max_P_C = 5 * Math.ceil(max_P_C*100/5);
-/*    if ((max_P_C - min_P_C) % 10 != 0){
-    	if (max_P_C - max_tmp < min_tmp - min_P_C) min_P_C -= 5;
-    	else max_P_C += 5;
-    }
-*/
-    //max_tmp = max_R_C, min_tmp = min_R_C;
+//    if ((max_P_C - min_P_C) % 10 != 0){
+//  	if (max_P_C - max_tmp < min_tmp - min_P_C) min_P_C -= 5;
+//    	else max_P_C += 5;
+//    }
+//    max_tmp = max_R_C, min_tmp = min_R_C;
     min_R_C = 5 * Math.floor(min_R_C*100/5);
     max_R_C = 5 * Math.ceil(max_R_C*100/5);
-/*    if ((max_R_C - min_R_C) % 10 != 0){
-    	if (max_R_C - max_tmp < min_tmp - min_R_C) min_R_C -= 5;
-    	else max_R_C += 5;
-    }    
-*/
+//    if ((max_R_C - min_R_C) % 10 != 0){
+//    	if (max_R_C - max_tmp < min_tmp - min_R_C) min_R_C -= 5;
+//    	else max_R_C += 5;
+//    }    
+
     var logOptions = {
       legend:'top',
       title:'Performance VS Beam size (LinearFold-C)',
@@ -556,7 +723,7 @@ function plot_411(pairingList){
       //pointSize: 0.1,
       //dataOpacity: 0.6
     };  
-/*
+/////////////
 // data_C_1_log is data for log view, use number as x label   
 	function to_data_log(data){	// x from [1,2,3,...,200,201,...,206] to [1,2,3,..,200,300,400,..,800]
 		for (var i = 201; i <= 206; i++){
@@ -571,7 +738,7 @@ function plot_411(pairingList){
 		}
 		return data;
 	}
-*/
+////////////
     //var chart = new google.visualization.LineChart(chartDiv);
     //chart.draw(data_C_1, options);
 	function drawLogChart() {
@@ -591,7 +758,7 @@ function plot_411(pairingList){
     if (logView1) drawLogChart();
     else drawLinearChart();
 }
-
+*/
 
 function plot_412(pairingList){
 ////// Figure 412, plot R-P for LinearFold-C, data saved in data_C_2
@@ -919,6 +1086,14 @@ function plot_422(pairingList){
 
 }
 
+function createCustomHTMLContent_1(beam, label1, label2, label3, label4, P, R, P_fix, R_fix) {
+	return '<p style="font-family:verdana;">&nbsp&nbsp' + 
+					'Beam size: <b>' + beam +'</b>&nbsp&nbsp<br>&nbsp&nbsp' +
+					'<span style="color:#1560d8;font-size:100%;">■</span> ' + label1 + ': <b>' + P.toFixed(2) +'%</b>&nbsp&nbsp<br>&nbsp&nbsp' +
+					'<span style="color:#d62728;font-size:100%;">■</span> ' + label2 + ': <b>' + R.toFixed(2) +'%</b>&nbsp&nbsp<br>&nbsp&nbsp' +
+					'<span style="color:#ff7f0e;font-size:100%;">■</span> ' + label3 + ': <b>' + P_fix.toFixed(2) +'%</b>&nbsp&nbsp<br>&nbsp&nbsp' +
+					'<span style="color:#2ca02c;font-size:100%;">■</span> ' + label4 + ': <b>' + R_fix.toFixed(2) +'%</b>&nbsp&nbsp<br></p>';					
+}
 
 function createCustomHTMLContent_2(beam, legendLabel, P, R) {
 /*	var customedHTML = '<p>' + legendLabel + '<br>' +
