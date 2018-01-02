@@ -1,6 +1,6 @@
 var H_title = 20;
 var seriesNo = "16s";
-var seqNo = "seq01";
+var seqNo = "seq00";
 var BeamFromBar = 20;
 var title11 = "CONTRAfold MFE";
 var title21 = "Vienna RNAfold";
@@ -32,11 +32,9 @@ function comfirmSeq(){
 	seqNo = "seq" + $("#seqNo").find('option:selected').val();//.slice(-2);
 	//alert(seqNo);
 	document.getElementById("seqShown").innerHTML = seriesNo + "_" + $("#seqNo").find('option:selected').text();//.slice(7);
-
-	load_go(d=40,R=250,circleScale=50,halfOpen=20);
 	logView1 = true;
 	logView2 = true;
-	plot_go();	
+	fillPage_go(d=40,R=250,circleScale=50,halfOpen=20);
 }
 
 //change beam slidebar to tune beam size and draw
@@ -48,15 +46,20 @@ function change() {
     }    
     document.getElementById("beamsize").innerHTML = BeamFromBar;
     
-    load_go(d=40,R=250,circleScale=50,halfOpen=20);
-	plot_go();
-    console.log(BeamFromBar);
+    fillPage_go(d=40,R=250,circleScale=50,halfOpen=20);
+    //console.log(BeamFromBar);
     //return value;
 }
 
 
+function fillPage_go(d,R,circleScale,halfOpen=20){
+	fillSeqText();									// fill sequence and pairing structures at bottom of page
+	google.charts.load('current', {packages: ['corechart']});
+	//google.charts.setOnLoadCallback(load_draw_go(d,R,circleScale,halfOpen));  	// draw graphs and plots on the right
+	google.charts.setOnLoadCallback(function(){load_draw_go(d,R,circleScale,halfOpen)});  	// draw graphs and plots on the right
+}
 
-function load_go(d,R,circleScale,halfOpen=20) {
+function fillSeqText(){
 	var seqFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/rearranged_results/combine_"+seriesNo+"."+seqNo;
     $.get(seqFile, function(data,status) {
     	var lines = data.split("\n");
@@ -70,25 +73,20 @@ function load_go(d,R,circleScale,halfOpen=20) {
 		}
 		document.getElementById("lcf").innerHTML = lines[beamline];
 		document.getElementById("lvn").innerHTML = lines[beamline+4];
-    });
+    });	
+}
 
-
+function load_draw_go(d,R,circleScale,halfOpen=20) {
 	var pairingFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
-	/*
-	var seqNo = document.getElementById("beamslidebar").value;
-	if (seqNo < 10){
-		pairingFile = pairingFile + "0";
-	}
-	pairingFile = pairingFile + seqNo.toString(); 
-	*/
-    $.getJSON(pairingFile, function(data,status) {
-        /*
-        list_all = $.extend(true, [], data.pairing);
-        list_all = data.pairing.slice();
-        list_all = JSON.parse(JSON.stringify(data));
-        */
-        /*alert("length of seq: " + tmp + "\n状态: " + status);	*/
+	console.log('beam size: '+BeamFromBar+', file read: '+seriesNo+"_"+seqNo);
+	$.getJSON(pairingFile, function(data,status) {
+		draw_graphs(data.pairing, d,R,circleScale,halfOpen);
+		draw_plots(data.pairing);
+	});
+}
 
+
+function draw_graphs(pairingList, d,R,circleScale,halfOpen=20) {
 		var canvas = document.getElementById("myCanvas");
 		//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
 		if(canvas.getContext)
@@ -97,13 +95,12 @@ function load_go(d,R,circleScale,halfOpen=20) {
     		var ctx = canvas.getContext("2d");  
     		ctx.clearRect(1, 1, 1199, 1199);
     	}
-		drawFrame(data.pairing[0],d,R,circleScale,halfOpen,half="left");
-        fillCircles(data.pairing,d,R,circleScale,halfOpen,0,half="left");
+		drawFrame(pairingList[0],d,R,circleScale,halfOpen,half="left");
+        fillCircles(pairingList,d,R,circleScale,halfOpen,0,half="left");
 
         //var beamsize = 100;
-        drawFrame(data.pairing[0],d,R,circleScale,halfOpen,half="right");
-        fillCircles(data.pairing,d,R,circleScale,halfOpen,BeamFromBar,half="right");
-    });
+        drawFrame(pairingList[0],d,R,circleScale,halfOpen,half="right");
+        fillCircles(pairingList,d,R,circleScale,halfOpen,BeamFromBar,half="right");
 }
 
 
@@ -344,88 +341,18 @@ function drawArc(n1,n2,N,x0,y0,R,color,halfOpen=20){
     };
 };
 
-/*
-
-	var arc = true;
-	var r;
-	var deltaAlpha = alpha2-alpha1;
-	if (Math.abs(deltaAlpha-Math.PI) < 1.86e-3) 	//1.86e-3 is the angle threshold of adjacent points in a sequence of 3000
-	{
-		arc = false;
-		//deltaAlpha = Math.PI + 3.41e-4;
-	} else
-	{
-		r = R * Math.abs(Math.tan((deltaAlpha)/2));	
-	}
-		
-
-	//get canvas object
-	var canvas = document.getElementById("myCanvas");
-	//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
-	if(canvas.getContext)
-	{  
-    	//get corresponding CanvasRenderingContext2D object(pen)
-    	var ctx = canvas.getContext("2d");  
-
-		ctx.beginPath();
-		ctx.moveTo(p1.x, p1.y);				//assign the start position of drawing
-		if (arc)
-		{
-			ctx.arcTo(x0, y0, p2.x, p2.y, r);	//draw an arc of radius r, tangent with 2 sides consisted by p1 to (x0,y0) to p2.
-    	
-		}else
-		{
-			ctx.lineTo(p2.x,p2.y);
-		}
-    	ctx.strokeStyle = color;			//set arc to red
-    	ctx.stroke();
-    }
-*/
-
-/*
-	var deltaAlpha = alpha2-alpha1;
-	if (Math.abs(deltaAlpha-Math.PI) < 1.86e-3) 	//1.86e-3 is the angle threshold of adjacent points
-	{
-		deltaAlpha = Math.PI + 3.41e-4;
-	}
-	var r = R*Math.abs(Math.tan((deltaAlpha)/2));
-
-	//get canvas object
-	var canvas = document.getElementById("myCanvas");
-	//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
-	if(canvas.getContext)
-	{  
-    	//get corresponding CanvasRenderingContext2D object(pen)
-    	var ctx = canvas.getContext("2d");  
-
-		ctx.beginPath();
-		ctx.moveTo(p1.x, p1.y);				//assign the start position of drawing
-    	ctx.arcTo(x0, y0, p2.x, p2.y, r);	//draw an arc of radius r, tangent with 2 sides consisted by p1 to (x0,y0) to p2.
-    	ctx.strokeStyle = color;			//set arc to red
-    	ctx.stroke();
-    }
-*/
 
 
 
-
-function plot_go(){
-  google.charts.load('current', {packages: ['corechart']});
-  google.charts.setOnLoadCallback(plot_4);  
-}
-
-function plot_4() {
-	var pairingFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
-	$.getJSON(pairingFile, function(data,status) {
-  		////// Figure 411, plot P/R-beam for LinearFold-C, data saved in data_C_1_log or data_C_1_linear, used in log/linear view
-		plot_411(data.pairing);
-		////// Figure 412, plot R-P for LinearFold-C, data saved in data_C_2
-		plot_412(data.pairing);
-		////// Figure 421, plot P/R-beam for LinearFold-V, data saved in data_V_1_log or data_V_1_linear, used in log/linear view
-		plot_421(data.pairing);
-		////// Figure 422, plot R-P for LinearFold-V, data saved in data_V_2
-		plot_422(data.pairing);  
-	});
+function draw_plots(pairingList){
+	////// Figure 411, plot P/R-beam for LinearFold-C, data saved in data_C_1_log or data_C_1_linear, used in log/linear view
+	plot_411(pairingList);
+	////// Figure 412, plot R-P for LinearFold-C, data saved in data_C_2
+	plot_412(pairingList);
+	////// Figure 421, plot P/R-beam for LinearFold-V, data saved in data_V_1_log or data_V_1_linear, used in log/linear view
+	plot_421(pairingList);
+	////// Figure 422, plot R-P for LinearFold-V, data saved in data_V_2
+	plot_422(pairingList);
 }
 
 
@@ -433,8 +360,9 @@ function plot_4() {
 function plot_411(pairingList){
 ////// Figure 411, plot P/R-beam for LinearFold-C, data saved in data_C_1_log or data_C_1_linear, used in log/linear view
     var button = document.getElementById('change_chart_411');
-    var chartDiv = document.getElementById('chart_div_411')
- 
+    var chartDiv = document.getElementById('chart_div_411');
+ 	console.log('plot data generated');
+
 // data_C_1 is data ready for log or linear view, to be transfered later
     var data_C_1 = new google.visualization.DataTable();
     data_C_1.addColumn('number', 'Beam');
@@ -601,7 +529,7 @@ function plot_411(pairingList){
 function plot_411(pairingList){
 ////// Figure 411, plot P/R-beam for LinearFold-C, data saved in data_C_1_log or data_C_1_linear, used in log/linear view
     var button = document.getElementById('change_chart_411');
-    var chartDiv = document.getElementById('chart_div_411')
+    var chartDiv = document.getElementById('chart_div_411');
  
 // data_C_1 is data ready for log or linear view, to be transfered later
     var data_C_1 = new google.visualization.DataTable();
@@ -760,6 +688,7 @@ function plot_411(pairingList){
 }
 */
 
+
 function plot_412(pairingList){
 ////// Figure 412, plot R-P for LinearFold-C, data saved in data_C_2
     var data_C_2 = new google.visualization.DataTable();
@@ -815,10 +744,6 @@ function plot_412(pairingList){
       },
       focusTarget: 'category',
       tooltip: { isHtml: true },
-      //series: {
-      //  2: {curveType: 'function'}
-      //}
-
       series: {
         1: {
           pointSize: 12,
@@ -830,15 +755,15 @@ function plot_412(pairingList){
           type: 'scatter'
         }
       },
-      pointSize: 0.1,
+      //pointSize: 0.1,
       //dataOpacity: 0.6      
     };  
     //var chart = new google.visualization.ScatterChart(document.getElementById('chart_div_412'));
     var chart = new google.visualization.LineChart(document.getElementById('chart_div_412'));
     chart.draw(data_C_2, options);
-
-
 }
+
+
 
 function plot_421(pairingList){
 ////// Figure 421, plot P/R-beam for LinearFold-V, data saved in data_V_1_log or data_V_1_linear, used in log/linear view
@@ -954,7 +879,7 @@ function plot_421(pairingList){
           //type: 'scatter'
       },
       curveType: 'function',
-      pointSize: 0.1,
+      //pointSize: 0.1,
       //dataOpacity: 0.6
     };  
 
@@ -983,7 +908,7 @@ function plot_421(pairingList){
         2: {lineWidth: 1, lineDashStyle: [8, 10]},
         3: {lineWidth: 1, lineDashStyle: [8, 10]},
       },
-      pointSize: 0.1,
+      //pointSize: 0.1,
       //dataOpacity: 0.6
     };  
     //var chart = new google.visualization.LineChart(chartDiv);
