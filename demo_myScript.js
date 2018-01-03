@@ -531,7 +531,6 @@ function plot_411(pairingList){
     if (logView1) drawLogChart();
     else drawLinearChart();
 
-    //var thisChart;
     // The select handler. Call the chart's getSelection() method
 	function selectHandler() {
     	var selectedItem = thisChart.getSelection()[0];
@@ -544,10 +543,8 @@ function plot_411(pairingList){
     	}
   	}
 
-
 	// Listen for the 'select' event, and call my function selectHandler() when the user selects something on the chart.
 	google.visualization.events.addListener(thisChart, 'select', selectHandler);
-	//google.visualization.events.addListener(thisChart2, 'select', selectHandler2);
 }
 
 /*
@@ -786,6 +783,26 @@ function plot_412(pairingList){
     //var chart = new google.visualization.ScatterChart(document.getElementById('chart_div_412'));
     var chart = new google.visualization.LineChart(document.getElementById('chart_div_412'));
     chart.draw(data_C_2, options);
+
+
+
+
+
+    // The select handler. Call the chart's getSelection() method
+	function selectHandler() {
+    	var selectedItem = chart.getSelection()[0];
+    	if (selectedItem) {
+    	if (selectedItem.row == 0) return;
+      	//var value = data.getValue(selectedItem.row, selectedItem.column);
+      	BeamFromBar = selectedItem.row;		  							// 1-206, need to be converted to 1-200,300,400,500,600,700,800
+      	document.getElementById("beamslidebar").value = BeamFromBar;	// update the position on beam size slide bar
+      	if (BeamFromBar > 200) BeamFromBar = (BeamFromBar - 200) * 100 + 200;      	
+      	change('   (selected from chart)');
+    	}
+  	}
+
+	// Listen for the 'select' event, and call my function selectHandler() when the user selects something on the chart.
+	google.visualization.events.addListener(chart, 'select', selectHandler);    
 }
 
 
@@ -936,6 +953,9 @@ function plot_421(pairingList){
       //pointSize: 0.1,
       //dataOpacity: 0.6
     };  
+
+
+    var thisChart;
     //var chart = new google.visualization.LineChart(chartDiv);
     //chart.draw(data_V_1, options);
     function drawLinearChart() {
@@ -944,16 +964,34 @@ function plot_421(pairingList){
 	    linearChart.draw(data_V_1_linear, linearOptions);
 	    button.innerText = 'Switch to Log Scale View';
 	    button.onclick = drawLogChart;
+	    thisChart = linearChart;
     }    
 	function drawLogChart() {
 		logView2 = true;
-	    var LogChart = new google.visualization.LineChart(chartDiv);
-	    LogChart.draw(data_V_1_log, logOptions);
+	    var logChart = new google.visualization.LineChart(chartDiv);
+	    logChart.draw(data_V_1_log, logOptions);
 	    button.innerText = 'Switch to Linear Scale View';
 	    button.onclick = drawLinearChart;
+	    thisChart = logChart;
     }    
     if (logView2) drawLogChart();
     else drawLinearChart();
+
+
+    // The select handler. Call the chart's getSelection() method
+	function selectHandler() {
+    	var selectedItem = thisChart.getSelection()[0];
+    	if (selectedItem) {
+      	//var value = data.getValue(selectedItem.row, selectedItem.column);
+      	BeamFromBar = selectedItem.row + 1;  							// 1-206, need to be converted to 1-200,300,400,500,600,700,800
+      	document.getElementById("beamslidebar").value = BeamFromBar;	// update the position on beam size slide bar
+      	if (BeamFromBar > 200) BeamFromBar = (BeamFromBar - 200) * 100 + 200;      	
+      	change('   (selected from chart)');
+    	}
+  	}
+
+	// Listen for the 'select' event, and call my function selectHandler() when the user selects something on the chart.
+	google.visualization.events.addListener(thisChart, 'select', selectHandler);
 }
 
 
@@ -1027,12 +1065,29 @@ function plot_422(pairingList){
           type: 'scatter'
         }
       },
-      pointSize: 0.1,
+      //pointSize: 0.1,
       //dataOpacity: 0.6      
     };  
     //var chart = new google.visualization.ScatterChart(document.getElementById('chart_div_422'));
     var chart = new google.visualization.LineChart(document.getElementById('chart_div_422'));
     chart.draw(data_V_2, options);
+
+
+    // The select handler. Call the chart's getSelection() method
+	function selectHandler() {
+    	var selectedItem = chart.getSelection()[0];
+    	if (selectedItem) {
+    	if (selectedItem.row == 0) return;
+      	//var value = data.getValue(selectedItem.row, selectedItem.column);
+      	BeamFromBar = selectedItem.row;		  							// 1-206, need to be converted to 1-200,300,400,500,600,700,800
+      	document.getElementById("beamslidebar").value = BeamFromBar;	// update the position on beam size slide bar
+      	if (BeamFromBar > 200) BeamFromBar = (BeamFromBar - 200) * 100 + 200;      	
+      	change('   (selected from chart)');
+    	}
+  	}
+
+	// Listen for the 'select' event, and call my function selectHandler() when the user selects something on the chart.
+	google.visualization.events.addListener(chart, 'select', selectHandler);     
 
 }
 
