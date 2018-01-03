@@ -6,9 +6,10 @@ span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word 
 div.scale_botton_411{
     position: absolute;
     /*top: 170px;
-    left: 1450px;*/
+    left: 1450px;
+    top: 80%;*/
     top: 148px;
-    left: 1530px;
+    left: 1520px;
     width: 380px;
     /*height: 20px;*/
 }
@@ -18,7 +19,7 @@ div.scale_botton_421{
     /*top: 800px;
     left: 1450px;*/
     top: 778px;
-    left: 1530px;
+    left: 1520px;
     width: 380px;
     /*height: 40px;*/
 }
