@@ -1,6 +1,6 @@
 var H_title = 20;
 var seriesNo = "16s";
-var seqNo = "seq00";
+var seqNo = "seq01";
 var BeamFromBar = 20;
 var title11 = "CONTRAfold MFE";
 var title21 = "Vienna RNAfold";
@@ -12,7 +12,9 @@ var min_P_V, max_P_V, min_R_V, max_R_V;
 var slide_highlight_style_P = 'point { size: 5; shape-type: circle; fill-color:#013ea0; visible:true}';
 var slide_highlight_style_R = 'point { size: 5; shape-type: circle; fill-color:#bf0f0f; visible:true}';
 var logView1 = true;
- var logView2 = true;
+var logView2 = true;
+var pairingList=[1,2,3];
+var seqList;
 
 
 function filterSeq(){
@@ -21,7 +23,7 @@ function filterSeq(){
 	var toMove = $("#seqNo").children("[data-c1!='"+series+"']"); // selects seqNo elements to move out
 	toMove.appendTo("#option-container"); // moves seqNo elements in #option-container
 	$("#seqNo").removeAttr("disabled"); // enables select
-	
+	//var seqNo = $("#seqNo").find('option:selected').text();
 	//document.getElementById("seqShown").innerHTML = series + "-" + seqNo;
 	comfirmSeq();
 }
@@ -31,10 +33,41 @@ function comfirmSeq(){
 	seqNo = "seq" + $("#seqNo").find('option:selected').val();//.slice(-2);
 	//alert(seqNo);
 	document.getElementById("seqShown").innerHTML = seriesNo + "_" + $("#seqNo").find('option:selected').text();//.slice(7);
+	loadFiles_go();
+	loadFiles_go();
+	console.log(seqNo+','+pairingList[0]);
 	logView1 = true;
 	logView2 = true;
-	fillPage_go(d=40,R=250,circleScale=50,halfOpen=20);
+	//fillPage_go(d=40,R=250,circleScale=50,halfOpen=20);
 }
+
+
+
+
+function loadFiles_go(){
+	var pairingFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
+	//console.log('beam size: '+BeamFromBar+', file read: '+seriesNo+"_"+seqNo);
+	$.getJSON(pairingFile, function(data,status) {
+		pairingList = data.pairing;
+		console.log(seqNo+',in getJSON,'+pairingList[0]);
+	});
+
+	var seqFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/rearranged_results/combine_"+seriesNo+"."+seqNo;
+	$.get(seqFile, function(data,status) {
+		seqList = data.split("\n");
+	});
+	console.log(seqNo+',in loadFiles_go,'+pairingList[0]);
+}
+
+
+function fillPage_go(d,R,circleScale,halfOpen=20){
+	draw_graphs(d,R,circleScale,halfOpen);			// draw graphs on the left
+	google.charts.load('current', {packages: ['corechart']});
+	google.charts.setOnLoadCallback(draw_plots);  	// draw plots on the right
+	//google.charts.setOnLoadCallback(function(){load_draw_go(d,R,circleScale,halfOpen)});  	// draw graphs and plots on the right
+	fillSeqText();									// fill sequence and pairing structures at bottom of page
+}
+
 
 //change beam slidebar to tune beam size and draw
 function change() {
@@ -44,13 +77,12 @@ function change() {
     	BeamFromBar = (BeamFromBar - 200)*100 + 200;
     }    
     document.getElementById("beamsize").innerHTML = BeamFromBar;
-    
-    fillPage_go(d=40,R=250,circleScale=50,halfOpen=20);
+  ////fillPage_go(d=40,R=250,circleScale=50,halfOpen=20);
     //console.log(BeamFromBar);
     //return value;
 }
 
-
+/*
 function fillPage_go(d,R,circleScale,halfOpen=20){
 	fillSeqText();									// fill sequence and pairing structures at bottom of page
 	google.charts.load('current', {packages: ['corechart']});
@@ -62,6 +94,7 @@ function fillSeqText(){
 	var seqFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/rearranged_results/combine_"+seriesNo+"."+seqNo;
     $.get(seqFile, function(data,status) {
     	var lines = data.split("\n");
+		//document.getElementById("seqName").innerText = lines[1];
 		document.getElementById("seqName").innerHTML = lines[1];
 		document.getElementById("ref").innerHTML = lines[3];
 		document.getElementById("cf").innerHTML = lines[5];
@@ -79,27 +112,29 @@ function load_draw_go(d,R,circleScale,halfOpen=20) {
 	var pairingFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
 	console.log('beam size: '+BeamFromBar+', file read: '+seriesNo+"_"+seqNo);
 	$.getJSON(pairingFile, function(data,status) {
+		pairingList = data.pairing;
 		draw_graphs(data.pairing, d,R,circleScale,halfOpen);
 		draw_plots(data.pairing);
 	});
 }
+*/
 
-
-function draw_graphs(pairingList, d,R,circleScale,halfOpen=20) {
+function draw_graphs(d,R,circleScale,halfOpen=20) {
+	//console.log(''+data_00[2]);
 		var canvas = document.getElementById("myCanvas");
 		//check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
 		if(canvas.getContext)
 		{  
-    		//get corresponding CanvasRenderingContext2D object(pen)
-    		var ctx = canvas.getContext("2d");  
-    		ctx.clearRect(1, 1, 1199, 1199);
-    	}
+			//get corresponding CanvasRenderingContext2D object(pen)
+			var ctx = canvas.getContext("2d");  
+			ctx.clearRect(1, 1, 1199, 1199);
+		}
 		drawFrame(pairingList[0],d,R,circleScale,halfOpen,half="left");
-        fillCircles(pairingList,d,R,circleScale,halfOpen,0,half="left");
+		fillCircles(d,R,circleScale,halfOpen,0,half="left");
 
-        //var beamsize = 100;
-        drawFrame(pairingList[0],d,R,circleScale,halfOpen,half="right");
-        fillCircles(pairingList,d,R,circleScale,halfOpen,BeamFromBar,half="right");
+		//var beamsize = 100;
+		drawFrame(pairingList[0],d,R,circleScale,halfOpen,half="right");
+		fillCircles(d,R,circleScale,halfOpen,BeamFromBar,half="right");
 }
 
 
@@ -343,20 +378,20 @@ function drawArc(n1,n2,N,x0,y0,R,color,halfOpen=20){
 
 
 
-function draw_plots(pairingList){
+function draw_plots(){
 	////// Figure 411, plot P/R-beam for LinearFold-C, data saved in data_C_1_log or data_C_1_linear, used in log/linear view
-	plot_411(pairingList);
+	plot_411();
 	////// Figure 412, plot R-P for LinearFold-C, data saved in data_C_2
-	plot_412(pairingList);
+	plot_412();
 	////// Figure 421, plot P/R-beam for LinearFold-V, data saved in data_V_1_log or data_V_1_linear, used in log/linear view
-	plot_421(pairingList);
+	plot_421();
 	////// Figure 422, plot R-P for LinearFold-V, data saved in data_V_2
-	plot_422(pairingList);
+	plot_422();
 }
 
 
 
-function plot_411(pairingList){
+function plot_411(){
 ////// Figure 411, plot P/R-beam for LinearFold-C, data saved in data_C_1_log or data_C_1_linear, used in log/linear view
     var button = document.getElementById('change_chart_411');
     var chartDiv = document.getElementById('chart_div_411');
@@ -510,14 +545,14 @@ function plot_411(pairingList){
 		logView1 = true;
 	    var LogChart = new google.visualization.LineChart(chartDiv);
 	    LogChart.draw(data_C_1, logOptions);
-	    button.innerText = 'Switch to Linear Scale View';
+	    button.innerText = 'Switch to Linear Scale';
 	    button.onclick = drawLinearChart;
     }    
     function drawLinearChart() {
     	logView1 = false;
 	    var linearChart = new google.visualization.LineChart(chartDiv);
 	    linearChart.draw(data_C_1, linearOptions);
-	    button.innerText = 'Switch to Log Scale View';
+	    button.innerText = 'Switch to Log Scale';
 	    button.onclick = drawLogChart;
     }    
     if (logView1) drawLogChart();
@@ -525,7 +560,7 @@ function plot_411(pairingList){
 }
 
 /*
-function plot_411(pairingList){
+function plot_411(){
 ////// Figure 411, plot P/R-beam for LinearFold-C, data saved in data_C_1_log or data_C_1_linear, used in log/linear view
     var button = document.getElementById('change_chart_411');
     var chartDiv = document.getElementById('chart_div_411');
@@ -688,7 +723,7 @@ function plot_411(pairingList){
 */
 
 
-function plot_412(pairingList){
+function plot_412(){
 ////// Figure 412, plot R-P for LinearFold-C, data saved in data_C_2
     var data_C_2 = new google.visualization.DataTable();
     data_C_2.addColumn('number', 'PPV');
@@ -764,7 +799,7 @@ function plot_412(pairingList){
 
 
 
-function plot_421(pairingList){
+function plot_421(){
 ////// Figure 421, plot P/R-beam for LinearFold-V, data saved in data_V_1_log or data_V_1_linear, used in log/linear view
     var button = document.getElementById('change_chart_421');
     var chartDiv = document.getElementById('chart_div_421')
@@ -916,14 +951,14 @@ function plot_421(pairingList){
     	logView2 = false;
 	    var linearChart = new google.visualization.LineChart(chartDiv);
 	    linearChart.draw(data_V_1_linear, linearOptions);
-	    button.innerText = 'Switch to Log Scale View';
+	    button.innerText = 'Switch to Log Scale';
 	    button.onclick = drawLogChart;
     }    
 	function drawLogChart() {
 		logView2 = true;
 	    var LogChart = new google.visualization.LineChart(chartDiv);
 	    LogChart.draw(data_V_1_log, logOptions);
-	    button.innerText = 'Switch to Linear Scale View';
+	    button.innerText = 'Switch to Linear Scale';
 	    button.onclick = drawLinearChart;
     }    
     if (logView2) drawLogChart();
@@ -931,7 +966,7 @@ function plot_421(pairingList){
 }
 
 
-function plot_422(pairingList){
+function plot_422(){
 ////// Figure 422, plot R-P for LinearFold-V, data saved in data_V_2
     var data_V_2 = new google.visualization.DataTable();
     data_V_2.addColumn('number', 'PPV');
@@ -1036,47 +1071,17 @@ function createCustomHTMLContent_2(beam, legendLabel, P, R) {
 }
 
 
-/*
-google.charts.load('current', {packages: ['corechart']});
-google.charts.setOnLoadCallback(drawCurveTypes);
 
-function drawCurveTypes() {
-      var data_C_1 = new google.visualization.DataTable();
-      data_C_1_linear.addColumn('number', 'Beam');
-      data_C_1_linear.addColumn('number', 'P');
-      data_C_1_linear.addColumn('number', 'R');
-      data_C_1_linear.addColumn('number', 'F');
-
-      data_C_1_linear.addRows([
-        [0, 0, 0,30],    [1, 10, 5,30],   [2, 23, 15,30],  [3, 17, 9,30],   [4, 18, 10,30],  [5, 9, 5,30],
-        [6, 11, 3,30],   [7, 27, 19,30],  [8, 33, 25,30],  [9, 40, 32,30],  [10, 32, 24,30], [11, 35, 27,30],
-        [12, 30, 22,30], [13, 40, 32,30], [14, 42, 34,30], [15, 47, 39,30], [16, 44, 36,30], [17, 48, 40,30],
-        [18, 52, 44,30], [19, 54, 46,30], [20, 42, 34,30], [21, 55, 47,30], [22, 56, 48,30], [23, 57, 49,30],
-        [24, 60, 52,30], [25, 50, 42,30], [26, 52, 44,30], [27, 51, 43,30], [28, 49, 41,30], [29, 53, 45,30],
-        [30, 55, 47,30], [31, 60, 52,30], [32, 61, 53,30], [33, 59, 51,30], [34, 62, 54,30], [35, 65, 57,30],
-        [36, 62, 54,30], [37, 58, 50,30], [38, 55, 47,30], [39, 61, 53,30], [40, 64, 56,30], [41, 65, 57,30],
-        [42, 63, 55,30], [43, 66, 58,30], [44, 67, 59,30], [45, 69, 61,30], [46, 69, 61,30], [47, 70, 62,30],
-        [48, 72, 64,30], [49, 68, 60,30], [50, 66, 58,30], [51, 65, 57,30], [52, 67, 59,30], [53, 70, 62,30],
-        [54, 71, 63,30], [55, 72, 64,30], [56, 73, 65,30], [57, 75, 67,30], [58, 70, 62,30], [59, 68, 60,30],
-        [60, 64, 56,30], [61, 60, 52,30], [62, 65, 57,30], [63, 67, 59,30], [64, 68, 60,30], [65, 69, 61,30],
-        [66, 70, 62,30], [67, 72, 64,30], [68, 75, 67,30], [69, 80, 72,30]
-      ]);
-
-      var options = {
-        hAxis: {
-          title: 'Beam size'
-        },
-        vAxis: {
-          title: 'Performance'
-        },
-        series: {
-          1: {curveType: 'function'}
-        }
-      };
-
-      var chart = new google.visualization.ScatterChart(document.getElementById('chart_div'));
-      chart.draw(data_C_1, options);
-    }
-
-*/
+function fillSeqText(){
+	document.getElementById("seqName").innerHTML = seqList[1];
+	document.getElementById("ref").innerHTML = seqList[3];
+	document.getElementById("cf").innerHTML = seqList[5];
+	document.getElementById("vn").innerHTML = seqList[7];
+	var beamline = 8*BeamFromBar + 3;
+	if (BeamFromBar > 200){
+		beamline = 8*(BeamFromBar/100+198) + 3;
+	}
+	document.getElementById("lcf").innerHTML = seqList[beamline];
+	document.getElementById("lvn").innerHTML = seqList[beamline+4];
+}
 
