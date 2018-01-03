@@ -48,15 +48,15 @@ function tempBeam(){
 
 
 //change beam slidebar to tune beam size and draw
-function change() {
-	document.getElementById("slidebarHint").innerHTML = '';
+function change(hint) {
+	document.getElementById("beamsize").innerHTML = BeamFromBar;
+	document.getElementById("slidebarHint").innerHTML = hint;
+	console.log('Beam size: ' + BeamFromBar);
     fillPage_go(d=40,R=250,circleScale=50,halfOpen=20);
-    //console.log(BeamFromBar);
-    //return value;
 }
 
 
-function fillPage_go(d,R,circleScale,halfOpen=20){
+function fillPage_go(d=40,R=250,circleScale=50,halfOpen=20){
 	fillSeqText();									// fill sequence and pairing structures at bottom of page
 	google.charts.load('current', {packages: ['corechart']});
 	//google.charts.setOnLoadCallback(load_draw_go(d,R,circleScale,halfOpen));  	// draw graphs and plots on the right
@@ -82,7 +82,7 @@ function fillSeqText(){
 
 function load_draw_go(d,R,circleScale,halfOpen=20) {
 	var pairingFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
-	console.log('beam size: '+BeamFromBar+', file read: '+seriesNo+"_"+seqNo);
+	//console.log('beam size: '+BeamFromBar+', file read: '+seriesNo+"_"+seqNo);
 	$.getJSON(pairingFile, function(data,status) {
 		draw_graphs(data.pairing, d,R,circleScale,halfOpen);
 		draw_plots(data.pairing);
@@ -365,7 +365,7 @@ function plot_411(pairingList){
 ////// Figure 411, plot P/R-beam for LinearFold-C, data saved in data_C_1_log or data_C_1_linear, used in log/linear view
     var button = document.getElementById('change_chart_411');
     var chartDiv = document.getElementById('chart_div_411');
- 	console.log('plot data generated');
+ 	//console.log('plot data generated');
 
 // data_C_1 is data ready for log or linear view, to be transfered later
     var data_C_1 = new google.visualization.DataTable();
@@ -493,7 +493,7 @@ function plot_411(pairingList){
       //pointSize: 0.1,
       //dataOpacity: 0.6
     };  
-/////////////
+/*////////////
 // data_C_1_log is data for log view, use number as x label   
 	function to_data_log(data){	// x from [1,2,3,...,200,201,...,206] to [1,2,3,..,200,300,400,..,800]
 		for (var i = 201; i <= 206; i++){
@@ -508,15 +508,17 @@ function plot_411(pairingList){
 		}
 		return data;
 	}
-////////////
-    //var chart = new google.visualization.LineChart(chartDiv);
+///////////*/
+	//var chart = new google.visualization.LineChart(chartDiv);
     //chart.draw(data_C_1, options);
+    var thisChart;
 	function drawLogChart() {
 		logView1 = true;
-	    var LogChart = new google.visualization.LineChart(chartDiv);
-	    LogChart.draw(data_C_1, logOptions);
+	    var logChart = new google.visualization.LineChart(chartDiv);
+	    logChart.draw(data_C_1, logOptions);
 	    button.innerText = 'Switch to Linear Scale View';
 	    button.onclick = drawLinearChart;
+	    thisChart = logChart;
     }    
     function drawLinearChart() {
     	logView1 = false;
@@ -524,9 +526,29 @@ function plot_411(pairingList){
 	    linearChart.draw(data_C_1, linearOptions);
 	    button.innerText = 'Switch to Log Scale View';
 	    button.onclick = drawLogChart;
+	    thisChart = linearChart;	    
     }    
     if (logView1) drawLogChart();
     else drawLinearChart();
+
+    //var thisChart;
+    // The select handler. Call the chart's getSelection() method
+	function selectHandler() {
+    	var selectedItem = thisChart.getSelection()[0];
+    	if (selectedItem) {
+      	//var value = data.getValue(selectedItem.row, selectedItem.column);
+      	BeamFromBar = selectedItem.row + 1;  							// 1-206, need to be converted to 1-200,300,400,500,600,700,800
+      	document.getElementById("beamslidebar").value = BeamFromBar;	// update the position on beam size slide bar
+      	if (BeamFromBar > 200) BeamFromBar = (BeamFromBar - 200) * 100 + 200;      	
+      	change('   (selected from chart)');
+    	}
+  	}
+
+
+	// Listen for the 'select' event, and call my function selectHandler() when
+	// the user selects something on the chart.
+	google.visualization.events.addListener(thisChart, 'select', selectHandler);
+	//google.visualization.events.addListener(thisChart2, 'select', selectHandler2);
 }
 
 /*
@@ -1017,11 +1039,12 @@ function plot_422(pairingList){
 
 function createCustomHTMLContent_1(beam, label1, label2, label3, label4, P, R, P_fix, R_fix) {
 	return '<p style="font-family:verdana;">&nbsp&nbsp' + 
-					'Beam size: <b>' + beam +'</b>&nbsp&nbsp<br>&nbsp&nbsp' +
-					'<span style="color:#1560d8;font-size:100%;">■</span> ' + label1 + ': <b>' + P.toFixed(2) +'%</b>&nbsp&nbsp<br>&nbsp&nbsp' +
-					'<span style="color:#d62728;font-size:100%;">■</span> ' + label2 + ': <b>' + R.toFixed(2) +'%</b>&nbsp&nbsp<br>&nbsp&nbsp' +
-					'<span style="color:#ff7f0e;font-size:100%;">■</span> ' + label3 + ': <b>' + P_fix.toFixed(2) +'%</b>&nbsp&nbsp<br>&nbsp&nbsp' +
-					'<span style="color:#2ca02c;font-size:100%;">■</span> ' + label4 + ': <b>' + R_fix.toFixed(2) +'%</b>&nbsp&nbsp<br></p>';					
+					'Beam size: <span style="color:red;"><b>' + beam +'</b></span>&nbsp&nbsp<br>&nbsp&nbsp' +
+					'<span style="color:#1560d8;font-size:60%;">█</span> ' + label1 + ': <b>' + P.toFixed(2) +'%</b>&nbsp&nbsp<br>&nbsp&nbsp' +
+					'<span style="color:#d62728;font-size:60%;">█</span> ' + label2 + ': <b>' + R.toFixed(2) +'%</b>&nbsp&nbsp<br>&nbsp&nbsp' +
+					'<span style="color:#ff7f0e;font-size:60%;">█</span> ' + label3 + ': <b>' + P_fix.toFixed(2) +'%</b>&nbsp&nbsp<br>&nbsp&nbsp' +
+					'<span style="color:#2ca02c;font-size:60%;">█</span> ' + label4 + ': <b>' + R_fix.toFixed(2) +'%</b>&nbsp&nbsp<br></p>';
+					//160% ■, or 60% █
 }
 
 function createCustomHTMLContent_2(beam, legendLabel, P, R) {
@@ -1034,7 +1057,7 @@ function createCustomHTMLContent_2(beam, legendLabel, P, R) {
 	var customedHTML = '<p style="font-family:verdana;">&nbsp&nbsp' + legendLabel + '<br>&nbsp&nbsp' +
 					'PPV: <b>' + P.toFixed(2) +'%</b>&nbsp&nbsp<br>&nbsp&nbsp' +
 					'Sensitivity: <b>' + R.toFixed(2) +'%</b>&nbsp&nbsp';
-	if (beam > 0) customedHTML += '<br>&nbsp&nbspat beam size: <b>' + beam +'</b>&nbsp&nbsp';
+	if (beam > 0) customedHTML += '<br>&nbsp&nbspat beam size: <span style="color:red;"><b>' + beam +'</b></span>&nbsp&nbsp';
 	customedHTML += '<br>';
 	customedHTML += '</p>';
 	return customedHTML;
