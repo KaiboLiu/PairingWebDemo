@@ -36,15 +36,20 @@ function comfirmSeq(){
 	fillPage_go(d=40,R=250,circleScale=50,halfOpen=20);
 }
 
-//change beam slidebar to tune beam size and draw
-function change() {
+function tempBeam(){
     BeamFromBar = document.getElementById("beamslidebar").value;	// this is a string, instead of number...
     BeamFromBar = Number(BeamFromBar);
     if (BeamFromBar > 200){
     	BeamFromBar = (BeamFromBar - 200)*100 + 200;
     }    
-    document.getElementById("beamsize").innerHTML = BeamFromBar;
-    
+    document.getElementById("beamsize").innerHTML = BeamFromBar
+    document.getElementById("slidebarHint").innerHTML = '   (release mouse to confirm)';
+}
+
+
+//change beam slidebar to tune beam size and draw
+function change() {
+	document.getElementById("slidebarHint").innerHTML = '';
     fillPage_go(d=40,R=250,circleScale=50,halfOpen=20);
     //console.log(BeamFromBar);
     //return value;

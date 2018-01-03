@@ -16,7 +16,7 @@
 -->
 
 
-<p id="demo">Welcome! This is a demo for RNA pairing. <small>(Just choose the sequence you want starting from 'select'. <b>Anytime</b> you can slide the value of <b>beamsize</b>(1-200 by step 1, 200-800 by step 100) or select <b>another</b> sequence anytime <b>without</b> clicking "draw". Mouse hover on charts will display values. Enjoy!) </small> </p>
+<p id="demo">Welcome! This is a demo for RNA pairing. <small>(Just choose the sequence you want starting from 'select'. <b>Anytime</b> you can slide the value of <b>beamsize</b>(1-200 by step 1, 200-800 by step 100) or select <b>another</b> sequence. Mouse hover on charts will display values. Enjoy!) </small> </p>
 
 
 <select class="select" id="series" onchange="filterSeq()">
@@ -66,7 +66,7 @@
 <p>Sequence to be demostrated: <span id="seqShown" style="color:red;font-size:130%;">16s_seq00: Z.mays (len:1490)</span></p>
 <p>Slide to adjust the beam size: 
 	&nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp
-	<input id="beamslidebar" type="range" list="beammarks" min="1" max="206" value="20" onchange="change()"/>&nbsp 800&nbsp&nbsp:  &nbsp&nbsp <span id="beamsize" style="color:red;font-size:140%;">20</span></p>
+	<input id="beamslidebar" type="range" list="beammarks" min="1" max="206" value="20" oninput="tempBeam()" onchange="change()"/>&nbsp 800&nbsp&nbsp:  &nbsp&nbsp <span id="beamsize" style="color:red;font-size:140%;">20</span><span id="slidebarHint"></span></p>
   <!--onchange="change()" oninput="change()"/ -->
 
 <datalist id="beammarks">
