@@ -545,8 +545,7 @@ function plot_411(pairingList){
   	}
 
 
-	// Listen for the 'select' event, and call my function selectHandler() when
-	// the user selects something on the chart.
+	// Listen for the 'select' event, and call my function selectHandler() when the user selects something on the chart.
 	google.visualization.events.addListener(thisChart, 'select', selectHandler);
 	//google.visualization.events.addListener(thisChart2, 'select', selectHandler2);
 }
