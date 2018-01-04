@@ -82,7 +82,7 @@ function fillSeqText(){
 }
 
 function load_draw_go(d,R,circleScale,halfOpen=20) {
-	//var pairingFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
+	//var pairingFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/demo_pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
 	var pairingFile = "./demo_data/demo_pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
 	//console.log('beam size: '+BeamFromBar+', file read: '+seriesNo+"_"+seqNo);
 	$.getJSON(pairingFile, function(data,status) {
@@ -518,7 +518,7 @@ function plot_411(pairingList){
 		logView1 = true;
 	    var logChart = new google.visualization.LineChart(chartDiv);
 	    logChart.draw(data_C_1, logOptions);
-	    button.innerText = 'Switch to Linear Scale View';
+	    button.innerText = 'Switch to Linear Scale';
 	    button.onclick = drawLinearChart;
 	    thisChart = logChart;
     }    
@@ -526,7 +526,7 @@ function plot_411(pairingList){
     	logView1 = false;
 	    var linearChart = new google.visualization.LineChart(chartDiv);
 	    linearChart.draw(data_C_1, linearOptions);
-	    button.innerText = 'Switch to Log Scale View';
+	    button.innerText = 'Switch to Log Scale';
 	    button.onclick = drawLogChart;
 	    thisChart = linearChart;	    
     }    
@@ -964,7 +964,7 @@ function plot_421(pairingList){
     	logView2 = false;
 	    var linearChart = new google.visualization.LineChart(chartDiv);
 	    linearChart.draw(data_V_1_linear, linearOptions);
-	    button.innerText = 'Switch to Log Scale View';
+	    button.innerText = 'Switch to Log Scale';
 	    button.onclick = drawLogChart;
 	    thisChart = linearChart;
     }    
@@ -972,7 +972,7 @@ function plot_421(pairingList){
 		logView2 = true;
 	    var logChart = new google.visualization.LineChart(chartDiv);
 	    logChart.draw(data_V_1_log, logOptions);
-	    button.innerText = 'Switch to Linear Scale View';
+	    button.innerText = 'Switch to Linear Scale';
 	    button.onclick = drawLinearChart;
 	    thisChart = logChart;
     }    
