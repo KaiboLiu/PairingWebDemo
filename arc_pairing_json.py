@@ -65,9 +65,9 @@ def LoadSave(RNAtype,seqNo):
     #RNAtype = "16s"
     #seqNo = 5
 
-    dataDir  = "./rearranged_results/"
+    dataDir  = "./demo_rearranged_results/"
     dataFile = "combine_"+RNAtype+".seq"
-    outDir   = "./pairing_for_js/"
+    outDir   = "./demo_pairing_for_js/"
     outFile  = "combine_pairing_"+RNAtype+".seq"
     number   = str(seqNo)
     if (seqNo < 10):

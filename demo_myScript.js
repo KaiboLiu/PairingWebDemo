@@ -64,7 +64,8 @@ function fillPage_go(d=40,R=250,circleScale=50,halfOpen=20){
 }
 
 function fillSeqText(){
-	var seqFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/rearranged_results/combine_"+seriesNo+"."+seqNo;
+	//var seqFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/demo_rearranged_results/combine_"+seriesNo+"."+seqNo;
+	var seqFile = "./demo_data/demo_rearranged_results/combine_"+seriesNo+"."+seqNo;
     $.get(seqFile, function(data,status) {
     	var lines = data.split("\n");
 		document.getElementById("seqName").innerHTML = lines[1];
@@ -81,7 +82,8 @@ function fillSeqText(){
 }
 
 function load_draw_go(d,R,circleScale,halfOpen=20) {
-	var pairingFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
+	//var pairingFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
+	var pairingFile = "./demo_data/demo_pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
 	//console.log('beam size: '+BeamFromBar+', file read: '+seriesNo+"_"+seqNo);
 	$.getJSON(pairingFile, function(data,status) {
 		draw_graphs(data.pairing, d,R,circleScale,halfOpen);

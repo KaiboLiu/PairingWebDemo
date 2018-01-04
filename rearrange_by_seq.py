@@ -49,7 +49,7 @@ def LoadData():
 	vnFile  = "Mathewsdata."+RNAtype+".viennares"
 	beamDir1= dataDir+"linearcontrafold/run_"+RNAtype+"/log.LinearContrafold."+RNAtype+".beam"
 	beamDir2= dataDir+"linearvienna/run_"+RNAtype+"/log.linearvienna."+RNAtype+".beam"
-	outDir  = "./rearranged_results/"
+	outDir  = "./demo_rearranged_results/"
 
 	if not os.path.exists(outDir):
 		os.makedirs(outDir)
