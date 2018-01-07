@@ -343,7 +343,6 @@ function drawArc(n1,n2,N,x0,y0,R,color,halfOpen=20){
 			ctx.lineTo(p2.x,p2.y);
 		}
     	ctx.strokeStyle = color;			//set arc to a certain color
-    	ctx.stroke();
     };
 };
 
