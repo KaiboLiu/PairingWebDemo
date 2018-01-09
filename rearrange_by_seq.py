@@ -12,7 +12,7 @@ Process Time: Dec 08, 2017
 # original pairing structures are saved in different files by models and beams.
 # now I need to put all pairing results for a single seq into one file, 
   including ref, LinearContrafold, vienna, LinearContrafold beam001~800, LinearViennabeam001~800.
-# These new data files will listed by seq number(16s * 22, and 23s *5), 27 files in total.
+# These new data files will listed by seq number(16s * 22, and 23s *5, and grp_1 *96), 123 files in total.
 # if the current seq is #i, the line position for pairing structure in ref, LinearContrafold, vienna are all i, 
   however the line position in LinearContrafold and LinearViennabeam is 7*i, information of time, score is in 7*i-3 and 7*i-2
 '''
@@ -41,7 +41,7 @@ import pdb
 import os
 
 def LoadData():
-	RNAtype = "23s"
+	RNAtype = "grp1"			# either 16s, 23s, or grp1
 	dataDir = "../RNA_visual_dengde/"
 	seqFile = "Mathewsdata."+RNAtype+".seq"
 	refFile = "Mathewsdata."+RNAtype+".ref"
