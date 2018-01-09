@@ -342,13 +342,10 @@ function drawArc(n1,n2,N,x0,y0,R,color,halfOpen=20){
 		{
 			ctx.lineTo(p2.x,p2.y);
 		}
-    	ctx.strokeStyle = color;			//set arc to a certain color
+    	ctx.strokeStyle = color;			//set this arc to a certain color
     	ctx.stroke();    	
     };
 };
-
-
-
 
 function draw_plots(pairingList){
 	////// Figure 411, plot P/R-beam for LinearFold-C, data saved in data_C_1_log or data_C_1_linear, used in log/linear view
