@@ -27,24 +27,27 @@ def LoadData():
 	seqFile = "Mathewsdata."+RNAtype+".seq"
 
 	outDir  = "./seqName/"
-	nameFile = "seqNames."+RNAtype
+	outFile = "seqNames."+RNAtype
 
 	if not os.path.exists(outDir):
 		os.makedirs(outDir)
 	
-	fileIn  = open(namePoolFile)
+	fileIn  = open(dataDir+namePoolFile)
 	namePool = fileIn.readlines()	# the last char in namePool[i] is '\n'		
 	fileIn.close()
 
-	fileIn  = open(namePoolFile)
+	fileIn  = open(dataDir+seqFile)
 	seqs = fileIn.readlines()		# the last char in seqs[i] is '\n'		
 	fileIn.close()
 	
 	f = open(outDir+outFile,"w")
 
-	for seq in seqs:
+	for i,seq in enumerate(seqs):
 		pos = namePool.index(seq)
-		f.write('seq: '+namePool[pos-1])
+		f.write('seq')
+		if (i < 10):
+			f.write('0')
+		f.write(str(i)+': '+namePool[pos-1])
 	f.close()
 
 
