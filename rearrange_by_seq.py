@@ -45,8 +45,10 @@ def LoadData():
 	dataDir = "../RNA_visual_dengde/"
 	seqFile = "Mathewsdata."+RNAtype+".seq"
 	refFile = "Mathewsdata."+RNAtype+".ref"
-	cfFile  = "Mathewsdata."+RNAtype+".contrafoldres"
-	vnFile  = "Mathewsdata."+RNAtype+".viennares"
+	#cfFile  = "Mathewsdata."+RNAtype+".contrafoldres"
+	#vnFile  = "Mathewsdata."+RNAtype+".viennares"
+	cfFile  = "linearcontrafold/run_"+RNAtype+"/log.LinearContrafold."+RNAtype+".infbeam"
+	vnFile  = "linearvienna/run_"+RNAtype+"/log.linearvienna."+RNAtype+".infbeam"
 	beamDir1= dataDir+"linearcontrafold/run_"+RNAtype+"/log.LinearContrafold."+RNAtype+".beam"
 	beamDir2= dataDir+"linearvienna/run_"+RNAtype+"/log.linearvienna."+RNAtype+".beam"
 	outDir  = "./demo_rearranged_results/"
@@ -67,6 +69,15 @@ def LoadData():
 	fileIn.close()
 	
 
+	fileIn  = open(dataDir+cfFile)
+	cf = fileIn.readlines()		# the last char in cf[i] is '\n', line 7*i-1 is the pairint structure, line 7*i-5 is the sequence, same as in list seq
+	fileIn.close()
+
+	fileIn  = open(dataDir+vnFile)
+	vn = fileIn.readlines()		# the last char in vn[i] is '\n', line 7*i-1 is the pairint structure, line 7*i-5 is the sequence, same as in list seq
+	fileIn.close()
+	
+	'''
 	cf = []
 	fileIn  = open(dataDir+cfFile)
 	for line in fileIn.readlines():
@@ -79,7 +90,7 @@ def LoadData():
 	for line in fileIn.readlines():
 		vn.append(line)		# the last char in vn[i] is '\n'
 	fileIn.close()
-	
+	'''
 
 	# print(len(ref[3]),len(cf[3]), len(seq[3]))
 
@@ -93,7 +104,7 @@ def LoadData():
 		print(outFile)
 		f = open(outDir+outFile,"w")
 
-		f.write(">>>>>>seq\n"+seq[i-1]+">>>>>>ref\n"+ref[i-1]+">>>>>>contrafold\n"+cf[i-1]+">>>>>>vienna\n"+vn[i-1])
+		f.write(">>>>>>seq\n"+seq[i-1]+">>>>>>ref\n"+ref[i-1]+">>>>>>contrafold\n"+cf[7*i-1]+">>>>>>vienna\n"+vn[7*i-1])
 
 
 		beam_list = range(1,201)
