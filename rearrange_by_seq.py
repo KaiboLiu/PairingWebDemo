@@ -41,7 +41,7 @@ import pdb
 import os
 
 def LoadData():
-	RNAtype = "23s"			# either 16s, 23s, or grp1
+	RNAtype = "grp1"			# either 16s, 23s, or grp1
 	dataDir = "../RNA_visual_dengde/"
 	seqFile = "Mathewsdata."+RNAtype+".seq"
 	refFile = "Mathewsdata."+RNAtype+".ref"
@@ -104,7 +104,7 @@ def LoadData():
 		print(outFile)
 		f = open(outDir+outFile,"w")
 
-		f.write(">>>>>>seq\n"+seq[i-1]+">>>>>>ref\n"+ref[i-1]+">>>>>>contrafold\n"+cf[7*i-1]+">>>>>>vienna\n"+vn[7*i-1])
+		f.write(">>>>>>seq\n"+seq[i]+">>>>>>ref\n"+ref[i]+">>>>>>contrafold\n"+cf[7*i+6]+">>>>>>vienna\n"+vn[7*i+6])
 
 
 		beam_list = range(1,201)
@@ -127,15 +127,15 @@ def LoadData():
 			fileIn  = open(beamFile1)
 			f.write(">>>>>>LinearContrafold"+beamFile1[-8:]+"\n")
 			lines = fileIn.readlines()
-			f.write(lines[7*i-4]+lines[7*i-3])	#information such as Viterbi score \n time, len, score, etc.
-			f.write(lines[7*i-1])			# pairing structure in beam file with linear algorithm
+			f.write(lines[7*i+3]+lines[7*i+4])	#information such as Viterbi score \n time, len, score, etc.
+			f.write(lines[7*i+6])			# pairing structure in beam file with linear algorithm
 			fileIn.close()
 
 			fileIn  = open(beamFile2)
 			f.write(">>>>>>linearvienna"+beamFile2[-8:]+"\n")
 			lines = fileIn.readlines()
-			f.write(lines[7*i-4]+lines[7*i-3])	#information such as Viterbi score \n time, len, score, etc.
-			f.write(lines[7*i-1])			# pairing structure in beam file with linear algorithm
+			f.write(lines[7*i+3]+lines[7*i+4])	#information such as Viterbi score \n time, len, score, etc.
+			f.write(lines[7*i+6])			# pairing structure in beam file with linear algorithm
 			fileIn.close()
 
 		f.close()
