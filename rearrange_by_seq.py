@@ -41,14 +41,14 @@ import pdb
 import os
 
 def LoadData():
-	RNAtype = "grp1"			# either 16s, 23s, or grp1
+	RNAtype = "23s"			# either 16s, 23s, or grp1
 	dataDir = "../RNA_visual_dengde/"
 	seqFile = "Mathewsdata."+RNAtype+".seq"
 	refFile = "Mathewsdata."+RNAtype+".ref"
 	#cfFile  = "Mathewsdata."+RNAtype+".contrafoldres"
 	#vnFile  = "Mathewsdata."+RNAtype+".viennares"
-	cfFile  = "linearcontrafold/run_"+RNAtype+"/log.LinearContrafold."+RNAtype+".infbeam"
-	vnFile  = "linearvienna/run_"+RNAtype+"/log.linearvienna."+RNAtype+".infbeam"
+	cfFile  = "linearcontrafold/run_"+RNAtype+"/log.LinearContrafold."+RNAtype+".beaminf"
+	vnFile  = "linearvienna/run_"+RNAtype+"/log.linearvienna."+RNAtype+".beaminf"
 	beamDir1= dataDir+"linearcontrafold/run_"+RNAtype+"/log.LinearContrafold."+RNAtype+".beam"
 	beamDir2= dataDir+"linearvienna/run_"+RNAtype+"/log.linearvienna."+RNAtype+".beam"
 	outDir  = "./demo_rearranged_results/"
@@ -96,7 +96,7 @@ def LoadData():
 
 	N_seq = len(seq)
 	
-	for i in xrange(1,N_seq+1):
+	for i in xrange(N_seq):
 		outFile = "combine_"+RNAtype+".seq"
 		if i < 10:
 			outFile = outFile + "0"

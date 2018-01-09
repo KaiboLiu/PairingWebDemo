@@ -49,7 +49,7 @@ def LoadData():
 			f.write('0')
 		f.write(str(i)+': '+namePool[pos-1])
 	f.close()
-
+	print(RNAtype)
 
 
 
