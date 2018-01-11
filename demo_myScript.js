@@ -1,5 +1,5 @@
 var H_title = 20;
-var seriesNo = "16s";
+var seriesNo = "grp1";
 var seqNo = "seq00";
 var BeamFromBar = 20;
 var title11 = "CONTRAfold MFE";
