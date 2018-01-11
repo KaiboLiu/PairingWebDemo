@@ -27,10 +27,11 @@ function filterSeq(){
 }
 
 function comfirmSeq(){
+	var series = $("#series").find('option:selected').text(); // stores series
 	seriesNo = $("#series").find('option:selected').val();
 	seqNo = "seq" + $("#seqNo").find('option:selected').val();//.slice(-2);
 	//alert(seqNo);
-	document.getElementById("seqShown").innerHTML = seriesNo + "_" + $("#seqNo").find('option:selected').text();//.slice(7);
+	document.getElementById("seqShown").innerHTML = series + "_" + $("#seqNo").find('option:selected').text();//.slice(7);
 	logView1 = true;
 	logView2 = true;
 	fillPage_go(d=40,R=250,circleScale=50,halfOpen=20);
