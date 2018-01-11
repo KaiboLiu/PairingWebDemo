@@ -18,135 +18,135 @@
 
 <select class="select" id="series" onchange="filterSeq()">
   <option value="1">select</option>
-  <option value="2">16s</option>
-  <option value="3">23s</option>
-  <option value="4">grp1</option>
+  <option value="grp1">Group I Introns</option>
+  <option value="16s">16S rRNA</option>
+  <option value="23s">23S rRNA</option>
 </select>
 
 <select class="select" id="seqNo" disabled onchange="comfirmSeq()">
-<option data-c1="16s" value="00">seq00: Z.mays (len:1490)</option>
-<option data-c1="16s" value="01">seq01: B.subtilis (len:1552)</option>
-<option data-c1="16s" value="02">seq02: E.coli (len:1542)</option>
-<option data-c1="16s" value="03">seq03: H.volcanii (len:1474)</option>
-<option data-c1="16s" value="04">seq04: D.melanogaster (len:1995)</option>
-<option data-c1="16s" value="05">seq05: T.gondii (len:1793)</option>
-<option data-c1="16s" value="06">seq06: H.sapiens.mito (len:0954)</option>
-<option data-c1="16s" value="07">seq07: B.burgdorferi (len:1537)</option>
-<option data-c1="16s" value="08">seq08: A.pyrophilus (len:1564)</option>
-<option data-c1="16s" value="09">seq09: P.staleyi (len:1525)</option>
-<option data-c1="16s" value="10">seq10: C.psittaci (len:1552)</option>
-<option data-c1="16s" value="11">seq11: C.elegans (len:0950)</option>
-<option data-c1="16s" value="12">seq12: F.ananassa (len:1804)</option>
-<option data-c1="16s" value="13">seq13: T.maritima (len:1562)</option>
-<option data-c1="16s" value="14">seq14: C.reinhardtii.chloro (len:1474)</option>
-<option data-c1="16s" value="15">seq15: M.polymorpha (len:1974)</option>
-<option data-c1="16s" value="16">seq16: A.fulgidus (len:1492)</option>
-<option data-c1="16s" value="17">seq17: H.sapiens (len:1870)</option>
-<option data-c1="16s" value="18">seq18: S.cerevisiae (len:1800)</option>
-<option data-c1="16s" value="19">seq19: P.occultum (len:1497)</option>
-<option data-c1="16s" value="20">seq20: C.reinhardtii.mito (len:1200)</option>
-<option data-c1="16s" value="21">seq21: G.intestinalis (len:1452)</option>
-<option data-c1="23s" value="00">seq00: H.pylori (len:2968)</option>
-<option data-c1="23s" value="01">seq01: T.thermophilus (len:2915)</option>
-<option data-c1="23s" value="02">seq02: B.subtilis (len:2927)</option>
-<option data-c1="23s" value="03">seq03: S.aureus (len:2923)</option>
-<option data-c1="23s" value="04">seq04: E.coli (len:2904)</option>
-<option data-c1="grp1" value="00">seq00: a.I1.e.S.paniceum.UNK.SSU.114 (len:210)</option>
-<option data-c1="grp1" value="01">seq01: a.I1.e.L.dispersa.UNK.SSU.114 (len:211)</option>
-<option data-c1="grp1" value="02">seq02: a.I1.e.L.dispersa.UNK.SSU.789 (len:218)</option>
-<option data-c1="grp1" value="03">seq03: a.I1.e.L.dispersa.UNK.SSU.1210 (len:221)</option>
-<option data-c1="grp1" value="04">seq04: a.I1.e.L.dispersa.UNK.SSU.287 (len:229)</option>
-<option data-c1="grp1" value="05">seq05: a.I1.e.S.paniceum.UNK.SSU.287 (len:234)</option>
-<option data-c1="grp1" value="06">seq06: a.I1.e.L.dispersa.UNK.SSU.1516 (len:240)</option>
-<option data-c1="grp1" value="07">seq07: a.I1.e.S.paniceum.UNK.SSU.1052 (len:240)</option>
-<option data-c1="grp1" value="08">seq08: a.I1.b.S.hofmanii.C3.tMET (len:251)</option>
-<option data-c1="grp1" value="09">seq09: a.I1.e.L.dispersa.UNK.SSU.1046 (len:255)</option>
-<option data-c1="grp1" value="10">seq10: a.I1.e.S.paniceum.UNK.SSU.1506 (len:259)</option>
-<option data-c1="grp1" value="11">seq11: a.I1.e.S.paniceum.UNK.SSU.1210 (len:260)</option>
-<option data-c1="grp1" value="12">seq12: a.I1.b.Synechococcus.sp2.C3.tLEU (len:265)</option>
-<option data-c1="grp1" value="13">seq13: a.I1.e.C.merochlorophea.UNK.SSU.1389 (len:265)</option>
-<option data-c1="grp1" value="14">seq14: a.I1.e.C.merochlorophea.UNK.SSU.1046 (len:267)</option>
-<option data-c1="grp1" value="15">seq15: a.I1.e.C.merochlorophea.UNK.SSU.1210 (len:267)</option>
-<option data-c1="grp1" value="16">seq16: a.I1.b.Dermocarpa.sp.ATCC29371.C3.tMET (len:268)</option>
-<option data-c1="grp1" value="17">seq17: a.I1.b.Phormidium.sp.N182.C3.tLEU (len:270)</option>
-<option data-c1="grp1" value="18">seq18: a.I1.e.C.merochlorophea.UNK.SSU.1516 (len:274)</option>
-<option data-c1="grp1" value="19">seq19: a.I1.e.C.grayi.UNK.SSU.1046 (len:283)</option>
-<option data-c1="grp1" value="20">seq20: a.I1.m.M.grisea.B2.ND1 (len:285)</option>
-<option data-c1="grp1" value="21">seq21: a.I1.e.C.grayi.UNK.SSU.1516 (len:308)</option>
-<option data-c1="grp1" value="22">seq22: a.I1.e.L.dispersa.UNK.SSU.516 (len:328)</option>
-<option data-c1="grp1" value="23">seq23: a.I1.c.G.prostrata.C3.tLEU (len:336)</option>
-<option data-c1="grp1" value="24">seq24: a.I1.m.S.pombe.B1.OX1 (len:343)</option>
-<option data-c1="grp1" value="25">seq25: a.I1.e.P.carinii.Pc2.C1.LSU.1921 (len:355)</option>
-<option data-c1="grp1" value="26">seq26: a.I1.e.B.ciliata.JCM6865.C1.SSU.1506 (len:357)</option>
-<option data-c1="grp1" value="27">seq27: a.I1.e.B.ciliata.JCM6865.C1.SSU.943 (len:360)</option>
-<option data-c1="grp1" value="28">seq28: a.I1.e.S.sclerotiorum_1837.C1.LSU.798 (len:371)</option>
-<option data-c1="grp1" value="29">seq29: a.I1.m.S.luteus.A1.LSU.2504 (len:373)</option>
-<option data-c1="grp1" value="30">seq30: a.I1.e.P.carinii.Pc1.C1.LSU.1921 (len:375)</option>
-<option data-c1="grp1" value="31">seq31: a.I1.e.P.macrosporus.C1.SSU.943 (len:380)</option>
-<option data-c1="grp1" value="32">seq32: a.I1.e.P.carinii.Pc3.C1.LSU.1921 (len:381)</option>
-<option data-c1="grp1" value="33">seq33: a.I1.e.G.spirotaenia.C1.SSU.1506 (len:387)</option>
-<option data-c1="grp1" value="34">seq34: a.I1.e.P.inouyei.C1.SSU.943 (len:390)</option>
-<option data-c1="grp1" value="35">seq35: a.I1.e.P.pachydermus.C1.SSU.943 (len:392)</option>
-<option data-c1="grp1" value="36">seq36: b.I1.e.M.anisopliae.3.C1.LSU.1921 (len:394)</option>
-<option data-c1="grp1" value="37">seq37: a.I1.e.D.parva.C1.SSU.943 (len:396)</option>
-<option data-c1="grp1" value="38">seq38: a.I1.e.A.capsulatus.CBS213.53.C1.SSU.943 (len:408)</option>
-<option data-c1="grp1" value="39">seq39: a.I1.e.A.stipitatus.C1.SSU.1046 (len:408)</option>
-<option data-c1="grp1" value="40">seq40: a.I1.e.P.inouyei.C1.SSU.1506 (len:409)</option>
-<option data-c1="grp1" value="41">seq41: a.I1.e.Staurastrum.sp.M753.C1.SSU.1506 (len:415)</option>
-<option data-c1="grp1" value="42">seq42: a.I1.e.D.salina.C1.SSU.943 (len:423)</option>
-<option data-c1="grp1" value="43">seq43: a.I1.e.Staurastrum.sp.M752.C1.SSU.1506 (len:423)</option>
-<option data-c1="grp1" value="44">seq44: a.I1.e.A.capsulatus.G184B.C1.SSU (len:425)</option>
-<option data-c1="grp1" value="45">seq45: a.I1.e.A.capsulatus.G184B.C1.SSU (len:425)</option>
-<option data-c1="grp1" value="46">seq46: a.I1.e.E.dermatitidis.C1.SSU.943 (len:426)</option>
-<option data-c1="grp1" value="47">seq47: a.I1.e.A.capsulatus.FLs1.C1.SSU (len:428)</option>
-<option data-c1="grp1" value="48">seq48: a.I1.e.U.maydis.C1.SSU.943 (len:429)</option>
-<option data-c1="grp1" value="49">seq49: a.I1.e.P.macrosporus.C1.SSU.1506 (len:433)</option>
-<option data-c1="grp1" value="50">seq50: a.I1.e.D.parva.C1.SSU.1512 (len:436)</option>
-<option data-c1="grp1" value="51">seq51: a.I1.e.S.granulatum.C1.SSU.1506 (len:437)</option>
-<option data-c1="grp1" value="52">seq52: a.I1.e.M.caldariorum.C1.SSU.1506 (len:439)</option>
-<option data-c1="grp1" value="53">seq53: a.I1.e.P.carinii.C1.SSU.1506 (len:442)</option>
-<option data-c1="grp1" value="54">seq54: a.I1.e.T.malaccensis.C1.LSU.1925 (len:447)</option>
-<option data-c1="grp1" value="55">seq55: a.I1.e.C.saxonicum.C1.SSU.1506 (len:448)</option>
-<option data-c1="grp1" value="56">seq56: a.I1.e.P.clavariiformis.C1.SSU.943 (len:448)</option>
-<option data-c1="grp1" value="57">seq57: a.I1.e.A.adeninivorans.C1.LSU.2449 (len:450)</option>
-<option data-c1="grp1" value="58">seq58: a.I1.e.T.cosmopolitanis.C1.LSU.1925 (len:451)</option>
-<option data-c1="grp1" value="59">seq59: a.I1.e.T.cosmopolitanis.C1.LSU.1925 (len:451)</option>
-<option data-c1="grp1" value="60">seq60: a.I1.e.T.pigmentosa.C1.LSU.1925 (len:451)</option>
-<option data-c1="grp1" value="61">seq61: b.I1.e.M.anisopliae.2.C1.LSU.1921 (len:456)</option>
-<option data-c1="grp1" value="62">seq62: a.I1.e.G.planctonica.C1.SSU.943 (len:461)</option>
-<option data-c1="grp1" value="63">seq63: a.I1.e.B.yamatoana.JCM2896.C1.SSU.1506 (len:468)</option>
-<option data-c1="grp1" value="64">seq64: a.I1.e.C.saccatum.C1.SSU.1512 (len:476)</option>
-<option data-c1="grp1" value="65">seq65: a.I1.e.P.sarcinoidea.C1.SSU.943 (len:476)</option>
-<option data-c1="grp1" value="66">seq66: a.I1.e.C.ellipsoidea.211-1a.C1.SSU.1506 (len:479)</option>
-<option data-c1="grp1" value="67">seq67: a.I1.e.B.yamatoana.JCM2896.C1.SSU.943 (len:480)</option>
-<option data-c1="grp1" value="68">seq68: a.I1.c.A.cherimola.C3.tLEU (len:494)</option>
-<option data-c1="grp1" value="69">seq69: a.I1.e.C.ellipsoidea.IAMC-87.C1.SSU.1506 (len:504)</option>
-<option data-c1="grp1" value="70">seq70: b.I1.e.T.thermophila.C1.LSU.1925 (len:506)</option>
-<option data-c1="grp1" value="71">seq71: b.I1.e.T.thermophila.C1.LSU.1925 (len:506)</option>
-<option data-c1="grp1" value="72">seq72: a.I1.c.S.bicolor.C3.tLEU (len:510)</option>
-<option data-c1="grp1" value="73">seq73: a.I1.e.C.botrytis.C1.SSU.1506 (len:518)</option>
-<option data-c1="grp1" value="74">seq74: a.I1.e.C.mirabilis.C1.SSU.1506 (len:526)</option>
-<option data-c1="grp1" value="75">seq75: b.I1.e.A.griffini.2.C1.SSU.516 (len:526)</option>
-<option data-c1="grp1" value="76">seq76: a.I1.c.P.thunbergii.C3.tLEU (len:550)</option>
-<option data-c1="grp1" value="77">seq77: a.I1.c.S.alterniflora.C3.tLEU (len:554)</option>
-<option data-c1="grp1" value="78">seq78: a.I1.c.S.alterniflora.C3.tLEU (len:554)</option>
-<option data-c1="grp1" value="79">seq79: a.I1.c.S.maritima.C3.tLEU (len:554)</option>
-<option data-c1="grp1" value="80">seq80: a.I1.c.S.alterniflora.C3.tLEU (len:554)</option>
-<option data-c1="grp1" value="81">seq81: a.I1.m.S.luteus.B4.LSU.1923 (len:555)</option>
-<option data-c1="grp1" value="82">seq82: b.I1.e.A.griffini.1.C1.SSU.516 (len:556)</option>
-<option data-c1="grp1" value="83">seq83: a.I1.e.P.yezoensis.C1.SSU.516 (len:561)</option>
-<option data-c1="grp1" value="84">seq84: a.I1.e.M.scalaris.C1.SSU.1506 (len:573)</option>
-<option data-c1="grp1" value="85">seq85: a.I1.c.N.tabacum.C3.tLEU (len:575)</option>
-<option data-c1="grp1" value="86">seq86: a.I1.e.Z.circumcarinata.C1.SSU.1506 (len:602)</option>
-<option data-c1="grp1" value="87">seq87: b.I1.e.P.leucosticta.C1.SSU.516 (len:605)</option>
-<option data-c1="grp1" value="88">seq88: a.I1.b.coliphage.T4.A2.NRDB (len:607)</option>
-<option data-c1="grp1" value="89">seq89: a.I1.m.S.luteus.A1.LSU.2449 (len:611)</option>
-<option data-c1="grp1" value="90">seq90: a.I1.m.S.luteus.B4.LSU.2500 (len:617)</option>
-<option data-c1="grp1" value="91">seq91: a.I1.m.S.luteus.B2.LSU.1974 (len:623)</option>
-<option data-c1="grp1" value="92">seq92: a.I1.e.C.parasitica.E.SSU.1199 (len:640)</option>
-<option data-c1="grp1" value="93">seq93: a.I1.m.S.luteus.C2.LSU.1949 (len:646)</option>
-<option data-c1="grp1" value="94">seq94: a.I1.m.S.luteus.C2.LSU.1685 (len:679)</option>
-<option data-c1="grp1" value="05">seq95: a.I1.b.S.negevensis.B4.LSU.1931 (len:736)</option>
+<option data-c1="Group I Introns" value="00">seq00: a.I1.e.S.paniceum.UNK.SSU.114 (len:210)</option>
+<option data-c1="Group I Introns" value="01">seq01: a.I1.e.L.dispersa.UNK.SSU.114 (len:211)</option>
+<option data-c1="Group I Introns" value="02">seq02: a.I1.e.L.dispersa.UNK.SSU.789 (len:218)</option>
+<option data-c1="Group I Introns" value="03">seq03: a.I1.e.L.dispersa.UNK.SSU.1210 (len:221)</option>
+<option data-c1="Group I Introns" value="04">seq04: a.I1.e.L.dispersa.UNK.SSU.287 (len:229)</option>
+<option data-c1="Group I Introns" value="05">seq05: a.I1.e.S.paniceum.UNK.SSU.287 (len:234)</option>
+<option data-c1="Group I Introns" value="06">seq06: a.I1.e.L.dispersa.UNK.SSU.1516 (len:240)</option>
+<option data-c1="Group I Introns" value="07">seq07: a.I1.e.S.paniceum.UNK.SSU.1052 (len:240)</option>
+<option data-c1="Group I Introns" value="08">seq08: a.I1.b.S.hofmanii.C3.tMET (len:251)</option>
+<option data-c1="Group I Introns" value="09">seq09: a.I1.e.L.dispersa.UNK.SSU.1046 (len:255)</option>
+<option data-c1="Group I Introns" value="10">seq10: a.I1.e.S.paniceum.UNK.SSU.1506 (len:259)</option>
+<option data-c1="Group I Introns" value="11">seq11: a.I1.e.S.paniceum.UNK.SSU.1210 (len:260)</option>
+<option data-c1="Group I Introns" value="12">seq12: a.I1.b.Synechococcus.sp2.C3.tLEU (len:265)</option>
+<option data-c1="Group I Introns" value="13">seq13: a.I1.e.C.merochlorophea.UNK.SSU.1389 (len:265)</option>
+<option data-c1="Group I Introns" value="14">seq14: a.I1.e.C.merochlorophea.UNK.SSU.1046 (len:267)</option>
+<option data-c1="Group I Introns" value="15">seq15: a.I1.e.C.merochlorophea.UNK.SSU.1210 (len:267)</option>
+<option data-c1="Group I Introns" value="16">seq16: a.I1.b.Dermocarpa.sp.ATCC29371.C3.tMET (len:268)</option>
+<option data-c1="Group I Introns" value="17">seq17: a.I1.b.Phormidium.sp.N182.C3.tLEU (len:270)</option>
+<option data-c1="Group I Introns" value="18">seq18: a.I1.e.C.merochlorophea.UNK.SSU.1516 (len:274)</option>
+<option data-c1="Group I Introns" value="19">seq19: a.I1.e.C.grayi.UNK.SSU.1046 (len:283)</option>
+<option data-c1="Group I Introns" value="20">seq20: a.I1.m.M.grisea.B2.ND1 (len:285)</option>
+<option data-c1="Group I Introns" value="21">seq21: a.I1.e.C.grayi.UNK.SSU.1516 (len:308)</option>
+<option data-c1="Group I Introns" value="22">seq22: a.I1.e.L.dispersa.UNK.SSU.516 (len:328)</option>
+<option data-c1="Group I Introns" value="23">seq23: a.I1.c.G.prostrata.C3.tLEU (len:336)</option>
+<option data-c1="Group I Introns" value="24">seq24: a.I1.m.S.pombe.B1.OX1 (len:343)</option>
+<option data-c1="Group I Introns" value="25">seq25: a.I1.e.P.carinii.Pc2.C1.LSU.1921 (len:355)</option>
+<option data-c1="Group I Introns" value="26">seq26: a.I1.e.B.ciliata.JCM6865.C1.SSU.1506 (len:357)</option>
+<option data-c1="Group I Introns" value="27">seq27: a.I1.e.B.ciliata.JCM6865.C1.SSU.943 (len:360)</option>
+<option data-c1="Group I Introns" value="28">seq28: a.I1.e.S.sclerotiorum_1837.C1.LSU.798 (len:371)</option>
+<option data-c1="Group I Introns" value="29">seq29: a.I1.m.S.luteus.A1.LSU.2504 (len:373)</option>
+<option data-c1="Group I Introns" value="30">seq30: a.I1.e.P.carinii.Pc1.C1.LSU.1921 (len:375)</option>
+<option data-c1="Group I Introns" value="31">seq31: a.I1.e.P.macrosporus.C1.SSU.943 (len:380)</option>
+<option data-c1="Group I Introns" value="32">seq32: a.I1.e.P.carinii.Pc3.C1.LSU.1921 (len:381)</option>
+<option data-c1="Group I Introns" value="33">seq33: a.I1.e.G.spirotaenia.C1.SSU.1506 (len:387)</option>
+<option data-c1="Group I Introns" value="34">seq34: a.I1.e.P.inouyei.C1.SSU.943 (len:390)</option>
+<option data-c1="Group I Introns" value="35">seq35: a.I1.e.P.pachydermus.C1.SSU.943 (len:392)</option>
+<option data-c1="Group I Introns" value="36">seq36: b.I1.e.M.anisopliae.3.C1.LSU.1921 (len:394)</option>
+<option data-c1="Group I Introns" value="37">seq37: a.I1.e.D.parva.C1.SSU.943 (len:396)</option>
+<option data-c1="Group I Introns" value="38">seq38: a.I1.e.A.capsulatus.CBS213.53.C1.SSU.943 (len:408)</option>
+<option data-c1="Group I Introns" value="39">seq39: a.I1.e.A.stipitatus.C1.SSU.1046 (len:408)</option>
+<option data-c1="Group I Introns" value="40">seq40: a.I1.e.P.inouyei.C1.SSU.1506 (len:409)</option>
+<option data-c1="Group I Introns" value="41">seq41: a.I1.e.Staurastrum.sp.M753.C1.SSU.1506 (len:415)</option>
+<option data-c1="Group I Introns" value="42">seq42: a.I1.e.D.salina.C1.SSU.943 (len:423)</option>
+<option data-c1="Group I Introns" value="43">seq43: a.I1.e.Staurastrum.sp.M752.C1.SSU.1506 (len:423)</option>
+<option data-c1="Group I Introns" value="44">seq44: a.I1.e.A.capsulatus.G184B.C1.SSU (len:425)</option>
+<option data-c1="Group I Introns" value="45">seq45: a.I1.e.A.capsulatus.G184B.C1.SSU (len:425)</option>
+<option data-c1="Group I Introns" value="46">seq46: a.I1.e.E.dermatitidis.C1.SSU.943 (len:426)</option>
+<option data-c1="Group I Introns" value="47">seq47: a.I1.e.A.capsulatus.FLs1.C1.SSU (len:428)</option>
+<option data-c1="Group I Introns" value="48">seq48: a.I1.e.U.maydis.C1.SSU.943 (len:429)</option>
+<option data-c1="Group I Introns" value="49">seq49: a.I1.e.P.macrosporus.C1.SSU.1506 (len:433)</option>
+<option data-c1="Group I Introns" value="50">seq50: a.I1.e.D.parva.C1.SSU.1512 (len:436)</option>
+<option data-c1="Group I Introns" value="51">seq51: a.I1.e.S.granulatum.C1.SSU.1506 (len:437)</option>
+<option data-c1="Group I Introns" value="52">seq52: a.I1.e.M.caldariorum.C1.SSU.1506 (len:439)</option>
+<option data-c1="Group I Introns" value="53">seq53: a.I1.e.P.carinii.C1.SSU.1506 (len:442)</option>
+<option data-c1="Group I Introns" value="54">seq54: a.I1.e.T.malaccensis.C1.LSU.1925 (len:447)</option>
+<option data-c1="Group I Introns" value="55">seq55: a.I1.e.C.saxonicum.C1.SSU.1506 (len:448)</option>
+<option data-c1="Group I Introns" value="56">seq56: a.I1.e.P.clavariiformis.C1.SSU.943 (len:448)</option>
+<option data-c1="Group I Introns" value="57">seq57: a.I1.e.A.adeninivorans.C1.LSU.2449 (len:450)</option>
+<option data-c1="Group I Introns" value="58">seq58: a.I1.e.T.cosmopolitanis.C1.LSU.1925 (len:451)</option>
+<option data-c1="Group I Introns" value="59">seq59: a.I1.e.T.cosmopolitanis.C1.LSU.1925 (len:451)</option>
+<option data-c1="Group I Introns" value="60">seq60: a.I1.e.T.pigmentosa.C1.LSU.1925 (len:451)</option>
+<option data-c1="Group I Introns" value="61">seq61: b.I1.e.M.anisopliae.2.C1.LSU.1921 (len:456)</option>
+<option data-c1="Group I Introns" value="62">seq62: a.I1.e.G.planctonica.C1.SSU.943 (len:461)</option>
+<option data-c1="Group I Introns" value="63">seq63: a.I1.e.B.yamatoana.JCM2896.C1.SSU.1506 (len:468)</option>
+<option data-c1="Group I Introns" value="64">seq64: a.I1.e.C.saccatum.C1.SSU.1512 (len:476)</option>
+<option data-c1="Group I Introns" value="65">seq65: a.I1.e.P.sarcinoidea.C1.SSU.943 (len:476)</option>
+<option data-c1="Group I Introns" value="66">seq66: a.I1.e.C.ellipsoidea.211-1a.C1.SSU.1506 (len:479)</option>
+<option data-c1="Group I Introns" value="67">seq67: a.I1.e.B.yamatoana.JCM2896.C1.SSU.943 (len:480)</option>
+<option data-c1="Group I Introns" value="68">seq68: a.I1.c.A.cherimola.C3.tLEU (len:494)</option>
+<option data-c1="Group I Introns" value="69">seq69: a.I1.e.C.ellipsoidea.IAMC-87.C1.SSU.1506 (len:504)</option>
+<option data-c1="Group I Introns" value="70">seq70: b.I1.e.T.thermophila.C1.LSU.1925 (len:506)</option>
+<option data-c1="Group I Introns" value="71">seq71: b.I1.e.T.thermophila.C1.LSU.1925 (len:506)</option>
+<option data-c1="Group I Introns" value="72">seq72: a.I1.c.S.bicolor.C3.tLEU (len:510)</option>
+<option data-c1="Group I Introns" value="73">seq73: a.I1.e.C.botrytis.C1.SSU.1506 (len:518)</option>
+<option data-c1="Group I Introns" value="74">seq74: a.I1.e.C.mirabilis.C1.SSU.1506 (len:526)</option>
+<option data-c1="Group I Introns" value="75">seq75: b.I1.e.A.griffini.2.C1.SSU.516 (len:526)</option>
+<option data-c1="Group I Introns" value="76">seq76: a.I1.c.P.thunbergii.C3.tLEU (len:550)</option>
+<option data-c1="Group I Introns" value="77">seq77: a.I1.c.S.alterniflora.C3.tLEU (len:554)</option>
+<option data-c1="Group I Introns" value="78">seq78: a.I1.c.S.alterniflora.C3.tLEU (len:554)</option>
+<option data-c1="Group I Introns" value="79">seq79: a.I1.c.S.maritima.C3.tLEU (len:554)</option>
+<option data-c1="Group I Introns" value="80">seq80: a.I1.c.S.alterniflora.C3.tLEU (len:554)</option>
+<option data-c1="Group I Introns" value="81">seq81: a.I1.m.S.luteus.B4.LSU.1923 (len:555)</option>
+<option data-c1="Group I Introns" value="82">seq82: b.I1.e.A.griffini.1.C1.SSU.516 (len:556)</option>
+<option data-c1="Group I Introns" value="83">seq83: a.I1.e.P.yezoensis.C1.SSU.516 (len:561)</option>
+<option data-c1="Group I Introns" value="84">seq84: a.I1.e.M.scalaris.C1.SSU.1506 (len:573)</option>
+<option data-c1="Group I Introns" value="85">seq85: a.I1.c.N.tabacum.C3.tLEU (len:575)</option>
+<option data-c1="Group I Introns" value="86">seq86: a.I1.e.Z.circumcarinata.C1.SSU.1506 (len:602)</option>
+<option data-c1="Group I Introns" value="87">seq87: b.I1.e.P.leucosticta.C1.SSU.516 (len:605)</option>
+<option data-c1="Group I Introns" value="88">seq88: a.I1.b.coliphage.T4.A2.NRDB (len:607)</option>
+<option data-c1="Group I Introns" value="89">seq89: a.I1.m.S.luteus.A1.LSU.2449 (len:611)</option>
+<option data-c1="Group I Introns" value="90">seq90: a.I1.m.S.luteus.B4.LSU.2500 (len:617)</option>
+<option data-c1="Group I Introns" value="91">seq91: a.I1.m.S.luteus.B2.LSU.1974 (len:623)</option>
+<option data-c1="Group I Introns" value="92">seq92: a.I1.e.C.parasitica.E.SSU.1199 (len:640)</option>
+<option data-c1="Group I Introns" value="93">seq93: a.I1.m.S.luteus.C2.LSU.1949 (len:646)</option>
+<option data-c1="Group I Introns" value="94">seq94: a.I1.m.S.luteus.C2.LSU.1685 (len:679)</option>
+<option data-c1="Group I Introns" value="05">seq95: a.I1.b.S.negevensis.B4.LSU.1931 (len:736)</option>
+<option data-c1="16S rRNA" value="00">seq00: Z.mays (len:1490)</option>
+<option data-c1="16S rRNA" value="01">seq01: B.subtilis (len:1552)</option>
+<option data-c1="16S rRNA" value="02">seq02: E.coli (len:1542)</option>
+<option data-c1="16S rRNA" value="03">seq03: H.volcanii (len:1474)</option>
+<option data-c1="16S rRNA" value="04">seq04: D.melanogaster (len:1995)</option>
+<option data-c1="16S rRNA" value="05">seq05: T.gondii (len:1793)</option>
+<option data-c1="16S rRNA" value="06">seq06: H.sapiens.mito (len:0954)</option>
+<option data-c1="16S rRNA" value="07">seq07: B.burgdorferi (len:1537)</option>
+<option data-c1="16S rRNA" value="08">seq08: A.pyrophilus (len:1564)</option>
+<option data-c1="16S rRNA" value="09">seq09: P.staleyi (len:1525)</option>
+<option data-c1="16S rRNA" value="10">seq10: C.psittaci (len:1552)</option>
+<option data-c1="16S rRNA" value="11">seq11: C.elegans (len:0950)</option>
+<option data-c1="16S rRNA" value="12">seq12: F.ananassa (len:1804)</option>
+<option data-c1="16S rRNA" value="13">seq13: T.maritima (len:1562)</option>
+<option data-c1="16S rRNA" value="14">seq14: C.reinhardtii.chloro (len:1474)</option>
+<option data-c1="16S rRNA" value="15">seq15: M.polymorpha (len:1974)</option>
+<option data-c1="16S rRNA" value="16">seq16: A.fulgidus (len:1492)</option>
+<option data-c1="16S rRNA" value="17">seq17: H.sapiens (len:1870)</option>
+<option data-c1="16S rRNA" value="18">seq18: S.cerevisiae (len:1800)</option>
+<option data-c1="16S rRNA" value="19">seq19: P.occultum (len:1497)</option>
+<option data-c1="16S rRNA" value="20">seq20: C.reinhardtii.mito (len:1200)</option>
+<option data-c1="16S rRNA" value="21">seq21: G.intestinalis (len:1452)</option>
+<option data-c1="23S rRNA" value="00">seq00: H.pylori (len:2968)</option>
+<option data-c1="23S rRNA" value="01">seq01: T.thermophilus (len:2915)</option>
+<option data-c1="23S rRNA" value="02">seq02: B.subtilis (len:2927)</option>
+<option data-c1="23S rRNA" value="03">seq03: S.aureus (len:2923)</option>
+<option data-c1="23S rRNA" value="04">seq04: E.coli (len:2904)</option>
 </select>
 
 
