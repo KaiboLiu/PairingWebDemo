@@ -20,9 +20,7 @@ function filterSeq(){
 	$("#option-container").children().appendTo("#seqNo"); // moves <option> contained in #option-container back to their <select>
 	var toMove = $("#seqNo").children("[data-c1!='"+series+"']"); // selects seqNo elements to move out
 	toMove.appendTo("#option-container"); // moves seqNo elements in #option-container
-	$("#seqNo").removeAttr("disabled"); // enables select
-	
-	//document.getElementById("seqShown").innerHTML = series + "-" + seqNo;
+	$("#seqNo").removeAttr("disabled"); // enables select	
 	comfirmSeq();
 }
 
