@@ -67,16 +67,16 @@ function fillSeqText(){
 	//var seqFile = "./demo_data/demo_rearranged_results/combine_"+seriesNo+"."+seqNo;
     $.get(seqFile, function(data,status) {
     	var lines = data.split("\n");
-		document.getElementById("seqName").innerHTML = lines[1];
-		document.getElementById("ref").innerHTML = lines[3];
-		document.getElementById("cf").innerHTML = lines[5];
-		document.getElementById("vn").innerHTML = lines[7];
+		document.getElementById("seqName").innerHTML = 'seq: <br>'+lines[1];
+		document.getElementById("ref").innerHTML = 'ref: <br>' + lines[3];
+		document.getElementById("cf").innerHTML = 'CONTRAfold MFE: <br>' + lines[5];
+		document.getElementById("vn").innerHTML = 'Vienna RNAfold: <br>' + lines[7];
 		var beamline = 8*BeamFromBar + 3;
 		if (BeamFromBar > 200){
 			beamline = 8*(BeamFromBar/100+198) + 3;
 		}
-		document.getElementById("lcf").innerHTML = lines[beamline];
-		document.getElementById("lvn").innerHTML = lines[beamline+4];
+		document.getElementById("lcf").innerHTML = 'LinearFold-C: <br>' + lines[beamline];
+		document.getElementById("lvn").innerHTML = 'LinearFold-V: <br>' + lines[beamline+4];
     });	
 }
 
