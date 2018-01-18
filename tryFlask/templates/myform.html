@@ -22,13 +22,13 @@
 			  <div class="file-select">
 			    <div class="file-select-button" id="fileName">Choose File</div>
 			    <div class="file-select-name" id="noFile">No file chosen...</div> 
-			    <input type="file" name="seqFile" id="seqFile" accept=".txt">
+			    <input type="file" name="seqFile" id="seqFile" accept=".txt" onchange=loaded()>
 			    <!--<input type="file" name="seqFile" id="seqFile" accept=".txt" onchange="form.submit()">-->
 			  </div>
 			</div>
 		</form>
 
 		<script src="../static/js/jquery.min.js"></script>
-		<script src="../static/js/chooseFile.js"></script>
+		<script src="../static/js/seqLoader.js"></script>
 	</body>
 </html>

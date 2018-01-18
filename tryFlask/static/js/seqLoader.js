@@ -1,4 +1,5 @@
-$('#seqFile').bind('change', function () {
+//$('#seqFile').bind('change', function () {
+function loaded(){
   var filename = $("#seqFile").val();
   console.log(filename);
   if (/^\s*$/.test(filename)) {
@@ -25,7 +26,6 @@ $('#seqFile').bind('change', function () {
             },
         });
   }
-});
-
+}
 
 
