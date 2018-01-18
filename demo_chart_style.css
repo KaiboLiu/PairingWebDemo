@@ -5,7 +5,8 @@ span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word 
 
 div.scale_botton_411{
     position: absolute;
-    /*top: 170px;
+    /*try relative?
+    top: 170px;
     left: 1450px;
     top: 80%;*/
     top: 148px;
