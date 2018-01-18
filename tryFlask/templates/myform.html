@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Interactive sequence demo</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="../static/css/tryFlask.css">
+	</head>
+
+	<body>
+
+		<!--<form action="/action_go.php">-->
+		<form method="POST">
+    		Input sequence: <br><textarea name="seqInput" rows="5" cols="150" placeholder="enter the sequence" ></textarea><br>
+    		<input type="submit" value="Run">
+    		<input type="reset" value="Reset" />
+		</form>
+		<br>
+		<form method="POST" class="chooseFile" enctype="multipart/form-data">
+			Upload sequence: <br>
+			<div class="file-upload">
+			  <div class="file-select">
+			    <div class="file-select-button" id="fileName">Choose File</div>
+			    <div class="file-select-name" id="noFile">No file chosen...</div> 
+			    <input type="file" name="seqFile" id="seqFile" accept=".txt">
+			    <!--<input type="file" name="seqFile" id="seqFile" accept=".txt" onchange="form.submit()">-->
+			  </div>
+			</div>
+		</form>
+
+		<script src="../static/js/jquery.min.js"></script>
+		<script src="../static/js/chooseFile.js"></script>
+	</body>
+</html>
