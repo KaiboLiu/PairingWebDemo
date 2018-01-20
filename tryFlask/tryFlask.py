@@ -2,9 +2,14 @@ from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
+
+filePath = os.path.join(os.getcwd(),"/usrData")
+
+
 @app.route('/')
 def my_form():
-    return render_template('myform.html')
+    #return render_template('myform.html')
+    return render_template('myform_2in1_input.html')
 
 #print Flask.__doc__
 @app.route('/hello')
@@ -16,7 +21,11 @@ def inputSeq():
     if request.method == 'POST':
         text = request.form['seqInput']
         processed_text = text.upper()+' finished'
-        return processed_text
+        filename = request.files['seqFile']
+        newPath = os.path.join(filePath,filename)
+        file.save(newPath)
+        return processed_text,newPath
+        #return processed_text
         
 @app.route('/uploadajax', methods=['GET', 'POST'])
 def uploadSeq():
