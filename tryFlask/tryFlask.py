@@ -1,9 +1,15 @@
-from flask import Flask, request, render_template   
+#!/usr/bin/python
+#coding-utf8
+
+from flask import Flask, request, render_template, url_for  
+from werkzeug.utils import secure_filename 
+import os
+from time import time
 
 app = Flask(__name__)
 
 
-filePath = os.path.join(os.getcwd(),"/usrData")
+filePath = os.path.join(os.getcwd(),"usrData")
 
 
 @app.route('/')
@@ -19,20 +25,64 @@ def hello_world():
 @app.route('/', methods=['GET', 'POST'])
 def inputSeq():
     if request.method == 'POST':
+        beamsize = request.form['beamSize']
         text = request.form['seqInput']
-        processed_text = text.upper()+' finished'
-        filename = request.files['seqFile']
-        newPath = os.path.join(filePath,filename)
-        file.save(newPath)
-        return processed_text,newPath
-        #return processed_text
-        
-@app.route('/uploadajax', methods=['GET', 'POST'])
-def uploadSeq():
-    if request.method == 'POST':
-        f = request.files['seqFile']
-        f.save('./uploaded_file.txt')
-        return 'uploaded'
+        if text == '': 
+
+            if 'seqFile' not in request.files:
+                return 'No input, nor selected file'
+
+            file = request.files['seqFile']
+            '''
+            if file.filename == '':
+                flash('No selected file')
+                return "no file"
+                #return redirect(request.url)
+            ''' 
+            filename = str(time()) + secure_filename(file.filename)
+            newPath = os.path.join(filePath,filename)
+            file.save(newPath)
+            with open(newPath) as f:
+                lines = f.readlines()
+                seqName = lines[0][:-1]
+                seq     = lines[1][:-1]
+            return newPath + '<br>name:&nbsp&nbsp' + seqName + '<br>seq:&nbsp&nbsp&nbsp&nbsp' + seq
+        else: 
+            lineStop = text.find('\n')
+            if lineStop == -1:
+                return 'wrong input, supposed to be FASTA format'
+            seqName = text[:lineStop]   #.upper()+' finished'
+            seq     = text[lineStop+1:]
+            #return processed_text,newPath
+            return 'input:<br>name:&nbsp&nbsp' + seqName + '<br>seq:&nbsp&nbsp&nbsp&nbsp' + seq
+
+        '''
+        file = request.files['seqFile']
+        if file.filename == '':
+            text = request.form['seqInput']
+
+            if text == '': 
+                #flash('No selected file')
+                return "no file, no input"
+                #return redirect(request.url)  
+
+            lineStop = text.find('\n')
+            if lineStop == -1:
+                return 'wrong input'
+            seqName = text[:lineStop]   #.upper()+' finished'
+            seq     = text[lineStop+1:]            
+            return 'input:<br>name:&nbsp&nbsp' + seqName + '<br>seq:&nbsp&nbsp&nbsp&nbsp' + seq
+
+        else:
+            filename = str(time()) + secure_filename(file.filename)
+            newPath = os.path.join(filePath,filename)
+            file.save(newPath)
+            with open(newPath) as f:
+                lines = f.readlines()
+                seqName = lines[0][:-1]
+                seq     = lines[1][:-1]
+            return newPath + '<br>name:&nbsp&nbsp' + seqName + '<br>seq:&nbsp&nbsp&nbsp&nbsp' + seq
+        '''
 
 if __name__ == '__main__':
     #app.logger.debug('message processed')

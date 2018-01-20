@@ -10,13 +10,8 @@
 	<body>
 
 		<!--<form action="/action_go.php">-->
-		<form method="POST">
-    		
-    		<input type="submit" value="Run">
-    		<input type="reset" value="Reset" />
-		</form>
 		<br>
-		<form method="POST" class="chooseFile" enctype="multipart/form-data">
+		<form method="POST" class="userSeq" enctype="multipart/form-data">
 			Paste or type your <b>sequence</b> here: <br>
     		<textarea name="seqInput" rows="5" cols="150" placeholder=">name &#10;AUCGGGCUAUUACG" ></textarea><br><br>
 			Or upload a file in FASTA format: <br>
@@ -24,15 +19,16 @@
 			  <div class="file-select">
 			    <div class="file-select-button" id="fileName">Choose File</div>
 			    <div class="file-select-name" id="noFile">No file chosen...</div> 
-			    <input type="file" name="seqFile" id="seqFile" accept=".txt"><br>
+			    <input type="file" name="seqFile" accept=".txt"><br>
 			    <!--
 			    <input type="file" name="seqFile" id="seqFile" accept=".txt" onchange=loaded()>
 			    <input type="file" name="seqFile" id="seqFile" accept=".txt" onchange="form.submit()">
 				-->
 			  </div>
 			</div><br><br>
-			Beam size (1-800): <input type="text" name="beamSize" placeholder="20" maxlength="3" size="10" ><br>
-			<input type="submit" value="Run >>">
+			Beam size (1-800): 
+			<input type="text" name="beamSize" placeholder="20" maxlength="3" size="10" ><br>
+			<input type="submit" value="Run >>">&nbsp &nbsp &nbsp<input type="reset" value="Reset" />
 		</form>
 		<br><br><br>
 		<p>Example demos for <span class="coloredSeq">16S rRNA</span>/<span class="coloredSeq">23S rRNA</span>/<span class="coloredSeq">Group I Intron</span> are avaialbe, compared with other algorithms. </p>
