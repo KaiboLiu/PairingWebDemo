@@ -9,7 +9,7 @@ from time import time
 app = Flask(__name__)
 
 
-filePath = os.path.join(os.getcwd(),"usrData")
+outDir = os.path.join(os.getcwd(),"usrData")
 
 
 @app.route('/')
@@ -25,13 +25,18 @@ def hello_world():
 @app.route('/', methods=['GET', 'POST'])
 def inputSeq():
     if request.method == 'POST':
+
+        if not os.path.exists(outDir):
+            os.makedirs(outDir)
+
         beamsize = request.form['beamSize']
+        if beamsize == '': beamsize = '20'
         text = request.form['seqInput']
+
         if text == '': 
 
             if 'seqFile' not in request.files:
                 return 'No input, nor selected file'
-
             file = request.files['seqFile']
             '''
             if file.filename == '':
@@ -40,13 +45,13 @@ def inputSeq():
                 #return redirect(request.url)
             ''' 
             filename = str(time()) + secure_filename(file.filename)
-            newPath = os.path.join(filePath,filename)
+            newPath = os.path.join(outDir,filename)
             file.save(newPath)
             with open(newPath) as f:
                 lines = f.readlines()
                 seqName = lines[0][:-1]
                 seq     = lines[1][:-1]
-            return newPath + '<br>name:&nbsp&nbsp' + seqName + '<br>seq:&nbsp&nbsp&nbsp&nbsp' + seq
+            return newPath + '<br>name:&nbsp&nbsp' + seqName + '<br>seq:&nbsp&nbsp&nbsp&nbsp' + seq + '<br>BeamSize:&nbsp&nbsp' + beamsize
         else: 
             lineStop = text.find('\n')
             if lineStop == -1:
@@ -54,7 +59,7 @@ def inputSeq():
             seqName = text[:lineStop]   #.upper()+' finished'
             seq     = text[lineStop+1:]
             #return processed_text,newPath
-            return 'input:<br>name:&nbsp&nbsp' + seqName + '<br>seq:&nbsp&nbsp&nbsp&nbsp' + seq
+            return 'input:<br>name:&nbsp&nbsp' + seqName + '<br>seq:&nbsp&nbsp&nbsp&nbsp' + seq + '<br>BeamSize:&nbsp&nbsp' + beamsize
 
         '''
         file = request.files['seqFile']
@@ -75,7 +80,7 @@ def inputSeq():
 
         else:
             filename = str(time()) + secure_filename(file.filename)
-            newPath = os.path.join(filePath,filename)
+            newPath = os.path.join(outDir,filename)
             file.save(newPath)
             with open(newPath) as f:
                 lines = f.readlines()
