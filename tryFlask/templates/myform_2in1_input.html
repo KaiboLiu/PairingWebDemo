@@ -12,14 +12,14 @@
 		<!--<form action="/action_go.php">-->
 		<br>
 		<form method="POST" class="userSeq" enctype="multipart/form-data">
-			Paste or type your <b>sequence</b> here: <br>
+			- Paste or type your <b>sequence</b> here: <br>
     		<textarea name="seqInput" rows="5" cols="150" placeholder=">name &#10;AUCGGGCUAUUACG" ></textarea><br><br>
-			Or upload a file in FASTA format: <br>
+			- Or upload a file in FASTA format: <br>
 			<div class="file-upload">
 			  <div class="file-select">
 			    <div class="file-select-button" id="fileName">Choose File</div>
 			    <div class="file-select-name" id="noFile">No file chosen...</div> 
-			    <input type="file" name="seqFile" accept=".txt"><br>
+			    <input type="file" name="seqFile" id="seqFile" accept=".txt"><br>
 			    <!--
 			    <input type="file" name="seqFile" id="seqFile" accept=".txt" onchange=loaded()>
 			    <input type="file" name="seqFile" id="seqFile" accept=".txt" onchange="form.submit()">
@@ -27,7 +27,7 @@
 			  </div>
 			</div><br><br>
 			Beam size (1-800): 
-			<input type="text" name="beamSize" placeholder="20" maxlength="3" size="10" ><br>
+			<input type="text" name="beamSize" placeholder="20" maxlength="3" size="10" >&nbsp &nbsp &nbsp
 			<input type="submit" value="Run >>">&nbsp &nbsp &nbsp<input type="reset" value="Reset" />
 		</form>
 		<br><br><br>
