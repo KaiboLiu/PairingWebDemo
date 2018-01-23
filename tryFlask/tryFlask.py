@@ -44,7 +44,13 @@ def inputSeq():
                 return "no file"
                 #return redirect(request.url)
             ''' 
-            filename = str(time()) + secure_filename(file.filename)
+            filename = secure_filename(file.filename)
+            dotPos = filename.rfind('.')
+            if dotPos >= 0:
+                filename = filename[:dotPos] + '_' + str(time()) + filename[dotPos:]
+            else:
+                filename = filename + '_' + str(time())
+            #filename = str(time()) + secure_filename(file.filename)
             newPath = os.path.join(outDir,filename)
             file.save(newPath)
             with open(newPath) as f:
