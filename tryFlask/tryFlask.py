@@ -6,13 +6,13 @@ from werkzeug.utils import secure_filename
 import os
 from time import time
 
-app = Flask(__name__)
+app = Flask(__name__,static_url_path='')
 
-
+demoURL = '/liukaib/demo'
 outDir = os.path.join(os.getcwd(),"usrData")
 
 
-@app.route('/')
+@app.route(demoURL)
 def my_form():
     #return render_template('myform.html')
     return render_template('myform_2in1_input.html')
@@ -22,7 +22,7 @@ def my_form():
 def hello_world():
     return 'Hello World!'
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route(demoURL, methods=['GET', 'POST'])
 def inputSeq():
     if request.method == 'POST':
 
@@ -98,5 +98,5 @@ def inputSeq():
 if __name__ == '__main__':
     #app.logger.debug('message processed')
     app.logger.info('message processed')
-    #app.run(host='0.0.0.0', port=23, debug=True)
+    #app.run(host='0.0.0.0', port=8001)#, debug=True)
     app.run(debug=True)
