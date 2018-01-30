@@ -25,7 +25,7 @@ ref * 2 lines				----->  L3
 cf  * 2 lines				----->  L5
 vn  * 2 lines 				----->  L7
 linearcf.beam001 * 4 lines  ----->  L11 (with 2 lines of information above)
-lineavnf.beam001 * 4 lines  ----->  L16 (with 2 lines of information above)
+lineavnf.beam001 * 4 lines  ----->  L15 (with 2 lines of information above)
 linearcf.beam002 * 4 lines
 lineavnf.beam002 * 4 lines
 ...

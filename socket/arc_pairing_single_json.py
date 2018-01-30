@@ -61,124 +61,69 @@ rbs = [')', ']', '}', '>']
 #lbs = ['('] # pseudoknot-free only, even for grey part
 #rbs = [')'] # pseudoknot-free only, even for grey part 
 
-def LoadSave(RNAtype,seqNo):
-    #RNAtype = "16s"
-    #seqNo = 5
+def LoadSave(outDir,seq,lc,lv):
 
-    dataDir  = "./demo_rearranged_results/"
-    dataFile = "combine_"+RNAtype+".seq"
-    outDir   = "./demo_pairing_for_js/"
-    outFile  = "combine_pairing_"+RNAtype+".seq"
-    number   = str(seqNo)
-    if (seqNo < 10):
-        number = "0" + number
-
-    if not os.path.exists(outDir):
-        os.makedirs(outDir)
+    outFile  = outDir + "pairing.res"
     
     data = []
-    fileIn  = open(dataDir+dataFile+number)
-    lines = fileIn.readlines();
-    seq = lines[1][:-1]
-    ref = lines[3][:-1]
-    cf  = lines[5][:-1]
-    vn  = lines[7][:-1]
-
-
 
     data = [len(seq)]
     data.append(seq)
-    #f.write("%s\n" %len(seq))
-    #f.write(lines[1])
-    #f.write(">>>>>>contrafold (missing/ hit/ wrong pairs)\n")
+    '''
     P_R_F_missing_hit_wrong = pairing(seq,ref,cf)     # pairing cf and compare with ref
     data[len(data):len(data)] = P_R_F_missing_hit_wrong
 
     P_R_F_missing_hit_wrong = pairing(seq,ref,vn)     # pairing vn and compare with ref
     data[len(data):len(data)] = P_R_F_missing_hit_wrong
+    '''
 
-    #       beam_list = range(1,201) + range(300,801,100)
-    n_line = len(lines)
-    for i in xrange(11,n_line,8):
-        linearcf_beam_i = lines[i][:-1]
-        P_R_F_missing_hit_wrong = pairing(seq,ref,linearcf_beam_i)     # pairing linearcf_beam_i and compare with ref
-        data[len(data):len(data)] = P_R_F_missing_hit_wrong
-        
-        linearvn_beam_i = lines[i+4][:-1] 
-        P_R_F_missing_hit_wrong = pairing(seq,ref,linearvn_beam_i)     # pairing linearvn_beam_i and compare with ref
-        data[len(data):len(data)] = P_R_F_missing_hit_wrong
+    
+    P_R_F_missing_hit_wrong = pairing(lc)     # pairing linearcf
+    data[len(data):len(data)] = P_R_F_missing_hit_wrong
+    
+    
+    P_R_F_missing_hit_wrong = pairing(lv)     # pairing linearvn
+    data[len(data):len(data)] = P_R_F_missing_hit_wrong
 
     fileIn.close()
 
     with open(outDir+outFile+number,'w') as f:
         json.dump({"pairing":data}, f, ensure_ascii=False)
 
-
-    '''
-    #save by line as plaintext
-    f = open(outDir+outFile+number,'w')
-    f.write("%s\n" %len(seq))
-    f.write(">>>>>>contrafold (missing/ hit/ wrong pairs)\n")
-    missing, hit, wrong = pairing(seq,ref,cf)
-    for pos in missing:
-        f.write("%s " % pos)
-    f.write("\n")
-
-    for pos in hit:
-        f.write("%s " % pos)
-    f.write("\n")
-
-    for pos in wrong:
-        f.write("%s " % pos)
-    f.write("\n")
-    
-    f.write(missing)
-    f.write(hit)
-    f.write(wrong)
-    
-    
-    #f.write(">>>>>>vienna(missing, hit, wrong pairs)\n")
-    #missing, hit, wrong = pairing(seq,ref,cf)
-
-
-    #f.write(">>>>>>LinearContrafold"+beamFile1[-8:]+"\n")
-    '''
     f.close()
     
 
-def agree(pres, pref, a, b): ## pres[a] = b
-    if pref[a] == b:
-        return True
-    elif pref.get(a-1,-1) == b or pref.get(a+1,-1) == b:
-        return True
-    elif pref.get(b-1,-1) == a or pref.get(b+1,-1) == a:
-        return True
-    else:
-        return False
-'''
-def agree(pres, pref, index):
-    if pres[index] == pref[index]:
-        return True
-    elif pres[index-1] == pref[index] and pref[index] != -1:
-        return True
-    elif pres[index+1] == pref[index] and pref[index] != -1:
-        return True
-    elif pres[index] == pref[index-1] and pres[index] != -1:
-        return True
-    elif pres[index] == pref[index+1] and pres[index] != -1:
-        return True
-    else:
-        return False
-'''
-'''
-def agree(pres, pref, index):
-    if pres[index] == pref[index]:
-        return True
-    else:
-        return False
-'''
-def pairing(seq,ref,res):
+## pairing by self, no gold
+def pairing(res):
     #brackets for pseudoknot
+
+    pairs = []
+    respair = defaultdict(lambda: -1)
+    missing, hit, wrong = [], [], []
+    notes = ""
+
+    #pairing in result
+    stacks = []
+    for _ in xrange(len(lbs)):
+        stacks.append([])
+    for i, item in enumerate(res):
+        if item in lbs:
+            stackindex = lbs.index(item)
+            stacks[stackindex].append(i)
+        elif item in rbs:
+            stackindex = rbs.index(item)
+            left = stacks[stackindex][-1]
+            stacks[stackindex] = stacks[stackindex][:-1]    # stacks[stackindex].pop() ?
+            missing.append(left)
+            missing.append(i)
+
+
+    precision = 0
+    recall = 0
+    Fscore = 0
+    return [[precision,recall,Fscore], missing, hit, wrong]
+
+    '''
     pairs = []
     refpairs = []
     respair = defaultdict(lambda: -1)
@@ -263,12 +208,12 @@ def pairing(seq,ref,res):
         Fscore = round(2*precision*recall/(precision+recall),4)
     return [[precision,recall,Fscore], missing, hit, wrong]
 
-
-
+    '''
+'''
 print("start")
 for seq_No in xrange(22):      # xrange(22) if seq is 16s, xrange(5) if seq is 23s, xrange(96) if seq is grp1
     LoadSave("16s",seq_No)
     print("finish seq %d" %(seq_No))
 print ("end")
-
+'''
 #print >> logs, "%d out of %d sequences have pseudoknots" % (num_hasknot, index) #TODO
