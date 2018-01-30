@@ -50,6 +50,7 @@ import pdb
 import os
 from collections import defaultdict
 import json
+
 logs = sys.stderr
 
 MAXLEN = 5650
@@ -61,13 +62,13 @@ rbs = [')', ']', '}', '>']
 #lbs = ['('] # pseudoknot-free only, even for grey part
 #rbs = [')'] # pseudoknot-free only, even for grey part 
 
-def LoadSave(outDir,seq,lc,lv):
+def LoadSave(outDir,seq,lc,lv,t1,t2):
 
-    outFile  = outDir + "pairing.res"
+    outFile  = outDir + ".pairing.res"
     
     data = []
 
-    data = [len(seq)]
+    data = [len(seq), t1, t2]
     data.append(seq)
     '''
     P_R_F_missing_hit_wrong = pairing(seq,ref,cf)     # pairing cf and compare with ref
@@ -81,13 +82,10 @@ def LoadSave(outDir,seq,lc,lv):
     P_R_F_missing_hit_wrong = pairing(lc)     # pairing linearcf
     data[len(data):len(data)] = P_R_F_missing_hit_wrong
     
-    
     P_R_F_missing_hit_wrong = pairing(lv)     # pairing linearvn
     data[len(data):len(data)] = P_R_F_missing_hit_wrong
 
-    fileIn.close()
-
-    with open(outDir+outFile+number,'w') as f:
+    with open(outFile,'w') as f:
         json.dump({"pairing":data}, f, ensure_ascii=False)
 
     f.close()

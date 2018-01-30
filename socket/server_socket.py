@@ -6,6 +6,7 @@
 import time
 import os
 import socket               # import socket module
+from arc_pairing_single_json import LoadSave
 
 s = socket.socket()         # creat socket object
 host = socket.gethostname() # get local host name
@@ -27,7 +28,7 @@ while True:
     #c.send('Hello world, it\'s Kaibo, from server: %s: %s\nYour address is: %s' %(host, port, addr))
     time0 = time.time()
     outFile = outDir + str(time0)
-    inFile  = outDir + str(time0) + 'test.seq'
+    inFile  = outFile + '.test.seq'
 
     os.system("echo %s > %s;" % (seq, inFile))
 
@@ -53,8 +54,12 @@ while True:
     f_lv = open(outFile+'.lv.res')
     #f_cf = open(outFile+'.cf.res')
     #f_vn = open(outFile+'.vn.res')
-    c.send('\n>> lc\n'+ f_lc.readlines()[-1] + 'total process time: %f' %(time1)+\
-           '\n>> lv\n'+ f_lv.readlines()[-1] + 'total process time: %f' %(time2))#+\
+
+    lc = f_lc.readlines()
+    lv = f_lv.readlines()
+    LoadSave(outFile,seq,lc[6][:-1],lv[6][:-1],time1,time2)
+    c.send('\n>> lc\n'+ lc[-1] + 'total process time: %f' %(time1)+\
+           '\n>> lv\n'+ lv[-1] + 'total process time: %f' %(time2))#+\
     #       '\n>> cf\n'+ f_cf.readlines()[-1] + 'total process time: %f' %(time3)+\
     #       '\n>> vn\n'+ f_vn.readlines()[-1] + 'total process time: %f' %(time4))
     f_lc.close()
