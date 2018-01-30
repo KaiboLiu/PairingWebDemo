@@ -58,7 +58,7 @@ while True:
     lc = f_lc.readlines()
     lv = f_lv.readlines()
     LoadSave(outFile,seq,lc[6][:-1],lv[6][:-1],time1,time2)
-    c.send('\n>> lc\n'+ lc[-1] + 'total process time: %f' %(time1)+\
+    c.send('>> lc\n'+ lc[-1] + 'total process time: %f' %(time1)+\
            '\n>> lv\n'+ lv[-1] + 'total process time: %f' %(time2))#+\
     #       '\n>> cf\n'+ f_cf.readlines()[-1] + 'total process time: %f' %(time3)+\
     #       '\n>> vn\n'+ f_vn.readlines()[-1] + 'total process time: %f' %(time4))

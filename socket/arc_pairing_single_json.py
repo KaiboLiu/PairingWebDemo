@@ -3,45 +3,20 @@
 '''
 Developer: Kaibo(lrushx)
 Email: liukaib@oregonstate.edu
-Process Time: Dec 14, 2017
+Process Time: Jan 29, 2018
  */
 '''
 
 '''
-# read from "combine_16s.seq0*", use line 1 as seq, line 3 as ref/ref, line 5 as cf, line 7 as vn, line(8i+3) as linearcf, line(8i+7) as linearvf (start from line 0)
-# to compose 4 circle graphs, we need to compare 4 sets(cf:ref, vn:ref,Lcf:ref,Lvn:ref)
-'''
-
-'''
-In the saved data file, .seq03 for example, there are 1656 lines(seq *2 + ref *2 + cf *2 + vn *2 + linearcf *206*4 + lineavnf *206*4)
-The structure of the file is:
-seq * 2 lines               ----->  L1 (L0 is '>>>>>>seq' )
-ref * 2 lines               ----->  L3
-cf  * 2 lines               ----->  L5
-vn  * 2 lines               ----->  L7
-linearcf.beam001 * 4 lines  ----->  L11 (with 2 lines of information above)
-lineavnf.beam001 * 4 lines  ----->  L15 (with 2 lines of information above)
-linearcf.beam002 * 4 lines
-lineavnf.beam002 * 4 lines
-linearcf.beam00i * 4 lines  ----->  L(8*i+3) (with 2 lines of information above), if i > 200, L[(i/100+198)*8+3]
-lineavnf.beam00i * 4 lines  ----->  L(8*i+7) (with 2 lines of information above), if i > 200, L[(i/100+198)*8+7]
+# given the seq, and predicted strucure lc, lv, pairing the RNA without gold, dump length, seq, lc,lv, pairing_lc, pairing_lv into a file
 '''
 
 '''
 save pairing results into file as json format:
-{"result":[N,seq,                                                           ----->index: 0-1
-            [P,R,F],cf_missing, cf_hit, cf_wrong,                                   ----->index: 2-5
-            [P,R,F],vn_missing, vn_hit, vn_wrong,                                   ----->index: 6-9
-            [P,R,F],linearcf_b01_missing, linearcf_b01_hit, linearcf_b01_wrong,     ----->index: 10-13
-            [P,R,F],linearvn_b01_missing, linearvn_b01_hit, linearvn_b01_wrong,     ----->index: 14-17
-            [P,R,F],linearcf_b02_missing, linearcf_b02_hit, linearcf_b02_wrong,     ----->index: 18-21 (8*i+2~8*i+5,i is the beam number)
-            [P,R,F],linearvn_b02_missing, linearvn_b02_hit, linearvn_b02_wrong,     ----->index: 22-25 (8*i+6~8*i+9,i is the beam number)
-            ...
-            [P,R,F],linearcf_b800_missing, linearcf_b800_hit, linearcf_b800_wrong,  ----->index: 1238-1241 [(i/100+198)*6+2~(i/100+198)*6+5,i is the beam number which is > 200]
-            [P,R,F],linearvn_b800_missing, linearvn_b800_hit, linearvn_b800_wrong,  ----->index: 1242-1245 [(i/100+198)*6+6~(i/100+198)*6+9,i is the beam number which is > 200]
-
-             ]}
-The new pairing data files will listed by seq number(16s * 22, and 23s *5), 27 files in total.
+{"result":[N,time_lc,time_lv,seq, lc,lv                                          ----->index: 0-5
+            [P,R,F],linearcf_missing[...], linearcf_hit[], linearcf_wrong[],     ----->index: 6-9
+            [P,R,F],linearvn_missing[...], linearvn_hit[], linearvn_wrong[],     ----->index: 10-13
+        ]}
 '''
 
 import sys
@@ -70,6 +45,8 @@ def LoadSave(outDir,seq,lc,lv,t1,t2):
 
     data = [len(seq), t1, t2]
     data.append(seq)
+    data.append(lc)
+    data.append(lv)
     '''
     P_R_F_missing_hit_wrong = pairing(seq,ref,cf)     # pairing cf and compare with ref
     data[len(data):len(data)] = P_R_F_missing_hit_wrong
