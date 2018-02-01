@@ -13,9 +13,9 @@ Process Time: Jan 29, 2018
 
 '''
 save pairing results into file as json format:
-{"result":[N,beam_size, time_lc,time_lv,seq, lc,lv                               ----->index: 0-6
-            [P,R,F],linearcf_missing[...], linearcf_hit[], linearcf_wrong[],     ----->index: 7-10
-            [P,R,F],linearvn_missing[...], linearvn_hit[], linearvn_wrong[],     ----->index: 11-14
+{"result":[N,beam_size, time_lc,time_lv, seqName, seq, lc,lv                               ----->index: 0-7
+            [P,R,F],linearcf_missing[...], linearcf_hit[], linearcf_wrong[],     ----->index: 8-11
+            [P,R,F],linearvn_missing[...], linearvn_hit[], linearvn_wrong[],     ----->index: 12-15
         ]}
 '''
 
@@ -37,11 +37,11 @@ rbs = [')', ']', '}', '>']
 #lbs = ['('] # pseudoknot-free only, even for grey part
 #rbs = [')'] # pseudoknot-free only, even for grey part 
 
-def LoadSave(outFile,seq,lc,lv,t1,t2,beam):
+def LoadSave(outFile,seq,lc,lv,t1,t2,beam,name):
     
     data = []
 
-    data = [len(seq), beam, t1, t2]
+    data = [len(seq), beam, t1, t2, name]
     data.append(seq)
     data.append(lc)
     data.append(lv)

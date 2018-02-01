@@ -66,9 +66,14 @@ function fillPage_go(d,R,circleScale,halfOpen=20,inFile) {
 	console.log(pairingFile)
 	$.getJSON(pairingFile, function(data,status) {
         console.log('read successfully')
-        document.getElementById("seqStr").innerHTML = 'seq: <br>'+data.pairing[4];
-        document.getElementById("lcf").innerHTML = 'LinearFold-C: <br>' + data.pairing[5];
-        document.getElementById("lvn").innerHTML = 'LinearFold-V: <br>' + data.pairing[6];
+        document.getElementById("seqEcho").innerHTML = data.pairing[4]+' (len:'+data.pairing[0]+')';
+        document.getElementById("beamEcho").innerHTML = data.pairing[1];
+        document.getElementById("timeLCEcho").innerHTML = (''+data.pairing[2]).slice(0,-5);
+        document.getElementById("timeLVEcho").innerHTML = data.pairing[3];
+   
+        document.getElementById("seqStr").innerHTML = 'seq: <br>'+data.pairing[5];
+        document.getElementById("lcf").innerHTML = 'LinearFold-C: <br>' + data.pairing[6];
+        document.getElementById("lvn").innerHTML = 'LinearFold-V: <br>' + data.pairing[7];
 		draw_graphs(data.pairing, d,R,circleScale,halfOpen);
 		draw_plots(data.pairing);
 	});
@@ -226,9 +231,9 @@ function fillCircles(data,d,R,circleScale,halfOpen=20,half="right"){
 		fillCircle(data[l+4],data[l+5],data[l+6],data[l+7],N,a,b+2*H_title,R,halfOpen);
 	}else{
 		//fill circle top-right with linearcf_missing, linearcf_hit, linearcf_wrong
-		fillCircle(data[7],data[8],data[9],data[10],N,b,a+H_title,R,halfOpen);
+		fillCircle(data[8],data[9],data[10],data[11],N,b,a+H_title,R,halfOpen);
 		//fill circle bottom-right with linearvn_missing, linearvn_hit, linearvn_wrong
-		fillCircle(data[11],data[12],data[13],data[14],N,b,b+2*H_title,R,halfOpen);
+		fillCircle(data[12],data[13],data[14],data[15],N,b,b+2*H_title,R,halfOpen);
 	}
 }
 
@@ -237,7 +242,8 @@ function fillCircle(P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 
 	var missing_pair = missing.length;
 	for (var i=0; i<missing_pair; i=i+2){
-		drawArc(missing[i],missing[i+1],N,x0,y0,R,'LightGray',halfOpen);
+		//drawArc(missing[i],missing[i+1],N,x0,y0,R,'LightGray',halfOpen);
+        drawArc(missing[i],missing[i+1],N,x0,y0,R,'LightGreen',halfOpen);
 	}
 
 	var hit_pair = hit.length;
