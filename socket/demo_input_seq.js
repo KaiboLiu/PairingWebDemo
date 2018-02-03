@@ -69,7 +69,7 @@ function fillPage_go(d,R,circleScale,halfOpen=20,inFile) {
         document.getElementById("seqEcho").innerHTML = data.pairing[4]+' (len:'+data.pairing[0]+')';
         document.getElementById("beamEcho").innerHTML = data.pairing[1];
         document.getElementById("timeLCEcho").innerHTML = (''+data.pairing[2]).slice(0,-5);
-        document.getElementById("timeLVEcho").innerHTML = data.pairing[3];
+        document.getElementById("timeLVEcho").innerHTML = (''+data.pairing[3]).slice(0,-5);
    
         document.getElementById("seqStr").innerHTML = 'seq: <br>'+data.pairing[5];
         document.getElementById("lcf").innerHTML = 'LinearFold-C: <br>' + data.pairing[6];

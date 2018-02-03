@@ -29,7 +29,7 @@ lineavnf.beam00i * 4 lines  ----->  L(8*i+7) (with 2 lines of information above)
 
 '''
 save pairing results into file as json format:
-{"result":[N,seq,                                                           ----->index: 0-1
+{"result":[N,seq,                                                                   ----->index: 0-1
             [P,R,F],cf_missing, cf_hit, cf_wrong,                                   ----->index: 2-5
             [P,R,F],vn_missing, vn_hit, vn_wrong,                                   ----->index: 6-9
             [P,R,F],linearcf_b01_missing, linearcf_b01_hit, linearcf_b01_wrong,     ----->index: 10-13

@@ -13,7 +13,7 @@ Process Time: Jan 29, 2018
 
 '''
 save pairing results into file as json format:
-{"result":[N,beam_size, time_lc,time_lv, seqName, seq, lc,lv                               ----->index: 0-7
+{"result":[N,beam_size, time_lc,time_lv, seqName, seq, lc,lv                     ----->index: 0-7
             [P,R,F],linearcf_missing[...], linearcf_hit[], linearcf_wrong[],     ----->index: 8-11
             [P,R,F],linearvn_missing[...], linearvn_hit[], linearvn_wrong[],     ----->index: 12-15
         ]}
