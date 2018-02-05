@@ -340,18 +340,152 @@ function fillSeqText(){
     //var seqFile = "./demo_data/demo_rearranged_results/combine_"+seriesNo+"."+seqNo;
     $.get(seqFile, function(data,status) {
         var lines = data.split("\n");
-        document.getElementById("seqName").innerHTML = 'seq: <br>'+lines[1];
-        document.getElementById("ref").innerHTML = 'ref: <br>' + lines[3];
-        document.getElementById("cf").innerHTML = 'CONTRAfold MFE: <br>' + lines[5];
-        document.getElementById("vn").innerHTML = 'Vienna RNAfold: <br>' + lines[7];
+        //document.getElementById("seqName").innerHTML = 'seq: <br>'+lines[1];
+        //document.getElementById("ref").innerHTML = 'ref: <br>' + lines[3];
+        //document.getElementById("cf").innerHTML = 'CONTRAfold MFE: <br>' + lines[5];
+        //document.getElementById("vn").innerHTML = 'Vienna RNAfold: <br>' + lines[7];
+        document.getElementById("seqName0").innerHTML = 'seq: ';//<br>';
+        document.getElementById("ref0").innerHTML = 'ref: ';//<br>';
+        document.getElementById("cf0").innerHTML = 'CONTRAfold MFE: ';//<br>';
+        document.getElementById("vn0").innerHTML = 'Vienna RNAfold: ';//<br>';
+        document.getElementById("lcf0").innerHTML = 'LinearFold-C: ';//<br>';
+        document.getElementById("lvn0").innerHTML = 'LinearFold-V: ';//<br>';
+
+        //$("#seqName").text(lines[1]);
+        //$("#ref").text(lines[3]);
+        //$("#cf").text(lines[5]);
+        //$("#vn").text(lines[7]);
+        document.getElementById("seqName").innerHTML = lines[1];
+        document.getElementById("ref").innerHTML = lines[3];
+        document.getElementById("cf").innerHTML = lines[5];
+        document.getElementById("vn").innerHTML = lines[7];        
         var beamline = 8*BeamFromBar + 3;
         if (BeamFromBar > 200){
             beamline = 8*(BeamFromBar/100+198) + 3;
         }
-        document.getElementById("lcf").innerHTML = 'LinearFold-C: <br>' + lines[beamline];
-        document.getElementById("lvn").innerHTML = 'LinearFold-V: <br>' + lines[beamline+4];
+        document.getElementById("lcf").innerHTML = lines[beamline];
+        document.getElementById("lvn").innerHTML = lines[beamline+4];        
+        //document.getElementById("lcf").innerHTML = 'LinearFold-C: <br>' + lines[beamline];
+        //document.getElementById("lvn").innerHTML = 'LinearFold-V: <br>' + lines[beamline+4];
+
+        //DOM or jQuery
+        document.getElementById('btn_copy_seq').innerText = 'Copy to clipboard';
+        //$("#btn_copy_seq").text('Copy text to clipboard');
+        $("#btn_copy_ref").text('Copy to clipboard');
+        $("#btn_copy_cf").text('Copy to clipboard');
+        $("#btn_copy_vn").text('Copy to clipboard');
+        $("#btn_copy_lcf").text('Copy to clipboard');
+        $("#btn_copy_lvn").text('Copy to clipboard');
+        //$("#btn_copy_lvn").innerText = 'Copy text to clipboard';
     }); 
 }
+
+
+
+
+function copy_to_clipboard(text){
+    var textArea = document.createElement("textarea");
+
+    // *** This styling is an extra step which is likely not required. ***
+    //
+    // Why is it here? To ensure:
+    // 1. the element is able to have focus and selection.
+    // 2. if element was to flash render it has minimal visual impact.
+    // 3. less flakyness with selection and copying which **might** occur if
+    //    the textarea element is not visible.
+    //
+    // The likelihood is the element won't even render, not even a flash,
+    // so some of these are just precautions. However in IE the element
+    // is visible whilst the popup box asking the user for permission for
+    // the web page to copy to the clipboard.
+    // Place in top-left corner of screen regardless of scroll position.
+    textArea.style.position = 'fixed';
+    textArea.style.top = 0;
+    textArea.style.left = 0;
+
+    // Ensure it has a small width and height. Setting to 1px / 1em
+    // doesn't work as this gives a negative w/h on some browsers.
+    textArea.style.width = '2em';
+    textArea.style.height = '2em';
+
+    // We don't need padding, reducing the size if it does flash render.
+    textArea.style.padding = 0;
+
+    // Clean up any borders.
+    textArea.style.border = 'none';
+    textArea.style.outline = 'none';
+    textArea.style.boxShadow = 'none';
+
+    // Avoid flash of white box if rendered for any reason.
+    textArea.style.background = 'transparent';
+
+
+    textArea.value = text;
+
+    document.body.appendChild(textArea);
+
+    textArea.select();
+
+    var succ_flag = false;
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+      console.log('Copying text command was ' + msg);
+      succ_flag = true;
+    } catch (err) {
+      console.log('Oops, unable to copy');
+      return false
+    }
+
+    document.body.removeChild(textArea);
+    return succ_flag;
+
+}
+
+
+function cp_seq(){
+  /* Get the text field */
+  var flag = copy_to_clipboard(document.getElementById("seqName").innerText);
+  if (flag) $("#btn_copy_seq").text('copied');
+  else $("#btn_copy_seq").text('not copied');
+}
+
+function cp_ref(){
+  /* Get the text field */
+  var flag = copy_to_clipboard(document.getElementById("ref").innerText);
+  if (flag) $("#btn_copy_ref").text('copied');
+  else $("#btn_copy_ref").text('not copied');
+}
+
+function cp_cf(){
+  /* Get the text field */
+  var flag = copy_to_clipboard(document.getElementById("cf").innerText);
+  if (flag) $("#btn_copy_cf").text('copied');
+  else $("#btn_copy_cf").text('not copied');
+}
+
+function cp_vn(){
+  /* Get the text field */
+  var flag = copy_to_clipboard(document.getElementById("vn").innerText);
+  if (flag) $("#btn_copy_vn").text('copied');
+  else $("#btn_copy_vn").text('not copied');
+}
+
+function cp_lcf(){
+  /* Get the text field */
+  var flag = copy_to_clipboard(document.getElementById("lcf").innerText);
+  if (flag) $("#btn_copy_lcf").text('copied');
+  else $("#btn_copy_lcf").text('not copied');
+}
+
+function cp_lvn(){
+  /* Get the text field */
+  var flag = copy_to_clipboard(document.getElementById("lvn").innerText);
+  if (flag) $("#btn_copy_lvn").text('copied');
+  else $("#btn_copy_lvn").text('not copied');
+}
+
+
 
 
 
