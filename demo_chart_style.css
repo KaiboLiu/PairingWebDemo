@@ -3,6 +3,25 @@ width:450px;
 }
 span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden;}  
 
+
+/*.arcs:hover*/
+path:hover{
+    /*pointer-events: none;*/
+    
+    
+    stroke: #7CFC00; /*lightgreen;*/
+    stroke-width:3;
+    /*transition: all 0.25s ease-out;
+    cursor: pointer;
+    fill: green;
+    color: yellow;*/
+}
+
+.titles:hover{
+    cursor: pointer;
+    fill: red;
+}
+
 div.scale_botton_411{
     position: absolute;
     /*try relative?
@@ -56,3 +75,4 @@ div.absolute422 {
     width: 700px;
     height: 300px;
 }
+
