@@ -1,9 +1,9 @@
 #!/bin/bash
 # scp files to OSU server for web demo
 
-scp /Users/kaibo/LKB@OSU/RNA/WebDemo/demo_chart_style.css liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
-scp /Users/kaibo/LKB@OSU/RNA/WebDemo/demo_json+canvas.html liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
-scp /Users/kaibo/LKB@OSU/RNA/WebDemo/demo_myScript.js liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
-scp /Users/kaibo/LKB@OSU/RNA/WebDemo/demo_myScript_localRead.js liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
-scp /Users/kaibo/LKB@OSU/RNA/WebDemo/demo_json+canvas+localRead.html liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
-scp -r /Users/kaibo/LKB@OSU/RNA/WebDemo/socket liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
+scp /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/demo_chart_style.css liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
+scp /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/demo_json+canvas.html liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
+scp /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/demo_myScript.js liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
+scp /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/demo_myScript_localRead.js liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
+scp /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/demo_json+canvas+localRead.html liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
+scp -r /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/socket liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
