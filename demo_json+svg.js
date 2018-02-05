@@ -95,7 +95,7 @@ function svg_drawCircle(x0,y0,R,halfOpen=20){
         var dx = R * Math.sin(2*Math.PI * halfOpen/360);
         var dy = R * Math.cos(2*Math.PI * halfOpen/360);
         pathstr = 'M '+(x0+dx)+' '+(y0-dy)+' A '+R+' '+R+' 0 0 0 '+(x0-dx)+' '+(y0-dy);
-        //var attr = {d: pathstr, stroke:"black", fill:"green", strokeWidth:1, fillOpacity:0};
+        //pathstr = 'M '+(x0+dx)+' '+(y0-dy)+' A '+R+' '+R+' 0 1 1 '+(x0-dx)+' '+(y0-dy);
         var attr = {d: pathstr, stroke:"white", fill:"transparent", strokeWidth:2};
         var newarc = getNode('path', attr);
         svg.appendChild(newarc);
