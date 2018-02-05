@@ -5,7 +5,7 @@ span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word 
 
 
 /*.arcs:hover*/
-path:hover{
+#mySVG path:hover{
     /*pointer-events: none;*/
     
     

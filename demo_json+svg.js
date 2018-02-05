@@ -194,6 +194,7 @@ function svg_fillCircle(P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 
     var wrong_pair = wrong.length;
     for (var i=0; i<wrong_pair; i=i+2){
+        //svg_drawArc(wrong[i],wrong[i+1],N,x0,y0,R,'red',halfOpen);
         svg_drawArc(wrong[i],wrong[i+1],N,x0,y0,R,'red',halfOpen);
     }
 
