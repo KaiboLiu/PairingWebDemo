@@ -251,15 +251,16 @@ function svg_drawArc(n1,n2,N,x0,y0,R,color,halfOpen=20){
     {  
         if (arc){
             var clockwise = 0;
+            var arcWidth = 0.2;
             if (deltaAlpha-Math.PI > 1e-4) clockwise = 1;
             //d="M x1 y1 A rx ry, x-axis-rotation, large-arc-flag,sweep-flag, x2 y2"
             //arc is a part of an eclipse with rx,ry and rotated, starts from (x1,y1) and ends at (x2,y2), small arc if large-arc-flag== 0, colockwise arc if sweep-flag == 1
             pathstr = 'M '+p1.x+' '+p1.y+' A '+r+' '+r+' 0 0 '+clockwise+' '+p2.x+' '+p2.y;
-            var attr = {d: pathstr, stroke:color, fill:"transparent", strokeWidth:1, class:"arcs"};//500,20,   500,220,   400,120, 600,120 
+            var attr = {d: pathstr, stroke:color, fill:"transparent", strokeWidth:arcWidth};// class:"arcs"
             var newarc = getNode('path', attr);
             svg.appendChild(newarc);
         } else {
-            var newline = getNode('line', {x1: p1.x, y1:p1.y, x2: p2.x, y2:p2.y, stroke:color, strokeWidth:1, class:"arcs"});
+            var newline = getNode('line', {x1: p1.x, y1:p1.y, x2: p2.x, y2:p2.y, stroke:color, strokeWidth:arcWidth});  // class:"arcs"
             svg.appendChild(newline);
         }
 
