@@ -89,7 +89,7 @@ function svg_drawCircle(x0,y0,R,halfOpen=20){
     {  
         //d="M x1 y1 A rx ry, x-axis-rotation, large-arc-flag,sweep-flag, x2 y2"
         //arc is a part of an eclipse with rx,ry and rotated, starts from (x1,y1) and ends at (x2,y2), small arc if large-arc-flag== 0, colockwise arc if sweep-flag == 1
-        
+
         //var newcircle = getNode('circle', {cx:x0, cy:y0, r:R, stroke:"black", fill:"transparent", strokeWidth:1});
         //svg.appendChild(newcircle);
         var dx = R * Math.sin(2*Math.PI * halfOpen/360);
@@ -369,7 +369,7 @@ function fillSeqText(){
         //document.getElementById("lvn").innerHTML = 'LinearFold-V: <br>' + lines[beamline+4];
 
         //DOM or jQuery
-        document.getElementById('btn_copy_seq').innerText = 'Copy to clipboard';
+        document.getElementById("btn_copy_seq").innerText = 'Copy to clipboard';
         //$("#btn_copy_seq").text('Copy text to clipboard');
         $("#btn_copy_ref").text('Copy to clipboard');
         $("#btn_copy_cf").text('Copy to clipboard');
@@ -382,9 +382,30 @@ function fillSeqText(){
 
 
 function disp_circle_legend(){
-    $("#circleLegend1").text('⌒ True Positive pairs(hit)');
-    $("#circleLegend2").text('⌒ False Positive pairs');
-    $("#circleLegend3").text('⌒ True Negative pairs');
+
+    var legendDiv = document.createElement('div');
+    legendDiv.setAttribute('id',"circleLegend");
+    var newSpan   = document.createElement('span');
+    newSpan.setAttribute("style","font-family:Verdana;color:blue;");
+    newSpan.textContent = ' ⌒ True Positive pairs(hit)       ';
+    legendDiv.appendChild(newSpan);
+
+    newSpan   = document.createElement('span');
+    newSpan.setAttribute("style","font-family:Verdana;color:red;");
+    newSpan.textContent = '⌒ False Positive pair       ';
+    legendDiv.appendChild(newSpan);
+
+    newSpan   = document.createElement('span');
+    newSpan.setAttribute("style","font-family:Verdana;color:LightGray;");
+    newSpan.textContent = '⌒ True Negative pairs';
+    legendDiv.appendChild(newSpan);
+
+    //legendDiv.appendChild(newSpan);
+    //newSpan   = document.createElement('span', {"style":"font-family:Verdana;color:LightGray;"},'⌒ True Negative pairs');
+    //legendDiv.appendChild(newSpan);
+    console.log(legendDiv);
+    var legendHolder = document.getElementById("legendHolder");
+    legendHolder.appendChild(legendDiv);
 }
 
 function copy_to_clipboard(text){

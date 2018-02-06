@@ -37,12 +37,13 @@ span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word 
 }
 
 
-div.circleLegend{
+#circleLegend{
     position:absolute;
+    left:280px;
 
-    left:500px;
-    bottom: 160px;
-    top:148px;
+    width: 650px;
+    height: 20px;
+    border: 1px solid gray;
 }
 
 
@@ -52,7 +53,7 @@ div.scale_botton_411{
     top: 170px;
     left: 1450px;
     top: 80%;*/
-    top: 148px;
+    top: 178px;
     left: 1520px;
     width: 380px;
     /*height: 20px;*/
@@ -62,7 +63,7 @@ div.scale_botton_421{
     position: absolute;
     /*top: 800px;
     left: 1450px;*/
-    top: 778px;
+    top: 798px;
     left: 1520px;
     width: 380px;
     /*height: 40px;*/
@@ -71,14 +72,14 @@ div.scale_botton_421{
 
 div.absolute411 {
     position: absolute;
-    top: 140px;
+    top: 170px;
     left: 1120px;
     width: 700px;
     height: 300px;
 }
 div.absolute412 {
     position: absolute;
-    top: 440px;
+    top: 470px;
     left: 1120px;
     width: 700px;
     height: 300px;    
@@ -87,14 +88,14 @@ div.absolute412 {
 
 div.absolute421 {
     position: absolute;
-    top: 770px;
+    top: 790px;
     left: 1120px;
     width: 700px;
     height: 300px;
 }
 div.absolute422 {
     position: absolute;
-    top: 1070px;
+    top: 1090px;
     left: 1120px;
     width: 700px;
     height: 300px;
