@@ -89,14 +89,14 @@ function svg_drawCircle(x0,y0,R,halfOpen=20){
     {  
         //d="M x1 y1 A rx ry, x-axis-rotation, large-arc-flag,sweep-flag, x2 y2"
         //arc is a part of an eclipse with rx,ry and rotated, starts from (x1,y1) and ends at (x2,y2), small arc if large-arc-flag== 0, colockwise arc if sweep-flag == 1
-        var newcircle = getNode('circle', {cx:x0, cy:y0, r:R, stroke:"black", fill:"transparent", strokeWidth:1});
-        svg.appendChild(newcircle);
-
+        
+        //var newcircle = getNode('circle', {cx:x0, cy:y0, r:R, stroke:"black", fill:"transparent", strokeWidth:1});
+        //svg.appendChild(newcircle);
         var dx = R * Math.sin(2*Math.PI * halfOpen/360);
         var dy = R * Math.cos(2*Math.PI * halfOpen/360);
-        pathstr = 'M '+(x0+dx)+' '+(y0-dy)+' A '+R+' '+R+' 0 0 0 '+(x0-dx)+' '+(y0-dy);
-        //pathstr = 'M '+(x0+dx)+' '+(y0-dy)+' A '+R+' '+R+' 0 1 1 '+(x0-dx)+' '+(y0-dy);
-        var attr = {d: pathstr, stroke:"white", fill:"transparent", strokeWidth:2};
+        //var pathstr = 'M '+(x0+dx)+' '+(y0-dy)+' A '+R+' '+R+' 0 0 0 '+(x0-dx)+' '+(y0-dy);
+        var pathstr = 'M '+(x0+dx)+' '+(y0-dy)+' A '+R+' '+R+' 0 1 1 '+(x0-dx)+' '+(y0-dy);
+        var attr = {d: pathstr, stroke:"black", fill:"transparent", strokeWidth:1};
         var newarc = getNode('path', attr);
         svg.appendChild(newarc);
     }
@@ -251,7 +251,7 @@ function svg_drawArc(n1,n2,N,x0,y0,R,color,halfOpen=20){
     {  
         if (arc){
             var clockwise = 0;
-            var arcWidth = 0.5;
+            var arcWidth = 0.2;
             if (deltaAlpha-Math.PI > 1e-4) clockwise = 1;
             //d="M x1 y1 A rx ry, x-axis-rotation, large-arc-flag,sweep-flag, x2 y2"
             //arc is a part of an eclipse with rx,ry and rotated, starts from (x1,y1) and ends at (x2,y2), small arc if large-arc-flag== 0, colockwise arc if sweep-flag == 1
