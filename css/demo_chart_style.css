@@ -4,6 +4,11 @@ width:450px;
 span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden;}  
 
 
+#mySVG path:hover{
+    stroke: #7CFC00; /*lightgreen;*/
+    stroke-width:3;
+}
+
 /*.arcs:hover*/
 #mySVG path.arcsblue:hover{
     /*pointer-events: none;*/
