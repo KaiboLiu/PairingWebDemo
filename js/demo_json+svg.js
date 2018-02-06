@@ -22,7 +22,7 @@ function svg_load_draw_go(d=40,R=250,circleScale=50,halfOpen=20){
 }
 
 function svg_draw_graphs(pairingList, d,R,circleScale,halfOpen=20) {
-        
+        disp_circle_legend();
         svg_drawFrame(pairingList[0],d,R,circleScale,halfOpen,half="left");
         svg_fillCircles(pairingList,d,R,circleScale,halfOpen,0,half="left");
 
@@ -256,7 +256,7 @@ function svg_drawArc(n1,n2,N,x0,y0,R,color,halfOpen=20){
             //d="M x1 y1 A rx ry, x-axis-rotation, large-arc-flag,sweep-flag, x2 y2"
             //arc is a part of an eclipse with rx,ry and rotated, starts from (x1,y1) and ends at (x2,y2), small arc if large-arc-flag== 0, colockwise arc if sweep-flag == 1
             pathstr = 'M '+p1.x+' '+p1.y+' A '+r+' '+r+' 0 0 '+clockwise+' '+p2.x+' '+p2.y;
-            var attr = {d: pathstr, stroke:color, fill:"transparent", strokeWidth:arcWidth};// class:"arcs"
+            var attr = {d: pathstr, stroke:color, fill:"transparent", strokeWidth:arcWidth, class:"arcs"+color};
             var newarc = getNode('path', attr);
             svg.appendChild(newarc);
         } else {
@@ -381,7 +381,11 @@ function fillSeqText(){
 }
 
 
-
+function disp_circle_legend(){
+    $("#circleLegend1").text('⌒ True Positive pairs(hit)');
+    $("#circleLegend2").text('⌒ False Positive pairs');
+    $("#circleLegend3").text('⌒ True Negative pairs');
+}
 
 function copy_to_clipboard(text){
     var textArea = document.createElement("textarea");

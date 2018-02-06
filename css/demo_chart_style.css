@@ -5,9 +5,8 @@ span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word 
 
 
 /*.arcs:hover*/
-#mySVG path:hover{
+#mySVG path.arcsblue:hover{
     /*pointer-events: none;*/
-    
     
     stroke: #7CFC00; /*lightgreen;*/
     stroke-width:3;
@@ -17,10 +16,32 @@ span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word 
     color: yellow;*/
 }
 
-.titles:hover{
+#mySVG path.arcsred:hover{
+    /*stroke: #7CFC00;*/ /*lightgreen;*/
+    stroke-width:3;
+}
+
+#mySVG path.arcsLightGray:hover{
+    stroke:grey;
+    stroke-width:3;
+}
+
+
+/*svg .titles:hover{*/
+#mySVG text:hover{    
     cursor: pointer;
     fill: red;
 }
+
+
+div.circleLegend{
+    position:absolute;
+
+    left:500px;
+    bottom: 160px;
+    top:148px;
+}
+
 
 div.scale_botton_411{
     position: absolute;
