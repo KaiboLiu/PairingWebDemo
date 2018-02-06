@@ -4,15 +4,9 @@ width:450px;
 span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden;}  
 
 
-#mySVG path:hover{
-    stroke: #7CFC00; /*lightgreen;*/
-    stroke-width:3;
-}
-
 /*.arcs:hover*/
 #mySVG path.arcsblue:hover{
     /*pointer-events: none;*/
-    
     stroke: #7CFC00; /*lightgreen;*/
     stroke-width:3;
     /*transition: all 0.25s ease-out;
@@ -30,7 +24,11 @@ span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word 
     stroke:grey;
     stroke-width:3;
 }
-
+/*
+#mySVG path:hover{
+    stroke: #7CFC00; //lightgreen;
+    stroke-width:3;
+}*/
 
 /*svg .titles:hover{*/
 #mySVG text:hover{    
