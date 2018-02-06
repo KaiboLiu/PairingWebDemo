@@ -6,7 +6,8 @@ from werkzeug.utils import secure_filename
 import os
 from time import time
 
-app = Flask(__name__,static_url_path='')
+#app = Flask(__name__,static_url_path='/static/')
+app = Flask(__name__)
 
 demoURL = '/liukaib/demo'
 outDir = os.path.join(os.getcwd(),"usrData")
@@ -98,11 +99,11 @@ def inputSeq():
 if __name__ == '__main__':
     #app.logger.debug('message processed')
     app.logger.info('message processed')
-    app.run(host='128.193.36.41', port=8080) #, debug=True) # flip.engr.oregonstat    e.edu
-    #app.run(host='73.67.241.185', port=8080) #, debug=True) # flop.engr.oregonsta    te.edu
-    #app.run(host='128.193.40.12', port=8001) #, debug=True)  # web.engr.oregonsta    te.edu
+    #app.run(host='128.193.36.41', port=8080) #, debug=True) # flip.engr.oregonstate.edu
+    #app.run(host='73.67.241.185', port=8080) #, debug=True) # flop.engr.oregonstate.edu
+    #app.run(host='128.193.40.12', port=8001) #, debug=True)  # web.engr.oregonstate.edu
     #app.run(host='0.0.0.0', port=8001) #, debug=True)
     #app.run(host='0.0.0.0') #, debug=True)
-    #app.run(debug=True)
+    app.run(debug=True)
     #app.run()
    
