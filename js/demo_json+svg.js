@@ -421,24 +421,20 @@ function copy_to_clipboard(text){
 
 
     textArea.value = text;
-
     document.body.appendChild(textArea);
-
     textArea.select();
 
-    var succ_flag = false;
+    var successful = false;
     try {
-      var successful = document.execCommand('copy');
+      successful = document.execCommand('copy');
       var msg = successful ? 'successful' : 'unsuccessful';
       console.log('Copying text command was ' + msg);
-      succ_flag = true;
     } catch (err) {
       console.log('Oops, unable to copy');
-      return false
     }
 
     document.body.removeChild(textArea);
-    return succ_flag;
+    return successful;
 
 }
 
