@@ -403,7 +403,7 @@ function disp_circle_legend(){
     //legendDiv.appendChild(newSpan);
     //newSpan   = document.createElement('span', {"style":"font-family:Verdana;color:LightGray;"},'⌒ True Negative pairs');
     //legendDiv.appendChild(newSpan);
-    console.log(legendDiv);
+
     var legendHolder = document.getElementById("legendHolder");
     legendHolder.appendChild(legendDiv);
 }
@@ -970,99 +970,85 @@ function plot_412(pairingList){
 
 
 function plot_421(pairingList){
-////// Figure 421, plot P/R-beam for LinearFold-V, data saved in data_V_1_log or data_V_1_linear, used in log/linear view
+////// Figure 421, plot P/R-beam for LinearFold-C, data saved in data_V_1_log or data_V_1_linear, used in log/linear view
     var button = document.getElementById('change_chart_421');
-    var chartDiv = document.getElementById('chart_div_421')
- 
-// data_V_1_log is data for log view, use number as x label       
-    var data_V_1_log = new google.visualization.DataTable();
-    data_V_1_log.addColumn('number', 'Beam');
-    //data_V_1_log.addColumn({type: 'string', role: 'domain'});
-    data_V_1_log.addColumn('number', 'PPV');
-    data_V_1_log.addColumn({'type': 'string', 'role': 'style'});    //Customizing individual points
-    data_V_1_log.addColumn('number', 'Sensitivity');
-    data_V_1_log.addColumn({'type': 'string', 'role': 'style'});    //Customizing individual points
-    //data_V_1_log.addColumn('number', 'F-score');  
-    data_V_1_log.addColumn('number', 'PPV_'+title21);
-    data_V_1_log.addColumn('number', 'Sensitivity_'+title21);
+    var chartDiv = document.getElementById('chart_div_421');
+    //console.log('plot data generated');
+
+// data_V_1 is data ready for log or linear view, to be transfered later
+    var data_V_1 = new google.visualization.DataTable();
+    data_V_1.addColumn('number', 'Beam');
+    data_V_1.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}}); // Use custom HTML content for the domain tooltip.
+    data_V_1.addColumn('number', 'PPV');
+    data_V_1.addColumn({'type': 'string', 'role': 'style'});    //Customizing individual points
+    data_V_1.addColumn('number', 'Sensitivity');
+    data_V_1.addColumn({'type': 'string', 'role': 'style'});    //Customizing individual points
+    //data_V_1.addColumn('number', 'F-score');  
+    data_V_1.addColumn('number', 'PPV_'+title21);
+    data_V_1.addColumn('number', 'Sensitivity_'+title21);
 
     var l, beam = 1;
-    min_P_V = 100;
-    max_P_V = 0;
-    min_R_V = 100;
-    max_R_V = 0; 
+    min_P_V = pairingList[6][0]; //100;
+    max_P_V = pairingList[6][0]; //0;
+    min_R_V = pairingList[6][1]; //100;
+    max_R_V = pairingList[6][1]; //0;
 
-    for (beam=1; beam<=200; beam=beam+1){
+    var P_fix = Math.round(pairingList[6][0]*10000)/100;
+    var R_fix = Math.round(pairingList[6][1]*10000)/100;   
+    var P, R;
+
+    for (beam=1; beam<=200; beam+=1){
       l = beam * 8 + 6;
       if (pairingList[l][0] < min_P_V) min_P_V = pairingList[l][0];     // pairingList[l][0] is P
       if (pairingList[l][0] > max_P_V) max_P_V = pairingList[l][0];
       if (pairingList[l][1] < min_R_V) min_R_V = pairingList[l][1];     // pairingList[l][0] is R
       if (pairingList[l][1] > max_R_V) max_R_V = pairingList[l][1];
-      data_V_1_log.addRow([beam, Math.round(pairingList[l][0]*10000)/100, ,
-                                 Math.round(pairingList[l][1]*10000)/100, ,
-                                 Math.round(pairingList[6][0]*10000)/100, 
-                                 Math.round(pairingList[6][1]*10000)/100]); 
+      P = Math.round(pairingList[l][0]*10000)/100;
+      R = Math.round(pairingList[l][1]*10000)/100;
+      data_V_1.addRow([beam, createCustomHTMLContent_1(beam, data_V_1.getColumnLabel(2), data_V_1.getColumnLabel(4), data_V_1.getColumnLabel(6), data_V_1.getColumnLabel(7), P, R, P_fix, R_fix), 
+                             P, , R, , P_fix, R_fix]);
     }
     for (beam=300; beam<=800; beam=beam+100){
-      l = (beam/100+198) * 8 + 6;  
+      l = (beam/100+198) * 8 + 6;
       if (pairingList[l][0] < min_P_V) min_P_V = pairingList[l][0];     // pairingList[l][0] is P
       if (pairingList[l][0] > max_P_V) max_P_V = pairingList[l][0];
       if (pairingList[l][1] < min_R_V) min_R_V = pairingList[l][1];     // pairingList[l][0] is R
       if (pairingList[l][1] > max_R_V) max_R_V = pairingList[l][1];      
-      data_V_1_log.addRow([beam, Math.round(pairingList[l][0]*10000)/100, ,
-                                 Math.round(pairingList[l][1]*10000)/100, ,
-                                 Math.round(pairingList[6][0]*10000)/100, 
-                                 Math.round(pairingList[6][1]*10000)/100]); 
+      P = Math.round(pairingList[l][0]*10000)/100;
+      R = Math.round(pairingList[l][1]*10000)/100;
+      data_V_1.addRow([beam, createCustomHTMLContent_1(beam, data_V_1.getColumnLabel(2), data_V_1.getColumnLabel(4), data_V_1.getColumnLabel(6), data_V_1.getColumnLabel(7), P, R, P_fix, R_fix), 
+                             P, , R, , P_fix, R_fix]);
     }
 
     // highlight by customizing individual point   
     var rowIndex = BeamFromBar;
     if (rowIndex > 200) rowIndex = rowIndex / 100 + 198;
-    data_V_1_log.setValue(rowIndex-1, 2, slide_highlight_style_P);  //[beam, P, style, R, null, P_fix, R_fix],
-    data_V_1_log.setValue(rowIndex-1, 4, slide_highlight_style_R);  //[beam, P, style, R, style, P_fix, R_fix],
+    data_V_1.setValue(rowIndex-1, 3, slide_highlight_style_P);  //[beam, P, style, R, null, P_fix, R_fix],
+    data_V_1.setValue(rowIndex-1, 5, slide_highlight_style_R);  //[beam, P, style, R, style, P_fix, R_fix],
 
-
-// data_V_1_linear is data for linear view, use string as x label      
-    var data_V_1_linear = new google.visualization.DataTable();
-    data_V_1_linear.addColumn('string', 'Beam');
-    data_V_1_linear.addColumn('number', 'PPV');
-    data_V_1_linear.addColumn({'type': 'string', 'role': 'style'}); //Customizing individual points
-    data_V_1_linear.addColumn('number', 'Sensitivity');
-    data_V_1_linear.addColumn({'type': 'string', 'role': 'style'}); //Customizing individual points
-    data_V_1_linear.addColumn('number', 'PPV_'+title21);
-    data_V_1_linear.addColumn('number', 'Sensitivity_'+title21);
-
-    for (beam=1; beam<=200; beam=beam+1){
-      l = beam * 8 + 6;
-      data_V_1_linear.addRow([''+beam, Math.round(pairingList[l][0]*10000)/100, ,
-                                       Math.round(pairingList[l][1]*10000)/100, ,
-                                       Math.round(pairingList[6][0]*10000)/100, 
-                                       Math.round(pairingList[6][1]*10000)/100]); 
-    }
-    for (beam=300; beam<=800; beam=beam+20){
-      l = (Math.round(beam/100)+198) * 8 + 6;  
-      data_V_1_linear.addRow([''+beam, Math.round(pairingList[l][0]*10000)/100, ,
-                                       Math.round(pairingList[l][1]*10000)/100, ,
-                                       Math.round(pairingList[6][0]*10000)/100, 
-                                       Math.round(pairingList[6][1]*10000)/100]);
-    }
-    // highlight by customizing individual point
-    data_V_1_linear.setValue(rowIndex-1, 2, slide_highlight_style_P);   //[beam, P, style, R, null, P_fix, R_fix],
-    data_V_1_linear.setValue(rowIndex-1, 4, slide_highlight_style_R);   //[beam, P, style, R, style, P_fix, R_fix],
-
+    //var max_tmp = max_P_V, min_tmp = min_P_V;
     min_P_V = 5 * Math.floor(min_P_V*100/5);
     max_P_V = 5 * Math.ceil(max_P_V*100/5);
+//    if ((max_P_V - min_P_V) % 10 != 0){
+//      if (max_P_V - max_tmp < min_tmp - min_P_V) min_P_V -= 5;
+//      else max_P_V += 5;
+//    }
+//    max_tmp = max_R_V, min_tmp = min_R_V;
     min_R_V = 5 * Math.floor(min_R_V*100/5);
     max_R_V = 5 * Math.ceil(max_R_V*100/5);
+//    if ((max_R_V - min_R_V) % 10 != 0){
+//      if (max_R_V - max_tmp < min_tmp - min_R_V) min_R_V -= 5;
+//      else max_R_V += 5;
+//    }    
+
     var logOptions = {
       legend:'top',
-      title:'Performance VS Beam size (LinearFold-V)',
+      title:'Performance VS Beam size (LinearFold-C)',
       focusTarget: 'category',
+      tooltip: { isHtml: true },
       backgroundColor: { fill:'transparent' },
       //'is3D':true,
       hAxis: {
-        //slantedText:true,
-        //slantedTextAngle:12,
         scaleType: 'log',
         //gridlines: {count: 40},
         title: 'Beam size (log scale view)',
@@ -1089,15 +1075,16 @@ function plot_421(pairingList){
 
     var linearOptions = {
       legend:'top',
-      title:'Performance VS Beam size (LinearFold-V)',
+      title:'Performance VS Beam size (LinearFold-C)',
       focusTarget: 'category',
+      tooltip: { isHtml: true },
       backgroundColor: { fill:'transparent' },
-      //'is3D':true,
       hAxis: {
-        slantedText:true,
-        slantedTextAngle:9,
-        gridlines: {count: 2},
-        title: 'Beam size (linear scale view)'
+        //slantedText:true,
+        //slantedTextAngle:9,
+        //gridlines: {count: 2},
+        title: 'Beam size (linear scale view)',
+        //ticks: [{v:1, f:'1'}, {v:100, f:'100'}, {v:200, f:'200'}, {v:500, f:'500'}, {v:206, f:'800'}],//[1, 100, 200, 500, 800]        
       },
       vAxis: {
         //gridlines: {count: 5},
@@ -1105,7 +1092,6 @@ function plot_421(pairingList){
           max: Math.max(max_P_V, max_R_V),
           min: Math.min(min_P_V, min_R_V),
         },
-        //minValue: 15,
         title: 'Performance (%)'            
       },
       series: {
@@ -1115,30 +1101,43 @@ function plot_421(pairingList){
       //pointSize: 0.1,
       //dataOpacity: 0.6
     };  
-
-
-    var thisChart;
+/*////////////
+// data_V_1_log is data for log view, use number as x label   
+    function to_data_log(data){ // x from [1,2,3,...,200,201,...,206] to [1,2,3,..,200,300,400,..,800]
+        for (var i = 201; i <= 206; i++){
+            data.setValue(i-1,0,(i-200)*100+200);
+        }
+        return data;
+    }
+// data_V_1_linear is data for linear view, use string as x label      
+    function to_data_linear(data){  // x from [1,2,3,..,200,300,400,..,800] to [1,2,3,...,200,201,...,206]
+        for (var i = 201; i <= 206; i++){
+            data.setValue(i-1,0,i);
+        }
+        return data;
+    }
+///////////*/
     //var chart = new google.visualization.LineChart(chartDiv);
     //chart.draw(data_V_1, options);
-    function drawLinearChart() {
-        logView2 = false;
-        var linearChart = new google.visualization.LineChart(chartDiv);
-        linearChart.draw(data_V_1_linear, linearOptions);
-        button.innerText = 'Switch to Log Scale';
-        button.onclick = drawLogChart;
-        thisChart = linearChart;
-    }    
+    var thisChart;
     function drawLogChart() {
-        logView2 = true;
+        logView1 = true;
         var logChart = new google.visualization.LineChart(chartDiv);
-        logChart.draw(data_V_1_log, logOptions);
+        logChart.draw(data_V_1, logOptions);
         button.innerText = 'Switch to Linear Scale';
         button.onclick = drawLinearChart;
         thisChart = logChart;
     }    
-    if (logView2) drawLogChart();
+    function drawLinearChart() {
+        logView1 = false;
+        var linearChart = new google.visualization.LineChart(chartDiv);
+        linearChart.draw(data_V_1, linearOptions);
+        button.innerText = 'Switch to Log Scale';
+        button.onclick = drawLogChart;
+        thisChart = linearChart;        
+    }    
+    if (logView1) drawLogChart();
     else drawLinearChart();
-
 
     // The select handler. Call the chart's getSelection() method
     function selectHandler() {
