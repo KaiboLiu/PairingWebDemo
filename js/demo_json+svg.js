@@ -392,7 +392,7 @@ function disp_circle_legend(){
 
     newSpan   = document.createElement('span');
     newSpan.setAttribute("style","font-family:Verdana;color:red;");
-    newSpan.textContent = '⌒ False Positive pair       ';
+    newSpan.textContent = '⌒ False Positive pairs       ';
     legendDiv.appendChild(newSpan);
 
     newSpan   = document.createElement('span');

@@ -40,7 +40,6 @@ span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word 
 #circleLegend{
     position:absolute;
     left:280px;
-
     width: 650px;
     height: 20px;
     border: 1px solid gray;
