@@ -31,8 +31,7 @@ function svg_draw_graphs(pairingList, d,R,circleScale,halfOpen=20) {
         svg_fillCircles("mySVG",pairingList,d,R,circleScale,halfOpen,BeamFromBar);
         
         svg_drawFrame("mySVGref",pairingList[0],d,R,circleScale,halfOpen,half="showRef");
-        svg_fillCircles("mySVGref",pairingList,d,R,circleScale,halfOpen,-1);
-        
+        svg_fillCircles("mySVGref",pairingList,d,R,circleScale,halfOpen,-1);    
 }
 
 function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
@@ -51,6 +50,7 @@ function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
         titleFont = "Courier";    //italic
         titleSize = 30;
 
+        //display legend for prediction circle graphs, with box
         var x1 = 1.76*R, x2 = 3*R, y1 = 2.2*R, y2 = 2.52*R;
         var boxstr = 'M '+x1+' '+y1+' L '+x2+' '+y1+' L '+x2+' '+y2+' L '+x1+' '+y2+' L '+x1+' '+y1;
         var attr = {d: boxstr, stroke:"LightGray", fill:"transparent", strokeWidth:1};
@@ -68,11 +68,8 @@ function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
         var legend = getNode('text', {x: 1.8*R, y:R+R+5.9*H_title, fontFamily:titleFont, fontSize:18, fill:'Gray'});
         legend.innerHTML = "⌒ True Negative pairs";
         svg.appendChild(legend);  
-
-
     }
 
- 
 
     if (half == "left"){
         var newtext = getNode('text', {x: R-2*d,   y:d-0.5*H_title, fontFamily:titleFont, fontSize:titleSize, class:"titles"});
@@ -120,12 +117,8 @@ function svg_drawCircle(svgid,x0,y0,R,halfOpen=20){
     {  
         //d="M x1 y1 A rx ry, x-axis-rotation, large-arc-flag,sweep-flag, x2 y2"
         //arc is a part of an eclipse with rx,ry and rotated, starts from (x1,y1) and ends at (x2,y2), small arc if large-arc-flag== 0, colockwise arc if sweep-flag == 1
-
-        //var newcircle = getNode('circle', {cx:x0, cy:y0, r:R, stroke:"black", fill:"transparent", strokeWidth:1});
-        //svg.appendChild(newcircle);
         var dx = R * Math.sin(2*Math.PI * halfOpen/360);
         var dy = R * Math.cos(2*Math.PI * halfOpen/360);
-        //var pathstr = 'M '+(x0+dx)+' '+(y0-dy)+' A '+R+' '+R+' 0 0 0 '+(x0-dx)+' '+(y0-dy);
         var pathstr = 'M '+(x0+dx)+' '+(y0-dy)+' A '+R+' '+R+' 0 1 1 '+(x0-dx)+' '+(y0-dy);
         var attr = {d: pathstr, stroke:"black", fill:"transparent", strokeWidth:1};
         var newarc = getNode('path', attr);

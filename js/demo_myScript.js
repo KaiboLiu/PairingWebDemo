@@ -165,7 +165,6 @@ function drawCircle(x0,y0,R,halfOpen=20){
 	        r : R      //radius
 	    };
 	    ctx.arc(circle.x, circle.y, circle.r, ((halfOpen-90)/360) * 2*Math.PI, ((270-halfOpen)/360) * 2*Math.PI, false);	
-
 	    ctx.stroke();	
 	}
 }
