@@ -45,7 +45,7 @@ function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
     //check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
     
     //write titles
-    if(svg != null)
+    if ((svg != null) && (svgid == 'mySVG'))
     {  
         //set font and style
         titleFont = "Courier";    //italic
