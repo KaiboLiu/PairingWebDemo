@@ -37,10 +37,11 @@ save pairing results into file as json format:
             [P,R,F],linearcf_b02_missing, linearcf_b02_hit, linearcf_b02_wrong,     ----->index: 18-21 (8*i+2~8*i+5,i is the beam number)
             [P,R,F],linearvn_b02_missing, linearvn_b02_hit, linearvn_b02_wrong,     ----->index: 22-25 (8*i+6~8*i+9,i is the beam number)
             ...
-            [P,R,F],linearcf_b800_missing, linearcf_b800_hit, linearcf_b800_wrong,  ----->index: 1238-1241 [(i/100+198)*6+2~(i/100+198)*6+5,i is the beam number which is > 200]
-            [P,R,F],linearvn_b800_missing, linearvn_b800_hit, linearvn_b800_wrong,  ----->index: 1242-1245 [(i/100+198)*6+6~(i/100+198)*6+9,i is the beam number which is > 200]
-
+            [P,R,F],linearcf_b800_missing, linearcf_b800_hit, linearcf_b800_wrong,  ----->index: 1650-1653 [(i/100+198)*8+2~(i/100+198)*8+5,i is the beam number which is > 200]
+            [P,R,F],linearvn_b800_missing, linearvn_b800_hit, linearvn_b800_wrong,  ----->index: 1654-1657 [(i/100+198)*8+6~(i/100+198)*8+9,i is the beam number which is > 200]
+            ref_(), ref_[], ref_{}, ref_<>                                          ----->index: 1658-?
              ]}
+            }
 The new pairing data files will listed by seq number(16s * 22, and 23s *5), 27 files in total.
 '''
 
@@ -67,8 +68,9 @@ def LoadSave(RNAtype,seqNo):
 
     dataDir  = "./demo_rearranged_results/"
     dataFile = "combine_"+RNAtype+".seq"
-    outDir   = "./demo_pairing_for_js/"
+    outDir   = "./demo_pairing_for_js1/"
     outFile  = "combine_pairing_"+RNAtype+".seq"
+    #outFile1 = "show_ref_"+RNAtype+".seq"
     number   = str(seqNo)
     if (seqNo < 10):
         number = "0" + number
@@ -79,12 +81,12 @@ def LoadSave(RNAtype,seqNo):
     data = []
     fileIn  = open(dataDir+dataFile+number)
     lines = fileIn.readlines();
+    fileIn.close()
+
     seq = lines[1][:-1]
     ref = lines[3][:-1]
     cf  = lines[5][:-1]
     vn  = lines[7][:-1]
-
-
 
     data = [len(seq)]
     data.append(seq)
@@ -108,7 +110,8 @@ def LoadSave(RNAtype,seqNo):
         P_R_F_missing_hit_wrong = pairing(seq,ref,linearvn_beam_i)     # pairing linearvn_beam_i and compare with ref
         data[len(data):len(data)] = P_R_F_missing_hit_wrong
 
-    fileIn.close()
+    data.append(showRrefFamlies(ref))
+
 
     with open(outDir+outFile+number,'w') as f:
         json.dump({"pairing":data}, f, ensure_ascii=False)
@@ -177,6 +180,27 @@ def agree(pres, pref, index):
     else:
         return False
 '''
+
+
+
+def showRrefFamlies(ref):
+    stacks, ref_pair = [], []
+    for _ in xrange(len(lbs)):
+        stacks.append([])
+        ref_pair.append([])
+    for i, item in enumerate(ref):
+        if item in lbs:
+            stackindex = lbs.index(item)
+            stacks[stackindex].append(i)
+        elif item in rbs:
+            stackindex = rbs.index(item)
+            j = stacks[stackindex].pop()
+            ref_pair[stackindex].append(j)
+            ref_pair[stackindex].append(i)
+    while ref_pair[-1] == []:
+        ref_pair.pop()
+    return ref_pair
+
 def pairing(seq,ref,res):
     #brackets for pseudoknot
     pairs = []
