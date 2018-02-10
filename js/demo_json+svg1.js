@@ -79,12 +79,12 @@ function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
         svg_drawCircleMarks(svgid,N,b,b+2*H_title,R,extDis,circleScale,halfOpen);
     }else{      // half == "showRef"
         //var svg_ref = document.getElementById('mySVGref');
-        var newtext = getNode('text', {x:R+b-2.7*d, y: d-0.5*H_title, fontFamily:titleFont, fontSize:titleSize, class:"titles"}); //Linear CONTRAfold
+        var newtext = getNode('text', {x: R-2*d,   y:d-0.5*H_title, fontFamily:titleFont, fontSize:titleSize, class:"titles"}); //Linear CONTRAfold
         newtext.textContent = titles[4];
         svg.appendChild(newtext);
 
-        svg_drawCircle(svgid,R+b,b+2*H_title,R,halfOpen);
-        svg_drawCircleMarks(svgid,N,R+b,a+H_title,R,extDis,circleScale,halfOpen);
+        svg_drawCircle(svgid,a,a+H_title,R,halfOpen);
+        svg_drawCircleMarks(svgid,N,a,a+H_title,R,extDis,circleScale,halfOpen);
     }
 }
 
