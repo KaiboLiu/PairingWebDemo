@@ -16,74 +16,105 @@ function svg_load_draw_go(d=40,R=250,circleScale=50,halfOpen=20){
     //console.log('beam size: '+BeamFromBar+', file read: '+seriesNo+"_"+seqNo);
     $.getJSON(pairingFile, function(data,status) {
         $("#mySVG").empty();
+        $("#mySVGref").empty();
         svg_draw_graphs(data.pairing, d,R,circleScale,halfOpen);
         draw_plots(data.pairing);
     });
 }
 
 function svg_draw_graphs(pairingList, d,R,circleScale,halfOpen=20) {
-        disp_circle_legend();
-        svg_drawFrame(pairingList[0],d,R,circleScale,halfOpen,half="left");
-        svg_fillCircles(pairingList,d,R,circleScale,halfOpen,0,half="left");
+        //disp_circle_legend();
+        svg_drawFrame("mySVG",pairingList[0],d,R,circleScale,halfOpen,half="left");
+        svg_fillCircles("mySVG",pairingList,d,R,circleScale,halfOpen,0);
 
-        svg_drawFrame(pairingList[0],d,R,circleScale,halfOpen,half="right");
-        svg_fillCircles(pairingList,d,R,circleScale,halfOpen,BeamFromBar,half="right");
+        svg_drawFrame("mySVG",pairingList[0],d,R,circleScale,halfOpen,half="right");
+        svg_fillCircles("mySVG",pairingList,d,R,circleScale,halfOpen,BeamFromBar);
         
+        svg_drawFrame("mySVGref",pairingList[0],d,R,circleScale,halfOpen,half="showRef");
+        svg_fillCircles("mySVGref",pairingList,d,R,circleScale,halfOpen,-1);
         
 }
 
-function svg_drawFrame(N,d,R,circleScale,halfOpen=20,half="left"){
+function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
     var a = R+d;
     var b =3*R + 3*d;   //2*d is also ok
     var extDis = d/2.8;
     
-    //get canvas object
-    svg = document.getElementById('mySVG');
+    //get corresponding svg object
+    svg = document.getElementById(svgid);
     //check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
     
     //write titles
     if(svg != null)
     {  
-        //get corresponding svg object
-        var svg = document.getElementById('mySVG');
         //set font and style
         titleFont = "Courier";    //italic
         titleSize = 30;
 
-        //fill text at the position (420,40)
+        var x1 = 1.76*R, x2 = 3*R, y1 = 2.2*R, y2 = 2.52*R;
+        var boxstr = 'M '+x1+' '+y1+' L '+x2+' '+y1+' L '+x2+' '+y2+' L '+x1+' '+y2+' L '+x1+' '+y1;
+        var attr = {d: boxstr, stroke:"LightGray", fill:"transparent", strokeWidth:1};
+        svg.appendChild(getNode('path', attr));
+
+        var legend = getNode('text', {x: 1.8*R, y:R+R+3.5*H_title, fontFamily:titleFont, fontSize:18, fill:'blue'});
+        legend.innerHTML = "⌒ True Positive pairs(hit)";
+        svg.appendChild(legend);    
+        //legend = getNode('text', {x: x0+R/0.65, y:y1+R/3+i*H_title, fontFamily:'Courier', fontSize:18});
+        //legend.innerHTML = gold[i].length/2+" ("+(gold[i].length/n_pairs*50).toFixed(2)+"%)";
+        //svg.appendChild(newmark);    
+        var legend = getNode('text', {x: 1.8*R, y:R+R+4.7*H_title, fontFamily:titleFont, fontSize:18, fill:'red'});
+        legend.innerHTML = "⌒ False Positive pairs";
+        svg.appendChild(legend);   
+        var legend = getNode('text', {x: 1.8*R, y:R+R+5.9*H_title, fontFamily:titleFont, fontSize:18, fill:'Gray'});
+        legend.innerHTML = "⌒ True Negative pairs";
+        svg.appendChild(legend);  
+
+
+    }
+
+ 
+
+    if (half == "left"){
         var newtext = getNode('text', {x: R-2*d,   y:d-0.5*H_title, fontFamily:titleFont, fontSize:titleSize, class:"titles"});
-        newtext.textContent = title11;
+        newtext.textContent = titles[0];
         svg.appendChild(newtext);
         var newtext = getNode('text', {x: R-2*d,   y:a+a+d+0.5*H_title, fontFamily:titleFont, fontSize:titleSize, class:"titles"});
-        newtext.textContent = title21;
+        newtext.textContent = titles[1];
         svg.appendChild(newtext);
+
+        svg_drawCircle(svgid,a,a+H_title,R,halfOpen);
+        svg_drawCircle(svgid,a,b+2*H_title,R,halfOpen);
+        svg_drawCircleMarks(svgid,N,a,a+H_title,R,extDis,circleScale,halfOpen);
+        svg_drawCircleMarks(svgid,N,a,b+2*H_title,R,extDis,circleScale,halfOpen);
+
+    }else if (half == "right"){
         var newtext = getNode('text', {x:b-2.7*d, y: d-0.5*H_title, fontFamily:titleFont, fontSize:titleSize, class:"titles"}); //Linear CONTRAfold
-        newtext.textContent = title12;
+        newtext.textContent = titles[2];
         svg.appendChild(newtext);
         var newtext = getNode('text', {x:b-2.7*d, y: a+a+d+0.5*H_title, fontFamily:titleFont, fontSize:titleSize, class:"titles"});  //Linear Vienna
-        newtext.textContent = title22;
+        newtext.textContent = titles[3];
         svg.appendChild(newtext);
-    }
-    
-    if (half == "left"){
-        svg_drawCircle(a,a+H_title,R,halfOpen);
-        svg_drawCircle(a,b+2*H_title,R,halfOpen);
-        svg_drawCircleMarks(N,a,a+H_title,R,extDis,circleScale,halfOpen);
-        svg_drawCircleMarks(N,a,b+2*H_title,R,extDis,circleScale,halfOpen);
 
-    }else{
-        svg_drawCircle(b,a+H_title,R,halfOpen);
-        svg_drawCircle(b,b+2*H_title,R,halfOpen);
-        svg_drawCircleMarks(N,b,a+H_title,R,extDis,circleScale,halfOpen);
-        svg_drawCircleMarks(N,b,b+2*H_title,R,extDis,circleScale,halfOpen);
+        svg_drawCircle(svgid,b,a+H_title,R,halfOpen);
+        svg_drawCircle(svgid,b,b+2*H_title,R,halfOpen);
+        svg_drawCircleMarks(svgid,N,b,a+H_title,R,extDis,circleScale,halfOpen);
+        svg_drawCircleMarks(svgid,N,b,b+2*H_title,R,extDis,circleScale,halfOpen);
+    }else{      // half == "showRef"
+        //var svg_ref = document.getElementById('mySVGref');
+        var newtext = getNode('text', {x: R-0.7*d,   y:d-0.5*H_title, fontFamily:titleFont, fontSize:titleSize, class:"titles"}); //Linear CONTRAfold
+        newtext.textContent = titles[4];
+        svg.appendChild(newtext);
+
+        svg_drawCircle(svgid,a,a+H_title,R,halfOpen);
+        svg_drawCircleMarks(svgid,N,a,a+H_title,R,extDis,circleScale,halfOpen);
     }
 }
 
 
 // draw the open circle
-function svg_drawCircle(x0,y0,R,halfOpen=20){
+function svg_drawCircle(svgid,x0,y0,R,halfOpen=20){
     //get svg object
-    var svg = document.getElementById('mySVG');
+    var svg = document.getElementById(svgid);
     //check if current explorer support svg object, to avoid sytax error in some html5-unfriendly explorers.
     if(svg != null)
     {  
@@ -104,10 +135,10 @@ function svg_drawCircle(x0,y0,R,halfOpen=20){
 
 
 
-function svg_drawCircleMarks(N,x0,y0,R,extDis,circleScale=50,halfOpen=20){
+function svg_drawCircleMarks(svgid,N,x0,y0,R,extDis,circleScale=50,halfOpen=20){
 
     //get corresponding svg object
-    var svg = document.getElementById('mySVG');
+    var svg = document.getElementById(svgid);
     //check if current explorer support svg object, to avoid sytax error in some html5-unfriendly explorers.
     if(svg != null)
     {  
@@ -153,54 +184,59 @@ function svg_drawCircleMarks(N,x0,y0,R,extDis,circleScale=50,halfOpen=20){
     }
 }
 
-function svg_fillCircles(data,d,R,circleScale,halfOpen=20,beamsize=0,half="left"){
+function svg_fillCircles(svgid,data,d,R,circleScale,halfOpen=20,beamsize=0){
     var a = R + d;
     var b = 3*R + 3*d;  //2*d is also ok
     //var data = loadInfo();
     var N = data[0];
     //var pairs;
     var l;  //line number
-    if (beamsize <= 200){
-        l= 8*beamsize+2
+    if (beamsize < 0){      // show Ref
+        l = 1658;
+    }
+    else if (beamsize <= 200){
+        l= 8*beamsize+2;
     }else{
         l = (beamsize/100+198)*8+2;
     }
-
-    if (half == "left"){
+    //console.log(l+'+'+data.length);
+    if (beamsize == 0){
         //fill circle top-left with cf_missing, cf_hit, cf_wrong
-        svg_fillCircle(data[l],data[l+1],data[l+2],data[l+3],N,a,a+H_title,R,halfOpen);
+        svg_fillCircle(svgid,data[l],data[l+1],data[l+2],data[l+3],N,a,a+H_title,R,halfOpen);
         //fill circle bottom-left with vn_missing, vn_hit, vn_wrong
-        svg_fillCircle(data[l+4],data[l+5],data[l+6],data[l+7],N,a,b+2*H_title,R,halfOpen);
-    }else{
+        svg_fillCircle(svgid,data[l+4],data[l+5],data[l+6],data[l+7],N,a,b+2*H_title,R,halfOpen);
+    }else if (beamsize > 0){
         //fill circle top-right with linearcf_missing, linearcf_hit, linearcf_wrong
-        svg_fillCircle(data[l],data[l+1],data[l+2],data[l+3],N,b,a+H_title,R,halfOpen);
+        svg_fillCircle(svgid,data[l],data[l+1],data[l+2],data[l+3],N,b,a+H_title,R,halfOpen);
         //fill circle bottom-right with linearvn_missing, linearvn_hit, linearvn_wrong
-        svg_fillCircle(data[l+4],data[l+5],data[l+6],data[l+7],N,b,b+2*H_title,R,halfOpen);
+        svg_fillCircle(svgid,data[l+4],data[l+5],data[l+6],data[l+7],N,b,b+2*H_title,R,halfOpen);
+    }else{
+        //fill circle for show_ref with linearcf_missing, linearcf_hit, linearcf_wrong
+        svg_fillCircle_ref(svgid,data[l],N,a,a+H_title,R,halfOpen);
     }
 }
 
 
-function svg_fillCircle(P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
+function svg_fillCircle(svgid,P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 
     var missing_pair = missing.length;
-    for (var i=0; i<missing_pair; i=i+2){
-        svg_drawArc(missing[i],missing[i+1],N,x0,y0,R,'LightGray',halfOpen);
+    for (var i=0; i<missing_pair; i+=2){
+        svg_drawArc(svgid,missing[i],missing[i+1],N,x0,y0,R,'LightGray',halfOpen);
     }
 
     var hit_pair = hit.length;
-    for (var i=0; i<hit_pair; i=i+2){
-        svg_drawArc(hit[i],hit[i+1],N,x0,y0,R,'blue',halfOpen);
+    for (var i=0; i<hit_pair; i+=2){
+        svg_drawArc(svgid,hit[i],hit[i+1],N,x0,y0,R,'blue',halfOpen);
     }
 
     var wrong_pair = wrong.length;
-    for (var i=0; i<wrong_pair; i=i+2){
+    for (var i=0; i<wrong_pair; i+=2){
         //svg_drawArc(wrong[i],wrong[i+1],N,x0,y0,R,'red',halfOpen);
-        svg_drawArc(wrong[i],wrong[i+1],N,x0,y0,R,'red',halfOpen);
+        svg_drawArc(svgid,wrong[i],wrong[i+1],N,x0,y0,R,'red',halfOpen);
     }
 
-    
     //get corresponding svg object
-    var svg = document.getElementById('mySVG');
+    var svg = document.getElementById(svgid);
     if(svg != null)
     {  
         //set font and style
@@ -212,11 +248,48 @@ function svg_fillCircle(P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
                      " (F="+(P_R_F[2]*100).toFixed(2)+", Pair="+((hit_pair+wrong_pair)/2).toString()+")";
         svg.appendChild(newmark);    
     }   
+}
+
+function svg_fillCircle_ref(svgid,gold,N,x0,y0,R,halfOpen=20){
+    colors = ['lime','fuchsia','deepskyblue','orangered','blueviolet'];
+    brackets = ['()','[]','<>','{}'];
+    var n_page = gold.length;
+    var n_free_pairs=gold[0].length/2, n_pairs=0;
+    var y1 = y0-R-0.5*H_title;
+
+    //get corresponding svg object
+    var svg = document.getElementById(svgid);
+    for (var i = 0; i < n_page; i += 1){
+        l = gold[i].length;
+        n_pairs += l/2
+        for (var j = 0; j < l; j += 2 )
+            svg_drawArc(svgid,gold[i][j],gold[i][j+1],N,x0,y0,R,colors[i],halfOpen);
+    }
+
+    for (var i = 0; i < n_page; i += 1){
+        var newmark = getNode('text', {x: x0+R/0.9, y:y1+R/3+i*H_title, fontFamily:'Courier', fontSize:18, fill:colors[i]});
+        //newmark.innerHTML = brackets[i]+" Pairs: "+gold[i].length/2+" ("+(gold[i].length/n_pairs*50).toFixed(2)+"%)";
+        newmark.innerHTML = brackets[i]+" Pairs: ";
+        svg.appendChild(newmark);    
+        newmark = getNode('text', {x: x0+R/0.65, y:y1+R/3+i*H_title, fontFamily:'Courier', fontSize:18});
+        newmark.innerHTML = gold[i].length/2+" ("+(gold[i].length/n_pairs*50).toFixed(2)+"%)";
+        svg.appendChild(newmark);    
+    }
+
+
+    if(svg != null)
+    {  
+        //set font and style
+        PRFont = "normal";    //italic
+        PRSize = 18;
+        var newmark = getNode('text', {x: x0-R/2, y:y1, fontFamily:PRFont, fontSize:PRSize, class:"titles"});
+        newmark.textContent = "Pairs: "+n_pairs+", Pseudoknot pairs: "+ ((n_pairs-n_free_pairs)/n_pairs*100).toFixed(2)+"%";
+        svg.appendChild(newmark);    
+    }   
     
 }
 
-
-function svg_drawArc(n1,n2,N,x0,y0,R,color,halfOpen=20){
+function svg_drawArc(svgid,n1,n2,N,x0,y0,R,color,halfOpen=20){
 
     var p1 = new Object;
     var p2 = new Object;
@@ -245,13 +318,14 @@ function svg_drawArc(n1,n2,N,x0,y0,R,color,halfOpen=20){
 
 
     //get svg object
-    var svg = document.getElementById('mySVG');
+    var svg = document.getElementById(svgid);
     //check if current explorer support svg object, to avoid sytax error in some html5-unfriendly explorers.
     if(svg != null)
     {  
         if (arc){
             var clockwise = 0;
-            var arcWidth = 0.2;
+            var arcWidth = 300/N;//0.2;
+            //console.log('arcWidth: '+arcWidth);
             if (deltaAlpha-Math.PI > 1e-4) clockwise = 1;
             //d="M x1 y1 A rx ry, x-axis-rotation, large-arc-flag,sweep-flag, x2 y2"
             //arc is a part of an eclipse with rx,ry and rotated, starts from (x1,y1) and ends at (x2,y2), small arc if large-arc-flag== 0, colockwise arc if sweep-flag == 1
@@ -263,10 +337,7 @@ function svg_drawArc(n1,n2,N,x0,y0,R,color,halfOpen=20){
             var newline = getNode('line', {x1: p1.x, y1:p1.y, x2: p2.x, y2:p2.y, stroke:color, strokeWidth:arcWidth});  // class:"arcs"
             svg.appendChild(newline);
         }
-
- 
     }
-
 }
 
 
@@ -275,10 +346,7 @@ var H_title = 20;
 var seriesNo = "grp1";
 var seqNo = "seq00";
 var BeamFromBar = 20;
-var title11 = "CONTRAfold MFE";
-var title21 = "Vienna RNAfold";
-var title12 = "LinearFold-C";
-var title22 = "LinearFold-V";
+var titles = ["CONTRAfold MFE", "Vienna RNAfold", "LinearFold-C", "LinearFold-V", "Gold/Ref"];
 var min_P_C, max_P_C, min_R_C, max_R_C; 
 var min_P_V, max_P_V, min_R_V, max_R_V; 
 //var slide_highlight_style_P = 'point { size: 7; shape-type: star; shape-dent:0.5 ; shape-sides: 5; fill-color: #6ca1f7; visible:true}';
@@ -538,8 +606,8 @@ function plot_411(pairingList){
     data_C_1.addColumn('number', 'Sensitivity');
     data_C_1.addColumn({'type': 'string', 'role': 'style'});    //Customizing individual points
     //data_C_1.addColumn('number', 'F-score');  
-    data_C_1.addColumn('number', 'PPV_'+title11);
-    data_C_1.addColumn('number', 'Sensitivity_'+title11);
+    data_C_1.addColumn('number', 'PPV_'+titles[0]);
+    data_C_1.addColumn('number', 'Sensitivity_'+titles[0]);
 
     var l, beam = 1;
     min_P_C = pairingList[2][0]; //100;
@@ -724,8 +792,8 @@ function plot_411(pairingList){
     data_C_1.addColumn('number', 'Sensitivity');
     data_C_1.addColumn({'type': 'string', 'role': 'style'});    //Customizing individual points
     //data_C_1.addColumn('number', 'F-score');  
-    data_C_1.addColumn('number', 'PPV_'+title11);
-    data_C_1.addColumn('number', 'Sensitivity_'+title11);
+    data_C_1.addColumn('number', 'PPV_'+titles[0]);
+    data_C_1.addColumn('number', 'Sensitivity_'+titles[0]);
 
     var l, beam = 1;
     min_P_C = pairingList[2][0]; //100;
@@ -878,27 +946,27 @@ function plot_412(pairingList){
     var data_C_2 = new google.visualization.DataTable();
     data_C_2.addColumn('number', 'PPV');
     data_C_2.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}}); // Use custom HTML content for the domain tooltip.
-    data_C_2.addColumn('number', title12);
+    data_C_2.addColumn('number', titles[2]);
     data_C_2.addColumn({'type': 'string', 'role': 'style'});    //Customizing individual points
-    data_C_2.addColumn('number', title11);
+    data_C_2.addColumn('number', titles[0]);
     var l;
     var P_tmp = Math.round(pairingList[2][0]*10000)/100;
     var R_tmp = Math.round(pairingList[2][1]*10000)/100;
     
-    data_C_2.addRow([P_tmp, createCustomHTMLContent_2(0, title11, P_tmp, R_tmp), , , R_tmp]);   // row for fixed R-P(CONTRAfold MFE)
+    data_C_2.addRow([P_tmp, createCustomHTMLContent_2(0, titles[0], P_tmp, R_tmp), , , R_tmp]);   // row for fixed R-P(CONTRAfold MFE)
 
     for (var beam=1; beam<=200; beam=beam+1){
       l = beam * 8 + 2;
       P_tmp = Math.round(pairingList[l][0]*10000)/100;
       R_tmp = Math.round(pairingList[l][1]*10000)/100;
-      data_C_2.addRow([P_tmp, createCustomHTMLContent_2(beam, title12, P_tmp, R_tmp), R_tmp, , null]);
+      data_C_2.addRow([P_tmp, createCustomHTMLContent_2(beam, titles[2], P_tmp, R_tmp), R_tmp, , null]);
     }
     
     for (var beam=300; beam<=800; beam=beam+100){
       l = (beam/100+198) * 8 + 2;
       P_tmp = Math.round(pairingList[l][0]*10000)/100;
       R_tmp = Math.round(pairingList[l][1]*10000)/100;
-      data_C_2.addRow([P_tmp, createCustomHTMLContent_2(beam, title12, P_tmp, R_tmp), R_tmp, , null]);
+      data_C_2.addRow([P_tmp, createCustomHTMLContent_2(beam, titles[2], P_tmp, R_tmp), R_tmp, , null]);
     }
 
     // highlight by customizing individual point   
@@ -984,8 +1052,8 @@ function plot_421(pairingList){
     data_V_1.addColumn('number', 'Sensitivity');
     data_V_1.addColumn({'type': 'string', 'role': 'style'});    //Customizing individual points
     //data_V_1.addColumn('number', 'F-score');  
-    data_V_1.addColumn('number', 'PPV_'+title21);
-    data_V_1.addColumn('number', 'Sensitivity_'+title21);
+    data_V_1.addColumn('number', 'PPV_'+titles[1]);
+    data_V_1.addColumn('number', 'Sensitivity_'+titles[1]);
 
     var l, beam = 1;
     min_P_V = pairingList[6][0]; //100;
@@ -1161,27 +1229,27 @@ function plot_422(pairingList){
     var data_V_2 = new google.visualization.DataTable();
     data_V_2.addColumn('number', 'PPV');
     data_V_2.addColumn({'type': 'string', 'role': 'tooltip', 'p': {'html': true}}); // Use custom HTML content for the domain tooltip.
-    data_V_2.addColumn('number', title22);
+    data_V_2.addColumn('number', titles[3]);
     data_V_2.addColumn({'type': 'string', 'role': 'style'});    //Customizing individual points
-    data_V_2.addColumn('number', title21);
+    data_V_2.addColumn('number', titles[1]);
     var l;
     var P_tmp = Math.round(pairingList[6][0]*10000)/100;
     var R_tmp = Math.round(pairingList[6][1]*10000)/100;
     
-    data_V_2.addRow([P_tmp, createCustomHTMLContent_2(0, title21, P_tmp, R_tmp), , , R_tmp]);   // row for fixed R-P(Vienna RNAfold)
+    data_V_2.addRow([P_tmp, createCustomHTMLContent_2(0, titles[1], P_tmp, R_tmp), , , R_tmp]);   // row for fixed R-P(Vienna RNAfold)
 
     for (var beam=1; beam<=200; beam=beam+1){
       l = beam * 8 + 6;
       P_tmp = Math.round(pairingList[l][0]*10000)/100;
       R_tmp = Math.round(pairingList[l][1]*10000)/100;
-      data_V_2.addRow([P_tmp, createCustomHTMLContent_2(beam, title22, P_tmp, R_tmp), R_tmp, , null]);
+      data_V_2.addRow([P_tmp, createCustomHTMLContent_2(beam, titles[3], P_tmp, R_tmp), R_tmp, , null]);
     }
     
     for (var beam=300; beam<=800; beam=beam+100){
       l = (beam/100+198) * 8 + 6;
       P_tmp = Math.round(pairingList[l][0]*10000)/100;
       R_tmp = Math.round(pairingList[l][1]*10000)/100;
-      data_V_2.addRow([P_tmp, createCustomHTMLContent_2(beam, title22, P_tmp, R_tmp), R_tmp, , null]);
+      data_V_2.addRow([P_tmp, createCustomHTMLContent_2(beam, titles[3], P_tmp, R_tmp), R_tmp, , null]);
     }
 
     // highlight by customizing individual point   

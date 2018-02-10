@@ -5,9 +5,8 @@ span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word 
 
 
 /*.arcs:hover*/
-#mySVG path.arcsblue:hover{
+#mySVG path.arcsblue:hover, #mySVG path.arcsred:hover{
     /*pointer-events: none;*/
-    stroke: #7CFC00; /*lightgreen;*/
     stroke-width:1;
     /*transition: all 0.25s ease-out;
     cursor: pointer;
@@ -15,15 +14,12 @@ span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word 
     color: yellow;*/
 }
 
-#mySVG path.arcsred:hover{
-    /*stroke: #7CFC00;*/ /*lightgreen;*/
-    stroke-width:1;
-}
 
 #mySVG path.arcsLightGray:hover{
     stroke:grey;
     stroke-width:1;
 }
+
 /*
 #mySVG path:hover{
     stroke: #7CFC00; //lightgreen;
@@ -31,9 +27,23 @@ span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word 
 }*/
 
 /*svg .titles:hover{*/
-#mySVG text:hover{    
+#mySVG text.titles:hover{    
     cursor: pointer;
     fill: red;
+}
+
+#mySVG{
+    /*position:absolute;*/
+
+}
+#mySVGref{
+    position:relative;
+    left:300px;
+    height:600px;
+}
+#mySVGref path.arcslime:hover, #mySVGref path.arcsfuchsia:hover, #mySVGref path.arcsdeepskyblue:hover, #mySVGref path.arcsorangered:hover, #mySVGref path.arcsblueviolet:hover{
+    stroke-width:1;
+    /*stroke: #7CFC00;  lawngreen;*/
 }
 
 

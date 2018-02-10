@@ -39,7 +39,7 @@ save pairing results into file as json format:
             ...
             [P,R,F],linearcf_b800_missing, linearcf_b800_hit, linearcf_b800_wrong,  ----->index: 1650-1653 [(i/100+198)*8+2~(i/100+198)*8+5,i is the beam number which is > 200]
             [P,R,F],linearvn_b800_missing, linearvn_b800_hit, linearvn_b800_wrong,  ----->index: 1654-1657 [(i/100+198)*8+6~(i/100+198)*8+9,i is the beam number which is > 200]
-            ref_(), ref_[], ref_{}, ref_<>                                          ----->index: 1658-?
+            [ref_(), ref_[], ref_{}, ref_<>, ..]                                    ----->index: 1658-?
              ]}
             }
 The new pairing data files will listed by seq number(16s * 22, and 23s *5), 27 files in total.
