@@ -27,7 +27,7 @@ span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word 
 }*/
 
 /*svg .titles:hover{*/
-#mySVG text.titles:hover{    
+text.titles:hover{    
     cursor: pointer;
     fill: red;
 }
