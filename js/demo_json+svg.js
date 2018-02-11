@@ -215,7 +215,7 @@ function svg_fillCircle(svgid,P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 
     var missing_pair = missing.length;
     for (var i=0; i<missing_pair; i+=2){
-        svg_drawArc(svgid,missing[i],missing[i+1],N,x0,y0,R,'LightGray',halfOpen);
+        svg_drawArc(svgid,missing[i],missing[i+1],N,x0,y0,R,'LightGray',halfOpen); 
     }
 
     var hit_pair = hit.length;
@@ -309,8 +309,6 @@ function svg_drawArc(svgid,n1,n2,N,x0,y0,R,color,halfOpen=20){
     {
         r = R * Math.abs(Math.tan((deltaAlpha)/2)); 
     }
-
-
     //get svg object
     var svg = document.getElementById(svgid);
     //check if current explorer support svg object, to avoid sytax error in some html5-unfriendly explorers.
@@ -318,14 +316,21 @@ function svg_drawArc(svgid,n1,n2,N,x0,y0,R,color,halfOpen=20){
     {  
         if (arc){
             var clockwise = 0;
-            var arcWidth = 300/N;//0.2;
+            var arcWidth = 1;
+            if (N > 500){
+                if (N <= 2100){   
+                    arcWidth = 1.25-N/2000// 500: 1, 2100:0.2
+                300/N;//0.2;
+                }else if(N < 4000) arcWidth = 0.2
+                else arcWidth = 800 / N
+            }
             //console.log('arcWidth: '+arcWidth);
             if (deltaAlpha-Math.PI > 1e-4) clockwise = 1;
             //d="M x1 y1 A rx ry, x-axis-rotation, large-arc-flag,sweep-flag, x2 y2"
             //arc is a part of an eclipse with rx,ry and rotated, starts from (x1,y1) and ends at (x2,y2), small arc if large-arc-flag== 0, colockwise arc if sweep-flag == 1
             pathstr = 'M '+p1.x+' '+p1.y+' A '+r+' '+r+' 0 0 '+clockwise+' '+p2.x+' '+p2.y;
             arcid = 'd='+(n2-n1)+', ['+n1+', '+n2+']';
-            var attr = {d: pathstr, stroke:color, fill:"none", strokeWidth:arcWidth, class:"tooltips arcs"+color, id:arcid};   //instead of fill:"transparent"
+            var attr = {d: pathstr, stroke:color, fill:"none", strokeWidth:arcWidth, class:"tooltips-arcs arcs"+color, id:arcid};   //instead of fill:"transparent"
             var newarc = getNode('path', attr);
             svg.appendChild(newarc);
         } else {

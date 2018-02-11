@@ -4,53 +4,6 @@ width:450px;
 span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden;}  
 
 
-/*.arcs:hover*/
-#mySVG path.arcsblue:hover, #mySVG path.arcsred:hover{
-    /*pointer-events: none;*/
-    stroke-width:1;
-    /*transition: all 0.25s ease-out;
-    cursor: pointer;
-    fill: green;
-    color: yellow;*/
-}
-
-
-#mySVG path.arcsLightGray:hover{
-    stroke:grey;
-    stroke-width:1;
-}
-
-/*
-#mySVG path:hover{
-    stroke: #7CFC00; //lightgreen;
-    stroke-width:3;
-}*/
-
-/*svg .titles:hover{*/
-text.titles:hover{    
-    cursor: pointer;
-    fill: red;
-}
-
-#mySVG{
-    /*position:absolute;*/
-
-}
-#mySVGref{
-    position:relative;
-    left:300px;
-    height:600px;
-}
-#mySVGref path.arcslime:hover, 
-#mySVGref path.arcsfuchsia:hover, 
-#mySVGref path.arcsdeepskyblue:hover, 
-#mySVGref path.arcsorangered:hover, 
-#mySVGref path.arcsblueviolet:hover{
-    stroke-width:1;
-    /*stroke: #7CFC00;  lawngreen;*/
-}
-
-
 #circleLegend{
     position:absolute;
     left:280px;
@@ -114,6 +67,46 @@ div.absolute422 {
     height: 300px;
 }
 
+/*
+#mySVG path.arcsblue:hover, 
+#mySVG path.arcsred:hover,
+#mySVGref path.arcslime:hover, 
+#mySVGref path.arcsfuchsia:hover, 
+#mySVGref path.arcsdeepskyblue:hover, 
+#mySVGref path.arcsorangered:hover, 
+#mySVGref path.arcsblueviolet:hover{
+  */
+svg path:hover{
+    /*pointer-events: none;*/
+    stroke-width:1;
+    /*stroke: #7CFC00;  lawngreen;*/
+    /*transition: all 0.25s ease-out;
+    cursor: pointer;
+    fill: green;
+    color: yellow;*/
+}
+
+
+#mySVG path.arcsLightGray:hover{
+    stroke:grey;
+    stroke-width:1;
+}
+
+
+text.titles:hover{    
+    cursor: pointer;
+    fill: red;
+}
+
+#mySVG{
+    /*position:absolute;*/
+
+}
+#mySVGref{
+    position:relative;
+    left:300px;
+    height:600px;
+}
 
 
 
@@ -133,10 +126,12 @@ div.absolute422 {
   padding: 10px 15px;
   z-index: 5;
   height: 30px;
+  left: 50%;
+  margin-left: -75px; /* Use half of the width (150/2 = 75), to center the tooltip */
   line-height: 30px;
-  margin: 0 auto;
+  /*margin: 0 auto;*/
   color: white;
-  border-radius: 5px;
+  border-radius: 10px;
   box-shadow: 0 0 0 1px #eee;
   display: none;
 }
