@@ -40,9 +40,9 @@ function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
     var extDis = d/2.8;
     
     //get corresponding svg object
-    svg = document.getElementById(svgid);
+    var svg = document.getElementById(svgid);
+    var svg1 = $('#'+svgid);
     //check if current explorer support Canvas object, to avoid sytax error in some html5-unfriendly explorers.
-    
     //write titles
     if ((svg != null) && (svgid == 'mySVG'))
     {  
@@ -53,8 +53,9 @@ function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
         //display legend for prediction circle graphs, with box
         var x1 = 1.76*R, x2 = 3*R, y1 = 2.2*R, y2 = 2.52*R;
         var boxstr = 'M '+x1+' '+y1+' L '+x2+' '+y1+' L '+x2+' '+y2+' L '+x1+' '+y2+' L '+x1+' '+y1;
-        var attr = {d: boxstr, stroke:"LightGray", fill:"transparent", strokeWidth:1};
-        svg.appendChild(getNode('path', attr));
+        var attr = {d: boxstr, stroke:"LightGray", fill:"none", strokeWidth:1}; // instead of fill:"transparent"
+        //svg.appendChild(getNode('path', attr));
+        svg1.append(getNode('path', attr));
 
         var legend = getNode('text', {x: 1.8*R, y:R+R+3.5*H_title, fontFamily:titleFont, fontSize:18, fill:'blue'});
         legend.innerHTML = "⌒ True Positive pairs(hit)";
@@ -72,10 +73,10 @@ function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
 
 
     if (half == "left"){
-        var newtext = getNode('text', {x: R-2*d,   y:d-0.5*H_title, fontFamily:titleFont, fontSize:titleSize, class:"titles"});
+        var newtext = getNode('text', {x: R-2*d,   y:d-0.5*H_title, fontFamily:titleFont, fontSize:titleSize});
         newtext.textContent = titles[0];
         svg.appendChild(newtext);
-        var newtext = getNode('text', {x: R-2*d,   y:a+a+d+0.5*H_title, fontFamily:titleFont, fontSize:titleSize, class:"titles"});
+        var newtext = getNode('text', {x: R-2*d,   y:a+a+d+0.5*H_title, fontFamily:titleFont, fontSize:titleSize});
         newtext.textContent = titles[1];
         svg.appendChild(newtext);
 
@@ -120,7 +121,7 @@ function svg_drawCircle(svgid,x0,y0,R,halfOpen=20){
         var dx = R * Math.sin(2*Math.PI * halfOpen/360);
         var dy = R * Math.cos(2*Math.PI * halfOpen/360);
         var pathstr = 'M '+(x0+dx)+' '+(y0-dy)+' A '+R+' '+R+' 0 1 1 '+(x0-dx)+' '+(y0-dy);
-        var attr = {d: pathstr, stroke:"black", fill:"transparent", strokeWidth:1};
+        var attr = {d: pathstr, stroke:"black", fill:"none", strokeWidth:1}; //instead of fill:"transparent"
         var newarc = getNode('path', attr);
         svg.appendChild(newarc);
     }
@@ -323,7 +324,8 @@ function svg_drawArc(svgid,n1,n2,N,x0,y0,R,color,halfOpen=20){
             //d="M x1 y1 A rx ry, x-axis-rotation, large-arc-flag,sweep-flag, x2 y2"
             //arc is a part of an eclipse with rx,ry and rotated, starts from (x1,y1) and ends at (x2,y2), small arc if large-arc-flag== 0, colockwise arc if sweep-flag == 1
             pathstr = 'M '+p1.x+' '+p1.y+' A '+r+' '+r+' 0 0 '+clockwise+' '+p2.x+' '+p2.y;
-            var attr = {d: pathstr, stroke:color, fill:"transparent", strokeWidth:arcWidth, class:"arcs"+color};
+            arcid = 'd='+(n2-n1)+', ['+n1+', '+n2+']';
+            var attr = {d: pathstr, stroke:color, fill:"none", strokeWidth:arcWidth, class:"tooltips arcs"+color, id:arcid};   //instead of fill:"transparent"
             var newarc = getNode('path', attr);
             svg.appendChild(newarc);
         } else {

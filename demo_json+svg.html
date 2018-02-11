@@ -3,17 +3,15 @@
 <head>
 <meta charset="utf-8">
 <title>web demo for RNA pairing by lrushx(Kaibo)</title>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <link rel="stylesheet" type="text/css" href="./css/demo_chart_style.css">
 </head>
 
 <body>
 
-<script src="./js/demo_json+svg.js"></script>
 
 
-<p id="demo">Welcome! This is a demo for RNA pairing. <small>(Just choose the sequence starting from 'select'. <b>Anytime</b> you can select <b>another</b> sequence, slide the value of <b>beamsize</b>(1-200 by step 1, 200-800 by step 100), or <b>click</b> on chart points. Mouse hover on charts will display values. Enjoy!) </small> </p>
+<p id="demo">Welcome! This is a demo for RNA pairing. <small>(Just choose the sequence starting from 'select'. <b>Anytime</b> you can select <b>another</b> sequence, slide the value of <b>beamsize</b>(1-200 by step 1, 200-800 by step 100), or <b>click</b> on chart points. Mouse hover on graphs/charts will display values. Enjoy!) </small> </p>
 
 
 <select class="select" id="series" onchange="filterSeq()">
@@ -194,10 +192,11 @@ Your browser doesn't support canvas tag.
 <div  class="scale_botton_411"><button id="change_chart_411"></button></div>
 <div  class="scale_botton_421"><button id="change_chart_421"></button></div>
 
-<svg id="mySVG" width="1200" height="1200"  xmlns="http://www.w3.org/2000/svg">
+<svg version="1.1" id="mySVG" width="1400" height="1200"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <!--<svg id="mySVG" viewBox="0 0 500 1200"  xmlns="http://www.w3.org/2000/svg">-->
   Your browser doesn't support svg tag.
 </svg>
+<div class="tooltipbox"></div>
 <br>
 <svg id="mySVGref" width="900" height="600"  xmlns="http://www.w3.org/2000/svg">
 <!--<svg id="mySVG" viewBox="0 0 500 1200"  xmlns="http://www.w3.org/2000/svg">-->
@@ -225,6 +224,10 @@ Your browser doesn't support canvas tag.
 <p>LinearFold-C: <br><span id="lcf"></span></p>
 <p>LinearFold-V: <br><span id="lvn"></span></p>
 -->
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="./js/demo_json+svg.js"></script>
+<script src="./js/demo_tooltips.js"></script>
+
 
 </body>
 </html>
