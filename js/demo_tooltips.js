@@ -25,14 +25,14 @@ arcs.addEventListener("mouseover", function( event ) {
   });
 */
 
-$(document).on('mouseover', '.tooltips', function(){
+$('svg').on('mouseover', '.tooltips', function(){
     $tooltipbox.addClass('active');
-    console.log('mouseover '+$(this).attr('id'));
+    console.log('arc hover '+$(this).attr('id'));
     $tooltipbox.html($(this).attr('id'));
   //}, function() {
   //  $tooltipbox.removeClass('active');
   });
-$(document).on('mouseleave', '.tooltips', function(){
+$('svg').on('mouseleave', '.tooltips', function(){
     $tooltipbox.removeClass('active');
   });
 
