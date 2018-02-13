@@ -21,41 +21,42 @@ import pdb
 import os
 
 def LoadData():
-	RNAtype = "grp1"			# either 16s, 23s, or grp1
-	dataDir = "../RNA_visual_dengde/"
-	namePoolFile = "Mathews.clean.txt"
-	seqFile = "Mathewsdata."+RNAtype+".seq"
+    RNAtype = "grp1"            # either 16s, 23s, or grp1
+    dataDir = "../RNA_visual_dengde/"
+    namePoolFile = "Mathews.clean.txt"
+    seqFile = "Mathewsdata."+RNAtype+".seq"
 
-	outDir  = "./seqName/"
-	outFile = "seqNames."+RNAtype
+    outDir  = "./seqName/"
+    outFile = "seqNames."+RNAtype
 
-	if not os.path.exists(outDir):
-		os.makedirs(outDir)
-	
-	fileIn  = open(dataDir+namePoolFile)
-	namePool = fileIn.readlines()	# the last char in namePool[i] is '\n'		
-	fileIn.close()
+    if not os.path.exists(outDir):
+        os.makedirs(outDir)
+    
+    fileIn  = open(dataDir+namePoolFile)
+    namePool = fileIn.readlines()    # the last char in namePool[i] is '\n'        
+    fileIn.close()
 
-	fileIn  = open(dataDir+seqFile)
-	seqs = fileIn.readlines()		# the last char in seqs[i] is '\n'		
-	fileIn.close()
-	
-	f = open(outDir+outFile,"w")
+    fileIn  = open(dataDir+seqFile)
+    seqs = fileIn.readlines()        # the last char in seqs[i] is '\n'        
+    fileIn.close()
+    
+    f = open(outDir+outFile,"w")
 
-	for i,seq in enumerate(seqs):
-		pos = namePool.index(seq)
-		f.write('seq')
-		if (i < 10):
-			f.write('0')
-		f.write(str(i)+': '+namePool[pos-1])
-	f.close()
-	print(RNAtype)
+    for i,seq in enumerate(seqs):
+        pos = namePool.index(seq)
+        f.write('seq')		# 0000-1283
+        if i < 10:    	f.write('0')
+        elif i < 100: 	f.write('0')
+    	elif i < 1000: 	f.write('0')
+        f.write(str(i)+': '+namePool[pos-1])
+    f.close()
+    print(RNAtype)
 
 
 
 def RunMain():
-	print("start")
-	LoadData()
+    print("start")
+    LoadData()
 
 if __name__ == "__main__":
     RunMain()
