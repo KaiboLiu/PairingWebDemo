@@ -245,7 +245,7 @@ function svg_fillCircle(svgid,P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 }
 
 function svg_fillCircle_ref(svgid,gold,N,x0,y0,R,halfOpen=20){
-    colors = ['lime','fuchsia','deepskyblue','orangered','blueviolet'];
+    colors = ['lime','darkblue','orangered','fuchsia','#21669e','blueviolet'];
     brackets = ['()','[]','<>','{}'];
     var n_page = gold.length;
     var n_free_pairs=gold[0].length/2, n_pairs=0;
