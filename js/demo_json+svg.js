@@ -67,7 +67,7 @@ function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
         legend.innerHTML = "⌒ False Positive pairs";
         svg.appendChild(legend);   
         var legend = getNode('text', {x: 1.8*R, y:R+R+5.9*H_title, fontFamily:titleFont, fontSize:18, fill:'Gray'});
-        legend.innerHTML = "⌒ True Negative pairs";
+        legend.innerHTML = "⌒ False Negative pairs";
         svg.appendChild(legend);  
     }
 
@@ -345,7 +345,7 @@ function svg_drawArc(svgid,n1,n2,N,x0,y0,R,color,halfOpen=20){
 var H_title = 20;
 var seriesNo = "grp1";
 var seqNo = "seq00";
-var BeamFromBar = 20;
+var BeamFromBar = 100;
 var titles = ["CONTRAfold MFE", "Vienna RNAfold", "LinearFold-C", "LinearFold-V", "Gold/Ref"];
 var min_P_C, max_P_C, min_R_C, max_R_C; 
 var min_P_V, max_P_V, min_R_V, max_R_V; 
@@ -465,11 +465,11 @@ function disp_circle_legend(){
 
     newSpan   = document.createElement('span');
     newSpan.setAttribute("style","font-family:Verdana;color:LightGray;");
-    newSpan.textContent = '⌒ True Negative pairs';
+    newSpan.textContent = '⌒ False Negative pairs';
     legendDiv.appendChild(newSpan);
 
     //legendDiv.appendChild(newSpan);
-    //newSpan   = document.createElement('span', {"style":"font-family:Verdana;color:LightGray;"},'⌒ True Negative pairs');
+    //newSpan   = document.createElement('span', {"style":"font-family:Verdana;color:LightGray;"},'⌒ False Negative pairs');
     //legendDiv.appendChild(newSpan);
 
     var legendHolder = document.getElementById("legendHolder");
