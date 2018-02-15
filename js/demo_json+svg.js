@@ -245,7 +245,7 @@ function svg_fillCircle(svgid,P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 }
 
 function svg_fillCircle_ref(svgid,gold,N,x0,y0,R,halfOpen=20){
-    colors = ['lime','darkblue','orangered','fuchsia','#21669e','blueviolet'];
+    colors = ['lime','mediumblue','orangered','fuchsia','dodgerblue','blueviolet'];
     brackets = ['()','[]','<>','{}'];
     var n_page = gold.length;
     var n_free_pairs=gold[0].length/2, n_pairs=0;
@@ -314,17 +314,18 @@ function svg_drawArc(svgid,n1,n2,N,x0,y0,R,color,halfOpen=20){
     //check if current explorer support svg object, to avoid sytax error in some html5-unfriendly explorers.
     if(svg != null)
     {  
+        var clockwise = 0;
+        var arcWidth = 1;
+        if (N <= 500){arcWidth = 2.25-N/400.0;}//100: 2, 500: 1   -(x-100)/400+2=2.25-x/400
+        if (N > 500){
+            if (N <= 2100){   
+                arcWidth = 1.25-N/2000.0;// 500: 1, 2100:0.2
+                //300/N;//0.2;
+            }else if(N < 4000) arcWidth = 0.2;
+            else arcWidth = 800.0 / N;
+        }
+        //console.log('arcWidth: '+arcWidth);
         if (arc){
-            var clockwise = 0;
-            var arcWidth = 1;
-            if (N > 500){
-                if (N <= 2100){   
-                    arcWidth = 1.25-N/2000// 500: 1, 2100:0.2
-                300/N;//0.2;
-                }else if(N < 4000) arcWidth = 0.2
-                else arcWidth = 800 / N
-            }
-            //console.log('arcWidth: '+arcWidth);
             if (deltaAlpha-Math.PI > 1e-4) clockwise = 1;
             //d="M x1 y1 A rx ry, x-axis-rotation, large-arc-flag,sweep-flag, x2 y2"
             //arc is a part of an eclipse with rx,ry and rotated, starts from (x1,y1) and ends at (x2,y2), small arc if large-arc-flag== 0, colockwise arc if sweep-flag == 1
@@ -690,7 +691,7 @@ function plot_411(pairingList){
         3: {lineWidth: 1, lineDashStyle: [8, 10]},
           //type: 'scatter'
       },
-      curveType: 'function',
+      //curveType: 'function',      // setting the curveType option to function can smooth the lines
       //pointSize: 0.1,
       //dataOpacity: 0.6
     };  
@@ -871,7 +872,7 @@ function plot_411(pairingList){
         3: {lineWidth: 1, lineDashStyle: [8, 10]},
           //type: 'scatter'
       },
-      curveType: 'function',
+      //curveType: 'function',      // setting the curveType option to function can smooth the lines
       //pointSize: 0.1,
       //dataOpacity: 0.6
     };  
@@ -1136,7 +1137,7 @@ function plot_421(pairingList){
         3: {lineWidth: 1, lineDashStyle: [8, 10]},
           //type: 'scatter'
       },
-      curveType: 'function',
+      //curveType: 'function',      // setting the curveType option to function can smooth the lines
       //pointSize: 0.1,
       //dataOpacity: 0.6
     };  
@@ -1280,7 +1281,7 @@ function plot_422(pairingList){
       focusTarget: 'category',
       tooltip: { isHtml: true },
       //series: {
-      //  2: {curveType: 'function'}
+      //  2: {curveType: 'function'}         // setting the curveType option to function can smooth the lines
       //}
 
       series: {
@@ -1381,7 +1382,7 @@ function drawCurveTypes() {
           title: 'Performance'
         },
         series: {
-          1: {curveType: 'function'}
+          1: {curveType: 'function'}      // setting the curveType option to function can smooth the lines
         }
       };
 

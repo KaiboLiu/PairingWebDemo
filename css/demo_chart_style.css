@@ -1,7 +1,7 @@
 input[type="range"]{
 width:450px;
 }
-span{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden;}  
+span,code{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden;}  
 
 
 #circleLegend{
@@ -67,31 +67,33 @@ div.absolute422 {
     height: 300px;
 }
 
+
 /*
-#mySVG path.arcsblue:hover, 
-#mySVG path.arcsred:hover,
-#mySVGref path.arcslime:hover, 
-#mySVGref path.arcsfuchsia:hover, 
-#mySVGref path.arcsdeepskyblue:hover, 
-#mySVGref path.arcsorangered:hover, 
-#mySVGref path.arcsblueviolet:hover{
-  */
 svg path:hover{
-    /*pointer-events: none;*/
+    pointer-events: none;
     stroke-width:1;
-    /*stroke: #7CFC00;  lawngreen;*/
-    /*transition: all 0.25s ease-out;
+    stroke: #7CFC00;  lawngreen;
+    transition: all 0.25s ease-out;
     cursor: pointer;
     fill: green;
-    color: yellow;*/
+    color: yellow;
 }
+*/
 
+#mySVG path.arcsblue:hover{
+  stroke:darkblue;
+  /*stroke-width:1;*/
+} 
+#mySVG path.arcsred:hover{stroke:#960000;}
 
-#mySVG path.arcsLightGray:hover{
-    stroke:grey;
-    stroke-width:1;
-}
+#mySVG path.arcsLightGray:hover{stroke:grey;}
 
+#mySVGref path.arcslime:hover{stroke:#15af50;}
+#mySVGref path.arcsmediumblue:hover{stroke:darkblue;}
+#mySVGref path.arcsorangered:hover{stroke:#af4315;}
+#mySVGref path.arcsfuchsia:hover{stroke:#8315af;}
+#mySVGref path.arcsdodgerblue:hove{stroke:#0c0096;}
+#mySVGref path.arcsblueviolet:hover{stroke:#422796;}
 
 text.titles:hover{    
     cursor: pointer;
