@@ -281,10 +281,10 @@ def pairing(seq,ref,res):
     #print hit
     #print "-------"
     #print wrong
-    precision = round(len(hit)/2.0/len(pairs),4)
-    recall = round(len(hit)/2.0/len(refpairs),4)
+    precision = 0 if len(pairs)==0 else round(len(hit)/2.0/len(pairs),4)
+    recall = 0 if len(refpairs)==0 else round(len(hit)/2.0/len(refpairs),4)
     Fscore = 0
-    if (len(hit) > 0):
+    if len(hit) > 0 and precision+recall > 0:
         Fscore = round(2*precision*recall/(precision+recall),4)
     return [[precision,recall,Fscore], missing, hit, wrong]
 
