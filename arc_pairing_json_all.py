@@ -198,7 +198,7 @@ def showRrefFamlies(ref):
             j = stacks[stackindex].pop()
             ref_pair[stackindex].append(j)
             ref_pair[stackindex].append(i)
-    while ref_pair[-1] == []:
+    while ref_pair and ref_pair[-1] == []:
         ref_pair.pop()
     return ref_pair
 

@@ -49,16 +49,19 @@ import re
 from collections import defaultdict
 
 
-#RNAtype = "grp1"            # family name will be extracted by seq
-LineardataDir = "../RNA_visual_dengde/data_rest_families/run_allbeam_result/"
-contrafoldFile = "../RNA_visual_dengde/data_rest_families/log.Mathewsdata_contrafold_nosharpturn"
-viennaFile = "../RNA_visual_dengde/data_rest_families/log.Mathewsdata_vienna_withmodelscore"
-namePoolFile = "../RNA_visual_dengde/Mathews.clean.txt"
+# family name will be extracted by seq
 
-#LineardataDir = "/scratch/dengde/fastdecode/run_allbeam/run_allbeam_result/"
-#contrafoldFile = "../data_rest_families/log.Mathewsdata_contrafold_nosharpturn"
-#viennaFile = "../data_rest_families/log.Mathewsdata_vienna_withmodelscore"
-#namePoolFile = "../data_rest_families/Mathews.clean.txt"
+# local, my MacbookPro
+#LineardataDir = "../RNA_visual_dengde/data_rest_families/run_allbeam_result/"
+#contrafoldFile = "../RNA_visual_dengde/data_rest_families/log.Mathewsdata_contrafold_nosharpturn"
+#viennaFile = "../RNA_visual_dengde/data_rest_families/log.Mathewsdata_vienna_withmodelscore"
+#namePoolFile = "../RNA_visual_dengde/Mathews.clean.txt"
+
+# server, ironcreek
+LineardataDir = "/scratch/dengde/fastdecode/run_allbeam/run_allbeam_result/"
+contrafoldFile = "../data_rest_families/log.Mathewsdata_contrafold_nosharpturn"
+viennaFile = "../data_rest_families/log.Mathewsdata_vienna_withmodelscore"
+namePoolFile = "../data_rest_families/Mathews.clean.txt"
 
 nameDir  = "./seqName_all/"
 outDir  = "./demo_rearranged_results_all/"
@@ -92,7 +95,7 @@ def LoadNames_rearrange():
     for i,line in enumerate(seqs):
         # in linear data file
         if line == 'seq:\n':
-            seq, ref = seqs[i+1], seqs[i+5]
+            seq = seqs[i+1]
             '''
         # in contrafoldfile
         if line == '>structure\n':
@@ -109,6 +112,7 @@ def LoadNames_rearrange():
             str_name = re.findall(pattern_name, namePool[pos-1])[0]
             str_len = re.findall(pattern_len, namePool[pos-1])[0]
 
+            ref = namePool[pos+1]
             j = d[str_family]
             if j == 0: 
                 #print(str_family )
