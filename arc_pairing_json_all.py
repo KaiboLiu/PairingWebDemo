@@ -66,14 +66,15 @@ def LoadSave(RNAtype,seqNo):
     #RNAtype = "16s"
     #seqNo = 5
 
-    dataDir  = "./demo_rearranged_results/"
+    dataDir  = "./demo_rearranged_results_all/"
     dataFile = "combine_"+RNAtype+".seq"
-    outDir   = "./demo_pairing_for_js/"
+    outDir   = "./demo_pairing_for_js_all/"
     outFile  = "combine_pairing_"+RNAtype+".seq"
     #outFile1 = "show_ref_"+RNAtype+".seq"
     number   = str(seqNo)
-    if (seqNo < 10):
-        number = "0" + number
+    if (seqNo < 10):   number = "0" + number
+    if (seqNo < 100):  number = "0" + number
+    if (seqNo < 1000): number = "0" + number
 
     if not os.path.exists(outDir):
         os.makedirs(outDir)
@@ -288,11 +289,16 @@ def pairing(seq,ref,res):
     return [[precision,recall,Fscore], missing, hit, wrong]
 
 
-
+import time
 print("start")
-for seq_No in xrange(22):      # xrange(22) if seq is 16s, xrange(5) if seq is 23s, xrange(96) if seq is grp1
-    LoadSave("16s",seq_No)
-    print("finish seq %d" %(seq_No))
-print ("end")
+family_list = [('srp', 886),('tRNA', 74),('5s', 1125),('tmRNA', 462),('RNaseP', 182),('grp1', 96),('telomerase', 37),('16s', 22),('23s', 5)]
+time0 = time.time()
+for i,(family,n_seq) in enumerate(family_list):
+    time1 = time.time()
+    for seq_No in xrange(n_seq):
+        LoadSave(family, seq_No)
+    time2 = time.time()
+    print("finish family: %s, time: %0.5fs" %(family,time2-time1))
+print ("end, time: %0.5fs" %(time2-time0))
 
 #print >> logs, "%d out of %d sequences have pseudoknots" % (num_hasknot, index) #TODO
