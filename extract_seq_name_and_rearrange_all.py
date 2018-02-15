@@ -177,8 +177,12 @@ def LoadNames_rearrange():
 
 
 def RunMain():
+    import time
     print("start")
+    time0 = time.time()
     LoadNames_rearrange()
+    time1 = time.time()
+    print('time: %0.5fs'%(time1-time0))
 
 if __name__ == "__main__":
     RunMain()
