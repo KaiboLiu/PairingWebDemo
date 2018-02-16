@@ -344,7 +344,7 @@ function svg_drawArc(svgid,n1,n2,N,x0,y0,R,color,halfOpen=20){
 
 
 var H_title = 20;
-var seriesNo = "16s";
+var seriesNo = "tRNA";
 var seqNo = "seq00";
 var BeamFromBar = 100;
 var titles = ["CONTRAfold MFE", "Vienna RNAfold", "LinearFold-C", "LinearFold-V", "Gold/Ref"];
