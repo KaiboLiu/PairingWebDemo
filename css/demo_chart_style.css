@@ -81,13 +81,14 @@ svg path:hover{
 */
 
 #mySVG path.arcsblue:hover{
-  stroke:darkblue;
-  /*stroke-width:1;*/
+  stroke:cyan;
+  /*stroke:darkblue;
+  stroke-width:1;*/
 } 
-#mySVG path.arcsred:hover{stroke:#960000;}
+#mySVG path.arcsred:hover{stroke:fuchsia;/*#960000;*/}
 #mySVG path.arcsLightGray:hover{stroke:grey;}
 
-#mySVGref path.arcslime:hover{stroke:#15af50;}
+#mySVGref path.arcslime:hover{stroke:aquamarine;/*#15af50;*/}
 #mySVGref path.arcsmediumblue:hover{stroke:darkblue;}
 #mySVGref path.arcsorangered:hover{stroke:#af4315;}
 #mySVGref path.arcsfuchsia:hover{stroke:#8315af;}
