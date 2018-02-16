@@ -85,7 +85,6 @@ svg path:hover{
   /*stroke-width:1;*/
 } 
 #mySVG path.arcsred:hover{stroke:#960000;}
-
 #mySVG path.arcsLightGray:hover{stroke:grey;}
 
 #mySVGref path.arcslime:hover{stroke:#15af50;}
@@ -100,10 +99,8 @@ text.titles:hover{
     fill: red;
 }
 
-#mySVG{
-    /*position:absolute;*/
+#mySVG{/*position:absolute;*/}
 
-}
 #mySVGref{
     position:relative;
     left:300px;
@@ -111,10 +108,7 @@ text.titles:hover{
 }
 
 
-.tooltips:hover {
-  /*fill: #CC2929;*/
-  cursor: pointer;
-}
+.tooltips-arcs:hover {cursor: pointer;}
 
 .tooltipbox {
   pointer-events: none;
