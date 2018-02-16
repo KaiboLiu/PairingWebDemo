@@ -156,7 +156,7 @@ function svg_drawCircleMarks(svgid,N,x0,y0,R,extDis,circleScale=50,halfOpen=20){
             //if (angle > 90 && angle < 270) angle += 180;
             rotateattr = "rotate("+angle+" "+p.x+","+p.y+")";
             var newmark = getNode('text', {x: p.x, y:p.y, fontFamily:markFont, fontSize:markSize, transform:rotateattr});
-            newmark.textContent = ''+i;
+            newmark.textContent = ''+(i+1);
             svg.appendChild(newmark);
         }
 
@@ -354,7 +354,7 @@ var min_P_V, max_P_V, min_R_V, max_R_V;
 var slide_highlight_style_P = 'point { size: 5; shape-type: circle; fill-color:#013ea0; visible:true}';
 var slide_highlight_style_R = 'point { size: 5; shape-type: circle; fill-color:#bf0f0f; visible:true}';
 var logView1 = true;
- var logView2 = true;
+var logView2 = true;
 
 
 function filterSeq(){
