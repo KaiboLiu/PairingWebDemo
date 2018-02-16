@@ -330,7 +330,7 @@ function svg_drawArc(svgid,n1,n2,N,x0,y0,R,color,halfOpen=20){
             //d="M x1 y1 A rx ry, x-axis-rotation, large-arc-flag,sweep-flag, x2 y2"
             //arc is a part of an eclipse with rx,ry and rotated, starts from (x1,y1) and ends at (x2,y2), small arc if large-arc-flag== 0, colockwise arc if sweep-flag == 1
             pathstr = 'M '+p1.x+' '+p1.y+' A '+r+' '+r+' 0 0 '+clockwise+' '+p2.x+' '+p2.y;
-            arcid = 'd='+(n2-n1)+', ['+n1+', '+n2+']';
+            arcid = 'd='+(n2-n1)+', ['+(n1+1)+', '+(n2+1)+']';
             var attr = {d: pathstr, stroke:color, fill:"none", strokeWidth:arcWidth, class:"tooltips-arcs arcs"+color, id:arcid};   //instead of fill:"transparent"
             var newarc = getNode('path', attr);
             svg.appendChild(newarc);
