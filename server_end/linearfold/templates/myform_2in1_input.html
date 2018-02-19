@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Interactive sequence demo</title>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" href="../static/css/tryFlask.css">
+	</head>
+
+	<body>
+
+		<!--<form action="/action_go.php">-->
+		<br>
+		<form method="POST" class="userSeq" enctype="multipart/form-data">
+			Paste or type your <b>sequence</b> here: <br>
+    		<textarea name="seqInput" rows="5" cols="150" placeholder=">name &#10;AUCGGGCUAUUACG" ></textarea><br><br>
+			Or upload a file in FASTA format: <br>
+			<div class="file-upload">
+			  <div class="file-select">
+			    <div class="file-select-button" id="fileName">Choose File</div>
+			    <div class="file-select-name" id="noFile">No file chosen...</div> 
+			    <input type="file" name="seqFile" accept=".txt"><br>
+			    <!--
+			    <input type="file" name="seqFile" id="seqFile" accept=".txt" onchange=loaded()>
+			    <input type="file" name="seqFile" id="seqFile" accept=".txt" onchange="form.submit()">
+				-->
+			  </div>
+			</div><br><br>
+			Beam size (1-800): 
+			<input type="text" name="beamSize" placeholder="100" maxlength="3" size="10" ><br>
+			<input type="submit" value="Run >>">&nbsp &nbsp &nbsp<input type="reset" value="Reset" />
+		</form>
+		<br><br><br>
+		<p>Example demos for <span class="coloredSeq">16S rRNA</span>/<span class="coloredSeq">23S rRNA</span>/<span class="coloredSeq">Group I Intron</span> are avaialbe, compared with other algorithms. </p>
+		<a href="http://web.engr.oregonstate.edu/~liukaib/demo_json+canvas.html"><button type="button" id="jumpBtn">Go to demos >> </button></a>
+
+		<script src="../static/js/jquery.min.js"></script>
+		<script src="../static/js/seqLoader.js"></script>
+	</body>
+</html>

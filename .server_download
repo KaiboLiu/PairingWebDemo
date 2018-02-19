@@ -1,0 +1,4 @@
+scp liukaib@linearfoldtest.eecs.oregonstate.edu:/scratch/webroot/* /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/server_end/linearfold/
+scp -r liukaib@linearfoldtest.eecs.oregonstate.edu:/scratch/webroot/* /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/server_end/linearfold/
+
+scp liukaib@ironcreek.eecs.oregonstate.edu:/scratch/liukaib/server_ironcreek_socket/* /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/server_end/ironcreek/
