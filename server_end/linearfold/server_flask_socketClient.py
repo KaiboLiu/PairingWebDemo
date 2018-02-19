@@ -26,7 +26,7 @@ demoURL = '/'
 @app.route(demoURL)
 def my_form():
     #return render_template('myform.html')
-    return render_template('myform_2in1_input.html')
+    return render_template('interface.html')
 
 #print Flask.__doc__
 @app.route('/hello')
