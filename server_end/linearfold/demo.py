@@ -23,6 +23,7 @@ logFile2 = "./usrLog.txt"
 pairingDir = "/nfs/stak/users/liukaib/public_html/demo_data_run/"
 
 demoURL = '/'
+pairingRes = ''
 @app.route(demoURL)
 def my_form():
     #return flask.render_template('myform.html')
@@ -32,6 +33,12 @@ def my_form():
 @app.route('/hello')
 def hello_world():
     return 'Hello World!'
+
+@app.route('/show/<name>')
+def show(name):
+    global pairingRes
+    print 'loation:'+pairingRes
+    return flask.render_template('showResult.html', pairingRes=pairingRes)
 
 @app.route(demoURL, methods=['GET', 'POST'])
 def inputSeq():
@@ -87,8 +94,14 @@ def inputSeq():
             resInfo, logInfo = request_ironcreek(filename)
             addlog(logInfo, usrIP)
             #return processed_text,newPath
-            with open(pairingDir+filename+'.pairing.res') as f:
+            pairingFile = pairingDir+filename+'.pairing.res'
+            with open(pairingFile) as f:
                 pData = json.load(f)
+            global pairingRes
+            pairingRes = pairingFile 
+            newurl = flask.url_for('show',name=seqName[seqName.index('_')+1:])
+            return flask.redirect(newurl)
+            #show(pairingFile)
             return logInfo + '<br>name:&nbsp&nbsp' + seqName + '<br>seq:&nbsp&nbsp&nbsp&nbsp' + seq+'<br><br><br>'+resInfo.replace('\n','<br>')+'<br>'+pData['pairing'][6]+'<br><br>'+pData['pairing'][7]
 
 
