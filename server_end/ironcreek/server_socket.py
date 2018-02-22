@@ -40,7 +40,7 @@ while True:
     #c.send('Hello world, it\'s Kaibo, from server: %s: %s\nYour address is: %s' %(host, port, addr))
     time0 = time.time()
     outLc = outDir + inFileName + '.lc.res'             # output path for linearFold-C
-    outLv = outDir + inFileName + '.lv.res'             # output path for linearFold-C
+    outLv = outDir + inFileName + '.lv.res'             # output path for linearFold-V
     outPairPath = outDir + inFileName + '.pairing.res'  # output path for pairing result 
 
     fileIn  = open(inFile)                              # read seq information from input 
@@ -50,7 +50,7 @@ while True:
     beamsize = int(usrData[2])
     fileIn.close()
 
-    tmpSeqFile = tmpDir + 'test2.seq'
+    tmpSeqFile = tmpDir + 'test0.seq'
     os.system("echo %s > %s" % (seq, tmpSeqFile))    # save seq to the file for running in linearFold programs
 
     # do the linearfold-c
