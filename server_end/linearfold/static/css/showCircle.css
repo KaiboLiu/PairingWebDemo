@@ -1,0 +1,160 @@
+input[type="range"]{
+width:450px;
+}
+span,code{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden;}  
+
+
+#circleLegend{
+    position:absolute;
+    left:280px;
+    width: 650px;
+    height: 20px;
+    border: 1px solid gray;
+}
+
+
+div.scale_botton_411{
+    position: absolute;
+    /*try relative?
+    top: 170px;
+    left: 1450px;
+    top: 80%;*/
+    top: 178px;
+    left: 1520px;
+    width: 380px;
+    /*height: 20px;*/
+}
+
+div.scale_botton_421{
+    position: absolute;
+    /*top: 800px;
+    left: 1450px;*/
+    top: 798px;
+    left: 1520px;
+    width: 380px;
+    /*height: 40px;*/
+}
+
+
+div.absolute411 {
+    position: absolute;
+    top: 170px;
+    left: 1120px;
+    width: 700px;
+    height: 300px;
+}
+div.absolute412 {
+    position: absolute;
+    top: 470px;
+    left: 1120px;
+    width: 700px;
+    height: 300px;    
+}
+
+
+div.absolute421 {
+    position: absolute;
+    top: 790px;
+    left: 1120px;
+    width: 700px;
+    height: 300px;
+}
+div.absolute422 {
+    position: absolute;
+    top: 1090px;
+    left: 1120px;
+    width: 700px;
+    height: 300px;
+}
+
+
+/*
+svg path:hover{
+    pointer-events: none;
+    stroke-width:1;
+    stroke: #7CFC00;  lawngreen;
+    transition: all 0.25s ease-out;
+    cursor: pointer;
+    fill: green;
+    color: yellow;
+}
+*/
+
+#mySVG path.arcsblue:hover{
+  stroke:cyan;
+  /*stroke:darkblue;
+  stroke-width:1;*/
+} 
+#mySVG path.arcsred:hover{stroke:fuchsia;/*#960000;*/}
+#mySVG path.arcsLightGray:hover{stroke:grey;}
+
+#mySVGref path.arcslime:hover{stroke:aquamarine;/*#15af50;*/}
+#mySVGref path.arcsmediumblue:hover{stroke:darkblue;}
+#mySVGref path.arcsorangered:hover{stroke:#af4315;}
+#mySVGref path.arcsfuchsia:hover{stroke:#8315af;}
+#mySVGref path.arcsdodgerblue:hove{stroke:#0c0096;}
+#mySVGref path.arcsblueviolet:hover{stroke:#422796;}
+
+text.titles:hover{    
+    cursor: pointer;
+    fill: red;
+}
+
+#mySVG{/*position:absolute;*/}
+
+#mySVGref{
+    position:relative;
+    left:300px;
+    height:600px;
+}
+
+
+.tooltips-arcs:hover {cursor: pointer;}
+
+.tooltipbox {
+  pointer-events: none;
+  position: absolute;
+  font-size: 18px;
+  text-align: center;
+  background: #21669e;
+  padding: 10px 15px;
+  z-index: 5;
+  height: 30px;
+  left: 50%;
+  margin-left: -75px; /* Use half of the width (150/2 = 75), to center the tooltip */
+  line-height: 30px;
+  min-width:150px;
+  /*margin: 0 auto;*/
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px #eee;
+  display: none;
+}
+
+.tooltipbox.active {
+  display: block;
+}
+.tooltipbox:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;  /* Arrow at the bottom of the tooltip */
+  width: 0;
+  height: 0;
+  margin-left: -10px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #21669e;
+}
+
+
+a.jumpLink {
+  background-color:#3bbee2;
+  color: white;
+} 
+
+a.jumpLink:hover {
+  background-color:#4CAF50;
+}
+
+

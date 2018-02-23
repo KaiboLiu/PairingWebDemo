@@ -5,53 +5,76 @@
 <title>web demo for RNA pairing by lrushx(Kaibo)</title>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<link rel="stylesheet" type="text/css" href="../static/css/showResult.css">
+<link rel="stylesheet" type="text/css" href="../static/css/showCircle.css">
 </head>
 
 <body>
-
-<script src="../static/js/showResult.js"></script>
-
-
-<p id="demo">Here is the result </small> </p>
-
-
-
-<p>Sequence demostrated: <span id="seqEcho" style="color:red;font-size:130%;">No input</span></p>
-<p>Beam Size: <span id="beamEcho" style="color:red;font-size:130%;">Not given</span></p>
-<p>LinearFold-C: <span id="timeLCEcho" style="color:red;font-size:120%;">Not given</span>s</p>
-<p>LinearFold-V: <span id="timeLVEcho" style="color:red;font-size:120%;">Not given</span>s</p>
-<!-- canvas with red border -->
+<a class="jumpLink" href="http://linearfoldtest.eecs.oregonstate.edu:8080" style="font-size:130%;"> &nbsp; back to homepage&nbsp; </a>
+<!--<p id="demo">Here is the result </small> </p>-->
+<p>Sequence name: <span id="nameEcho" style="color:red;font-size:120%;"></span></p>
+<p>Beam Size: <span id="beamEcho" style="color:red;font-size:120%;"></span> &nbsp;&nbsp;&nbsp;
+   LinearFold-C: <span id="timeLCEcho" style="color:red;font-size:100%;">Not given</span>s&nbsp;&nbsp;&nbsp;
+   LinearFold-V: <span id="timeLVEcho" style="color:red;font-size:100%;">Not given</span>s
+</p>
 <!--
-<canvas id="myCanvas" width="1200px" height="1200px" style="border: 1px solid red;">
-Your browser doesn't support canvas tag.
-</canvas>
+<p>Beam Size: <span id="beamEcho" style="color:red;font-size:120%;"></span></p>
+<p>LinearFold-C: <span id="timeLCEcho" style="color:red;font-size:100%;">Not given</span>s</p>
+<p>LinearFold-V: <span id="timeLVEcho" style="color:red;font-size:100%;">Not given</span>s</p>
 -->
 
 <!--
-<div id="chart_div_412" class="absolute412"></div>
-<div id="chart_div_411" class="absolute411"></div>
-<div id="chart_div_422" class="absolute422"></div>
-<div id="chart_div_421" class="absolute421"></div>
-
-<div  class="scale_botton_411"><button id="change_chart_411"></button></div>
-<div  class="scale_botton_421"><button id="change_chart_421"></button></div>
+<p>Sequence name: <span id="nameEcho" style="color:red;font-size:130%;">{{seq}}</span></p>
+<p>Beam Size: <span id="beamEcho" style="color:red;font-size:130%;">{{beamsize}}</span></p>
+<p>LinearFold-C: <span id="lcEcho" style="color:red;font-size:120%;">{{lc}}</span></p>
+<p>LinearFold-V: <span id="lvEcho" style="color:red;font-size:120%;">{{lv}}</span></p>
+<p id='info'></p>
 -->
 
-<canvas id="myCanvas" width="1200px" height="1200px">
-Your browser doesn't support canvas tag.
-</canvas>
+
+<svg version="1.1" id="mySVG" width="1700" height="600"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<!--<svg id="mySVG" viewBox="0 0 500 1200"  xmlns="http://www.w3.org/2000/svg">-->
+  Your browser doesn't support svg tag.
+</svg>
+
+<p>
+  <span id='fornaInfo'></span>
+  <a id='fornalink1' class="jumpLink" href=""></a>
+  &nbsp;&nbsp; 
+  <a id='fornalink2' class="jumpLink" href=""></a>
+</p>
+<div id='forna'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<iframe id='forna1' src="#" height="600" width="40%"></iframe>
+<iframe id='forna2' src="#" height="600" width="40%"></iframe>
+</div>
+
+<p><span id="seq0" style="color:#3bbee2;"></span><button id="btn_copy_seq" onclick="cp_seq()"></button><br>
+  <code id="seq" style="color:#2ca02c;"></code> </p>
+<p><span id="lcf0" style="color:#3bbee2;"></span><button id="btn_copy_lcf" onclick="cp_lcf()"></button><br>
+  <code id="lcf" style="color:#2ca02c;"></code> </p>
+<p><span id="lvn0" style="color:#3bbee2;"></span><button id="btn_copy_lvn" onclick="cp_lvn()"></button><br>
+  <code id="lvn" style="color:#2ca02c;"></code> </p>
 
 
-<p><span id="seqStr"></span> </p>
-<!--
-<p><span id="ref"></span> </p>
-<p><span id="cf"></span> </p>
-<p><span id="vn"></span> </p>
--->
-<p><span id="lcf"></span> </p>
-<p><span id="lvn"></span> </p>
+<div class="tooltipbox"></div>
 
 <p id='path' hidden>{{pairingRes}}</p>
+<!--
+<script type="text/javascript">
+  document.getElementById('forna1').src = "http://nibiru.tbi.univie.ac.at/forna/forna.html?id=fasta&file=>header%5Cn"+document.getElementById('seqEcho').innerHTML+"%5Cn"+document.getElementById('lcEcho').innerHTML;
+  document.getElementById('forna2').src = "http://nibiru.tbi.univie.ac.at/forna/forna.html?id=fasta&file=>header%5Cn"+document.getElementById('seqEcho').innerHTML+"%5Cn"+document.getElementById('lvEcho').innerHTML;
+//document.getElementById('forna1').onload = function(){
+//  document.getElementById('forna1').src = "http://nibiru.tbi.univie.ac.at/forna/forna.html?id=fasta&file=>header%5Cn"+document.getElementById('seqEcho').innerHTML+"%5Cn"+document.getElementById('lcEcho').innerHTML;
+//  console.log(document.getElementById('forna1').src);
+
+//document.getElementById('try').innerHTML = document.getElementById('forna1').src;
+  console.log(document.getElementById('forna1').src);
+  console.log(document.getElementById('forna2').src);
+  //document.getElementById('info').innerHTML = document.getElementById('tmpInfo').innerHTML.split("\n").join('<br>');
+
+</script>
+i-->
+<script src="./static/js/demo_tooltips.js"></script>
+<script src="../static/js/showCircle.js"></script>
+
 </body>
 </html>

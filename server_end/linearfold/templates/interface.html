@@ -11,24 +11,34 @@
 		<!--<form action="/action_go.php">-->
 		<br>
 		<form method="POST" class="userSeq" enctype="multipart/form-data">
-			Paste or type your <b>sequence</b> here: <br>
-    		<textarea name="seqInput" rows="5" cols="150" placeholder=">name &#10;AUCGGGCUAUUACG" ></textarea><br><br>
-			Or upload a file in FASTA format: <br>
-			<div class="file-upload">
-			  <div class="file-select">
-			    <div class="file-select-button" id="fileName">Choose File</div>
-			    <div class="file-select-name" id="noFile">No file chosen...</div> 
-			    <input type="file" name="seqFile" id="seqFile" accept=".txt"><br>
-			    <!--
-			    <input type="file" name="seqFile" id="seqFile" accept=".txt" onchange=loaded()>
-			    <input type="file" name="seqFile" id="seqFile" accept=".txt" onchange="form.submit()">
-				-->
-			  </div>
-			</div><br><br>
-			Beam size (1-800): 
-			<input type="text" name="beamSize" placeholder="100" maxlength="3" size="10" ><br>
-			<input type="submit" value="Run >>">&nbsp &nbsp &nbsp<input type="reset" value="Reset" />
-		</form>
+	            Paste or type your <b>sequence</b> here: <br>
+    		    <textarea name="seqInput" id="seqInput" rows="10" cols="120" placeholder=">name &#10;GGUUAAGCGACUAAGCGUACACGGUGGAUGCCCUGGCAGUCAGAGGCGAUGAAGG" ></textarea>
+
+                    <div class="dropdown-sample">
+                      <button class="dropbtn-sample">Samples</button>
+                      <div class="dropdown-sample-content">
+                        <span onclick="sampleInput1()" id='sample1'>sample1: tRNA_tdbR00000566-Homo_sapiens-9606-Tyr-9PA (len:76)</span>
+                        <span onclick="sampleInput2()" id='sample2'>sample2: SRP_Oryz.sati._AC079888 (len:311)</span>
+                        <span onclick="sampleInput3()" id='sample3'>sample3: 23S rRNA_T.thermophilus (len:2915)</span>
+                      </div>
+                    </div><br><br>
+
+		    Or upload a file in FASTA format: <br>
+		    <div class="file-upload">
+		      <div class="file-select">
+		        <div class="file-select-button" id="fileName">Choose File</div>
+		        <div class="file-select-name" id="noFile">No file chosen...</div> 
+		        <input type="file" name="seqFile" id="seqFile" accept=".txt"><br>
+		        <!--
+		        <input type="file" name="seqFile" id="seqFile" accept=".txt" onchange=loaded()>
+		        <input type="file" name="seqFile" id="seqFile" accept=".txt" onchange="form.submit()">
+		    	-->
+		      </div>
+		    </div><br><br>
+		    Beam size (1-800): 
+		    <input type="text" name="beamSize" id='beamSize' placeholder="100" maxlength="3" size="10" ><br>
+		    <input type="submit" value="Run >>" onclick="loading();">&nbsp &nbsp &nbsp<input type="reset" value="Reset" />
+		</form> <div id='loading'></div>
 		<br><br>
 		<p>Example demos for <span class="coloredSeq">16S rRNA</span>/<span class="coloredSeq">23S rRNA</span>/<span class="coloredSeq">Group I Intron</span> are avaialbe, compared with other algorithms. </p>
 		<a href="http://web.engr.oregonstate.edu/~liukaib/demo_json+canvas.html"><button type="button" id="jumpBtn">Go to demos >> </button></a>
