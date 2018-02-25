@@ -17,7 +17,7 @@ s.bind((host, port))        # bind port
 #usrFile = "uploaded1.txt"
 usrDir  = "/nfs/stak/users/liukaib/public_html/usrData/"
 tmpDir = "./tmp/"
-outDir = "/nfs/stak/users/liukaib/public_html/demo_data_run/"
+outDir = "/nfs/stak/users/liukaib/public_html/demo_ironcreekOut/"
 
 #logFile = "/nfs/stak/users/liukaib/public_html/demo_data_run/usrLog.txt" 
 #logFile2 = "./usrLog.txt"

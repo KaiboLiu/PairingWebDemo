@@ -1,8 +1,35 @@
 
 /****** CODE ******/
 
+body{
+    //background-color: #eff0f2;
+    width: 70%;
+}
+#pageTitle{
+    position: absolute;
+    background-color: #3bbee2;
+    //min-width: 500px;
+    width: 70%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    color: white;
+    padding: 12px; 
+    font-size: 20px;
+    font-family: arial;
+    border: none;
+}
 
+fieldset.bigfield{
+    //background-color:#CCC;
+    background-color:#eff0f2;
+    //max-width:70%;
+    padding:16px;	
+    border:2px solid #3bbee2;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;	
+    border-radius:8px;	
 
+}
 .file-upload{display:block;text-align:center;font-family: Helvetica, Arial, sans-serif;font-size: 12px;width: 25%; }
 .file-upload .file-select{display:block;border: 2px solid #dce4ec;color: #34495e;cursor:pointer;height:30px;line-height:30px;text-align:left;background:#FFFFFF;overflow:hidden;position:relative;}
 .file-upload .file-select .file-select-button{background:#dce4ec;padding:0 10px;display:inline-block;height:30px;line-height:30px;}
@@ -78,7 +105,8 @@ div.dropdown-sample{
 .dropdown-sample-content {
     display: none;
     position: absolute;
-    background-color: #f1f1f1;
+    //background-color: #f1f1f1;
+    background-color: #ddd;
     min-width: 500px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
@@ -92,7 +120,9 @@ div.dropdown-sample{
 }
 
 .dropdown-sample-content span:hover {
-    background-color: #ddd;
+    //background-color: #ddd;
+    //background-color: #d1e0eb;
+    background-color: #A9A9A9;
     cursor:pointer;
 }
 
@@ -102,4 +132,13 @@ div.dropdown-sample{
 
 .dropdown-sample:hover .dropbtn-sample {
     background-color: #3e8e41;
+}
+
+#loading{
+    position: relative;
+    left:200px;
+}
+#bottomPos{
+    position: relative;
+    top: 40px;
 }

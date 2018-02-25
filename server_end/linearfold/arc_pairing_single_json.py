@@ -37,7 +37,7 @@ rbs = [')', ']', '}', '>']
 #lbs = ['('] # pseudoknot-free only, even for grey part
 #rbs = [')'] # pseudoknot-free only, even for grey part 
 
-def LoadSave(outFile,seq,lc,lv,t1,t2,beam,name):
+def LoadSave(outFile,seq,lc,lv,t1,t2,beam,name,score1,score2):
     
     data = []
 
@@ -53,21 +53,135 @@ def LoadSave(outFile,seq,lc,lv,t1,t2,beam,name):
     data[len(data):len(data)] = P_R_F_missing_hit_wrong
     '''
 
-    
-    P_R_F_missing_hit_wrong = pairing(lc)     # pairing linearcf
+    P_R_F_missing_hit_wrong1,P_R_F_missing_hit_wrong2  = pairing(lc, lv, score1, score2)     # pairing linearcf and linearvn    
+    data[len(data):len(data)] = P_R_F_missing_hit_wrong1
+    data[len(data):len(data)] = P_R_F_missing_hit_wrong2
+    print P_R_F_missing_hit_wrong1,P_R_F_missing_hit_wrong2
+    '''
+    P_R_F_missing_hit_wrong = pairing(lc, score1)     # pairing linearcf
     data[len(data):len(data)] = P_R_F_missing_hit_wrong
     
-    P_R_F_missing_hit_wrong = pairing(lv)     # pairing linearvn
+    P_R_F_missing_hit_wrong = pairing(lv, score2)     # pairing linearvn
     data[len(data):len(data)] = P_R_F_missing_hit_wrong
-
+    '''
     with open(outFile,'w') as f:
         json.dump({"pairing":data}, f, ensure_ascii=False)
 
     f.close()
     
 
+def agree(pres, pref, a, b): ## pres[a] = b
+    if pref[a] == b:
+        return True
+    elif pref.get(a-1,-1) == b or pref.get(a+1,-1) == b:
+        return True
+    elif pref.get(b-1,-1) == a or pref.get(b+1,-1) == a:
+        return True
+    else:
+        return False
+
+def showRrefFamlies(ref):
+    stacks, ref_pair = [], []
+    for _ in xrange(len(lbs)):
+        stacks.append([])
+        ref_pair.append([])
+    for i, item in enumerate(ref):
+        if item in lbs:
+            stackindex = lbs.index(item)
+            stacks[stackindex].append(i)
+        elif item in rbs:
+            stackindex = rbs.index(item)
+            j = stacks[stackindex].pop()
+            ref_pair[stackindex].append(j)
+            ref_pair[stackindex].append(i)
+    while ref_pair and ref_pair[-1] == []:
+        ref_pair.pop()
+    return ref_pair
+
+def pairing(ref,res,score1,score2):
+    #brackets for pseudoknot
+    pairs = []
+    refpairs = []
+    respair = defaultdict(lambda: -1)
+    refpair = defaultdict(lambda: -1)    
+
+    #pairing in result
+    stacks = []
+    for _ in xrange(len(lbs)):
+        stacks.append([])
+    for i, item in enumerate(res):
+        if item in lbs:
+            stackindex = lbs.index(item)
+            stacks[stackindex].append(i)
+        elif item in rbs:
+            stackindex = rbs.index(item)
+            left = stacks[stackindex][-1]
+            stacks[stackindex] = stacks[stackindex][:-1]    # stacks[stackindex].pop() ?
+            pairs.append((left,i, stackindex))
+            respair[left] = i
+            respair[i] = left
+
+    #pairing in ref
+    stacks = []
+    for _ in xrange(len(lbs)):
+        stacks.append([])
+    for i, item in enumerate(ref):
+        if item in lbs:
+            stackindex = lbs.index(item)
+            stacks[stackindex].append(i)
+        elif item in rbs:
+            stackindex = rbs.index(item)
+            left = stacks[stackindex][-1]
+            stacks[stackindex] = stacks[stackindex][:-1]
+            refpairs.append((left,i, stackindex))
+            refpair[left] = i
+            refpair[i] = left
+
+    length = len(ref)
+
+    missing = []
+    #extract pairs from refpairs, compare with respair
+    for a, b, stackindex in refpairs:
+        if agree(refpair, respair, a, b):
+            ifdraw = False
+        else:
+            ifdraw = True
+
+        if not ifdraw:
+            continue
+        #color = "gray!20"
+        #missing.append((a,b))
+        missing.append(a)
+        missing.append(b)
+
+    hit, wrong = [], []
+    #extract pairs from pairs, compare with refpair
+    for a, b, stackindex in pairs:
+        if stackindex > 0:
+            color = "wrong"
+        else:
+            if agree(respair, refpair, a, b):
+                color = "hit"
+            else:
+                color = "wrong"
+        if (color == "wrong"):
+            wrong.append(a)
+            wrong.append(b)
+            #wrong.append((a,b))
+        else:
+            hit.append(a)
+            hit.append(b)
+    #print hit
+    #print "-------"
+    #print wrong
+    precision = 0 
+    recall = 0 
+    #return [[precision,recall,score1], [], hit, wrong], [[precision,recall,score2], [], hit, missing]
+    return [[precision,recall,score1], [], hit, wrong], [[precision,recall,score2], missing, hit, []]
+
+'''
 ## pairing by self, no gold
-def pairing(res):
+def pairing(res,score):
     #brackets for pseudoknot
 
     pairs = []
@@ -93,10 +207,10 @@ def pairing(res):
 
     precision = 0
     recall = 0
-    Fscore = 0
+    Fscore = score 
     return [[precision,recall,Fscore], missing, hit, wrong]
 
-    '''
+
     pairs = []
     refpairs = []
     respair = defaultdict(lambda: -1)

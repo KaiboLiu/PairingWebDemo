@@ -11,9 +11,10 @@ import flask
 import flask_cors
 from werkzeug.utils import secure_filename 
 import os
-from time import time
+import time
 import re
 import json
+import arc_pairing_single_json
 
 app = flask.Flask(__name__)
 flask_cors.CORS(app)
@@ -22,30 +23,20 @@ fileDir = "/nfs/stak/users/liukaib/public_html/usrData/"
 #fileDir = os.path.join(os.getcwd(),"usrData")
 logFile = "/nfs/stak/users/liukaib/public_html/demo_data_run/usrLog.txt"
 logFile2 = "./usrLog.txt"
-pairingDir = "/nfs/stak/users/liukaib/public_html/demo_data_run/"
+ironcreekOutDir = "/nfs/stak/users/liukaib/public_html/demo_ironcreekOut/"
+pairingDir = "./demo_data_run/"
+pairingName, total_time = '',0
 
 demoURL = '/'
-pairingName = ''
-Beamsize = 100
-Lc = ''
-Lv = ''
-Seq = ''
-Info = '' 
 @app.route(demoURL)
 def my_form():
     #return flask.render_template('myform.html')
     return flask.render_template('interface.html')
 
-#print flask.Flask.__doc__
-@app.route('/hello')
-def hello_world():
-    return 'Hello World!'
-
 @app.route('/<name>')
-def show(name):
+def showRes(name):
     #global pairingRes
-    print pairingName
-    return flask.render_template('showResult.html', pairingRes=pairingName, beamsize=Beamsize, lc=Lc, lv=Lv, seq=Seq, info=Info)
+    return flask.render_template('showResult.html', pairingRes=pairingName, total_time=total_time)
 
 @app.route(demoURL, methods=['GET', 'POST'])
 def inputSeq():
@@ -54,16 +45,16 @@ def inputSeq():
         beamsize = flask.request.form['beamSize']
         if not beamsize: beamsize = '100'
         text = flask.request.form['seqInput']
-        filename = str(time()) + '_'
+        filename = str(time.time()) + '_'
         usrIP = flask.request.remote_addr
         if text == '': 
             if 'seqFile' not in flask.request.files:
-                seq = 'AUCGGGCUAUUACG'
+                seq = 'GGUUAAGCGACUAAGCGUACACGGUGGAUGCCCUGGCAGUCAGAGGCGAUGAAGG'
                 seqName = 'noName'
                 input_flag = True
                 #return 'No input, nor selected file'
+            # upload part
             else:
-                # upload part
                 file = flask.request.files['seqFile']
                 #filename += secure_filename(file.filename)
                 #filename = filename[:-4]
@@ -94,7 +85,6 @@ def inputSeq():
             seq = seq.replace(' ','')
             if ''.join(re.findall('[^AUCG]+',seq)):
                 return 'wrong input, only A/U/C/G is supposed in sequences'
-            print seq
 
             seqName = secure_filename(seqName)
             filename += seqName 
@@ -102,56 +92,80 @@ def inputSeq():
             f = open(newPath,'w')
             f.write("{}\n{}\n{}".format(seqName, seq, beamsize))
 	    f.close()
+            T0 = time.time()
+            t1, t2 = request_ironcreek(filename)
 
-            T0 = time()
-            resInfo, logInfo = request_ironcreek(filename)
-            T1 = time() - T0
-            print T1
+            outLc = ironcreekOutDir + filename + '.lc.res'             # output path for linearFold-C
+            outLv = ironcreekOutDir + filename + '.lv.res'             # output path for linearFold-V
 
-            addlog(logInfo, usrIP)
+            f_lc = open(outLc)
+            f_lv = open(outLv)
+       
+            lc = f_lc.readlines()
+            lv = f_lv.readlines()
+            f_lc.close()
+            f_lv.close()
+       
+            #write results of lc, lv to a final pairing.res result
+            pairingFile = pairingDir + filename + '.pairing.res'   #output with pairingName
+            arc_pairing_single_json.LoadSave(pairingFile,seq,lc[6][:-1],lv[6][:-1],t1,t2,beamsize,seqName)
 
-            #return processed_text,newPath
-            pairingFile = pairingDir + filename + '.pairing.res'#pairingName
+            T1 = time.time() - T0 
+            print "total time = {}".format(T1)
+
+            '''
+            # extract data from json-format pairing file
+            # copy pairing date from ~/public_html to local
             with open(pairingFile) as f:
                 pData = json.load(f)
-            
-
             global pairingName, Beamsize, Lc, Lv, Seq, Info
             pairingName = filename + '.pairing.res'
             Lc, Lv, Seq = pData['pairing'][6], pData['pairing'][7], seq
-            Info, Beamsize = resInfo, beamsize
-
+            Info, Beamsize = ">> linearFold-C\n{}>> linearFold-V\n{}".format(lc[-1],lv[-1]), beamsize
+            logInfo = "[{0}] [len: {1:0>7}] [time: {2:0>12.5f}s] [file: {3}]".format(time.asctime(), len(seq) , T1, filename) 
+            addlog(logInfo, usrIP)
             newpairingFile = './demo_data_run/'+ pairingName
             os.system('cp {} {}'.format(pairingFile,newpairingFile))
-            os.system('chmod 644 '+newpairingFile) 
-            newurl = flask.url_for('show',name=seqName)
+            '''
+            os.system('chmod 644 '+pairingFile) 
+            logInfo = "[{0}] [len: {1:0>7}] [time: {2:0>12.5f}s] [file: {3}] [IP: {4}]".format(time.asctime(), len(seq) , T1, filename, usrIP) 
+            addlog(logInfo)
+            global pairingName, total_time 
+            pairingName, total_time = filename+'.pairing.res', T1 
+            newurl = flask.url_for('showRes',name=seqName)
+            #show(newurl)
             return flask.redirect(newurl)
 
+            '''
             #show(pairingFile)
-            return logInfo + '<br>name:&nbsp&nbsp' + seqName + '<br>seq:&nbsp&nbsp&nbsp&nbsp' + seq+'<br><br><br>'+resInfo.replace('\n','<br>')+'<br>'+pData['pairing'][6]+'<br><br>'+pData['pairing'][7]
+            return Info + '<br>name:&nbsp&nbsp' + seqName + '<br>seq:&nbsp&nbsp&nbsp&nbsp' + seq+'<br><br><br>'+resInfo.replace('\n','<br>')+'<br>'+pData['pairing'][6]+'<br><br>'+pData['pairing'][7]
+            '''
 
+#def show(newurl):
+#    return flask.redirect(newurl)
 
-def addlog(logInfo, usrIP):
-    os.system("echo {} [IP: {}] >> {}".format(logInfo, usrIP, logFile))
+def addlog(logInfo):
+    os.system("echo {} >> {}".format(logInfo, logFile))
     os.system("cp {} {}".format(logFile, logFile2))
 
 
 def request_ironcreek(seqfile):
     import socket               # import socket module
-    s = socket.socket()         # creat socket object
+    s1, s2 = socket.socket(), socket.socket()         # creat socket object
     host = 'ironcreek.eecs.oregonstate.edu'
-    port = 11113                # set port
+    port1, port2 = 11110, 11111                # set port
     
-    s.connect((host, port))
-    s.send(seqfile)
-    response_s = s.recv(1024)
-    logInfo = s.recv(1024)
-    if '[' in response_s:
-        pos = response_s.index('[')
-        logInfo = response_s[pos:]
-        response_s = response_s[:pos]
-    s.close()
-    return response_s, logInfo
+    s1.connect((host, port1))
+    s2.connect((host, port2))
+    s1.send(seqfile)
+    s2.send(seqfile)
+    t1 = s1.recv(1024)
+    t2 = s2.recv(1024)
+    
+    s1.close()
+    s2.close()
+
+    return t1, t2 
 
 
 if __name__ == '__main__':
@@ -160,7 +174,7 @@ if __name__ == '__main__':
     #app.run(host='128.193.36.41', port=8001) #, debug=True) # flip.engr.oregonstate.edu
     #app.run(host='73.67.241.185', port=8080) #, debug=True) # flop.engr.oregonstate.edu
     #app.run(host='128.193.40.12', port=22) #, debug=True)  # web.engr.oregonstate.edu
-    app.run(host='128.193.38.37', port=5000, debug=True)  # linearfoldtest.eecs.oregonstate.edu
+    app.run(host='128.193.38.37', port=8080, debug=True)  # linearfoldtest.eecs.oregonstate.edu
     #app.run(host='0.0.0.0', port=8080)# , debug=True)
     #app.run(host='0.0.0.0') #, debug=True)
     #app.run(debug=True)

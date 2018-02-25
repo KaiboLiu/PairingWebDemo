@@ -1,8 +1,37 @@
+body{
+    background-color: #eff0f2;
+}
+
+
+#pageTitle{
+    position: absolute;
+    background-color: #3bbee2;
+    //min-width: 500px;
+    width: 90%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    color: white;
+    padding: 12px;
+    font-size: 20px;
+    font-family: arial;
+    border: none;
+}
+
+
 input[type="range"]{
 width:450px;
 }
-span,code{word-break:normal; width:auto; white-space:pre-wrap;word-wrap : break-word ;overflow: hidden;}  
-
+span.res{
+    display: inline-block;
+    word-break:break-word; 
+    word-break: break-all;
+    width:80%; 
+    //word-wrap : normal ;
+    overflow-wrap: break-word;
+    //background: lime;
+    -ms-word-break: break-all;
+    font-family: monospace;
+}  
 
 #circleLegend{
     position:absolute;
@@ -25,49 +54,6 @@ div.scale_botton_411{
     /*height: 20px;*/
 }
 
-div.scale_botton_421{
-    position: absolute;
-    /*top: 800px;
-    left: 1450px;*/
-    top: 798px;
-    left: 1520px;
-    width: 380px;
-    /*height: 40px;*/
-}
-
-
-div.absolute411 {
-    position: absolute;
-    top: 170px;
-    left: 1120px;
-    width: 700px;
-    height: 300px;
-}
-div.absolute412 {
-    position: absolute;
-    top: 470px;
-    left: 1120px;
-    width: 700px;
-    height: 300px;    
-}
-
-
-div.absolute421 {
-    position: absolute;
-    top: 790px;
-    left: 1120px;
-    width: 700px;
-    height: 300px;
-}
-div.absolute422 {
-    position: absolute;
-    top: 1090px;
-    left: 1120px;
-    width: 700px;
-    height: 300px;
-}
-
-
 /*
 svg path:hover{
     pointer-events: none;
@@ -85,14 +71,14 @@ svg path:hover{
   /*stroke:darkblue;
   stroke-width:1;*/
 } 
-#mySVG path.arcsred:hover{stroke:fuchsia;/*#960000;*/}
+#mySVG path.arcsred:hover{stroke:orange;/*fuchsia;#960000;*/}
 #mySVG path.arcsLightGray:hover{stroke:grey;}
+#mySVG path.arcsorange:hover{stroke:red;}
 
 #mySVGref path.arcslime:hover{stroke:aquamarine;/*#15af50;*/}
 #mySVGref path.arcsmediumblue:hover{stroke:darkblue;}
-#mySVGref path.arcsorangered:hover{stroke:#af4315;}
 #mySVGref path.arcsfuchsia:hover{stroke:#8315af;}
-#mySVGref path.arcsdodgerblue:hove{stroke:#0c0096;}
+#mySVGref path.arcsdodgerblue:hover{stroke:#0c0096;}
 #mySVGref path.arcsblueviolet:hover{stroke:#422796;}
 
 text.titles:hover{    

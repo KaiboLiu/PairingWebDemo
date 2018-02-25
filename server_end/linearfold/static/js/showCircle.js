@@ -35,15 +35,33 @@ function svg_draw_graphs(pairingList, d,R,circleScale,halfOpen=20) {
 
 function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
     var a = R+d;
-    var b =3*R + 3*d;   //2*d is also ok
+    var b =3.5*R + 3*d;   //2*d is also ok
     var extDis = d/2.8;
     
     //get corresponding svg object
     var svg = document.getElementById(svgid);
-    var svg1 = $('#'+svgid);
     //set font and style
     titleFont = "Courier";    //italic
     titleSize = 30;
+
+    //display legend for shared pairs
+        var x1 = 1.76*R, x2 = 3.2*R, y1 = 10, y2 = 70;
+        var boxstr = 'M '+x1+' '+y1+' L '+x2+' '+y1+' L '+x2+' '+y2+' L '+x1+' '+y2+' L '+x1+' '+y1;
+        var attr = {d: boxstr, stroke:"LightGray", fill:"none", strokeWidth:1}; // instead of fill:"transparent"
+        svg.appendChild(getNode('path', attr));
+        //        svg1.append(getNode('path', attr));
+        var legend = getNode('text', {x: 1.8*R, y:30, fontFamily:titleFont, fontSize:18, fill:'blue'});
+        legend.innerHTML = "⌒ Shared pairs(both predicted)";
+        svg.appendChild(legend);  
+        var legend = getNode('text', {x: 1.8*R, y:55, fontFamily:titleFont, fontSize:18, fill:'red'});
+        legend.innerHTML = "⌒";
+        svg.appendChild(legend);  
+        var legend = getNode('text', {x: 2.1*R, y:55, fontFamily:titleFont, fontSize:18, fill:'black'});
+        legend.innerHTML = "Exclusive pairs";
+        svg.appendChild(legend);  
+        var legend = getNode('text', {x: 3*R, y:55, fontFamily:titleFont, fontSize:18, fill:'orange'});
+        legend.innerHTML = "⌒";
+        svg.appendChild(legend);  
 
     if (half == "left"){
         var newtext = getNode('text', {x: R-2*d,   y:d-0.5*H_title, fontFamily:titleFont, fontSize:titleSize});
@@ -61,7 +79,7 @@ function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
     }else if (half == "right"){
         //var newtext = getNode('text', {x:b-2.7*d, y: d-0.5*H_title, fontFamily:titleFont, fontSize:titleSize, class:"titles"}); //Linear CONTRAfold
         //var newtext = getNode('text', {x:b-2.7*d, y: a+a+d+0.5*H_title, fontFamily:titleFont, fontSize:titleSize, class:"titles"});  //Linear Vienna
-        var newtext = getNode('text', {x: R-2*d,   y:d-0.5*H_title, fontFamily:titleFont, fontSize:titleSize, class:"titles"});//LinearFold-C
+        var newtext = getNode('text', {x: R-1.8*d,   y:d-0.5*H_title, fontFamily:titleFont, fontSize:titleSize, class:"titles"});//LinearFold-C
         newtext.textContent = titles[2];
         svg.appendChild(newtext);
         var newtext = getNode('text', {x:b-2.7*d, y: d-0.5*H_title, fontFamily:titleFont, fontSize:titleSize, class:"titles"});//LinearFold-V
@@ -155,15 +173,15 @@ function svg_drawCircleMarks(svgid,N,x0,y0,R,extDis,circleScale=50,halfOpen=20){
 
 function svg_fillCircles(svgid,data,d,R,circleScale,halfOpen=20,beamsize=0){
     var a = R + d;
-    var b = 3*R + 3*d;  //2*d is also ok
+    var b = 3.5*R + 3*d;  //2*d is also ok
     //var data = loadInfo();
     var N = data[0];
     //var pairs;
     //console.log(l+'+'+data.length);
     //fill circle top-right with linearcf_missing, linearcf_hit, linearcf_wrong
-    svg_fillCircle(svgid,data[2],data[8],data[10],data[9],data[11],N,a,a+H_title,R,halfOpen);
+    svg_fillCircle(svgid,data[2],data[8],data[9],data[10],data[11],N,a,a+H_title,R,halfOpen);
     //fill circle bottom-right with linearvn_missing, linearvn_hit, linearvn_wrong
-    svg_fillCircle(svgid,data[3],data[12],data[14],data[13],data[15],N,b,a+H_title,R,halfOpen);
+    svg_fillCircle(svgid,data[3],data[12],data[13],data[14],data[15],N,b,a+H_title,R,halfOpen);
 }
 
 
@@ -171,7 +189,8 @@ function svg_fillCircle(svgid,t,P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 
     var missing_pair = missing.length;
     for (var i=0; i<missing_pair; i+=2){
-        svg_drawArc(svgid,missing[i],missing[i+1],N,x0,y0,R,'LightGray',halfOpen); 
+        //svg_drawArc(svgid,missing[i],missing[i+1],N,x0,y0,R,'LightGray',halfOpen); 
+        svg_drawArc(svgid,missing[i],missing[i+1],N,x0,y0,R,'orange',halfOpen); 
     }
 
     var hit_pair = hit.length;
@@ -193,8 +212,13 @@ function svg_fillCircle(svgid,t,P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
         //set font and style
         PRFont = "normal";    //italic
         PRSize = 18;
-        var newmark = getNode('text', {x: x0-3*H_title, y:y0-R-H_title/2, fontFamily:PRFont, fontSize:PRSize, class:"titles"});
-        newmark.textContent = "time="+(''+t).slice(0,-8)+"s";      
+        if (x0 < 400){
+             var newmark = getNode('text', {x: x0-70.5-P_R_F[2].length*3.5, y:y0-R-H_title/2, fontFamily:PRFont, fontSize:PRSize, class:"titles"});
+             newmark.textContent = "time="+t+"s,  Score="+P_R_F[2];
+        } else {
+             var newmark = getNode('text', {x: x0-63.5-P_R_F[2].length*4, y:y0-R-H_title/2, fontFamily:PRFont, fontSize:PRSize, class:"titles"});
+             newmark.textContent = "time="+t+"s,  \u0394G="+P_R_F[2];
+        }
         svg.appendChild(newmark);    
     }   
     
@@ -270,8 +294,8 @@ function fillSeqText(data){
         //document.getElementById("vn").innerHTML = 'Vienna RNAfold: <br>' + lines[7];
         document.getElementById("nameEcho").innerHTML = data[4]+' (len:'+data[0]+')';
         document.getElementById("beamEcho").innerHTML = data[1];
-        document.getElementById("timeLCEcho").innerHTML = (''+data[2]).slice(0,-5);
-        document.getElementById("timeLVEcho").innerHTML = (''+data[3]).slice(0,-5);
+        document.getElementById("timeLCEcho").innerHTML = data[2];
+        document.getElementById("timeLVEcho").innerHTML = data[3];//(''+data[3]).slice(0,-5);
 
         document.getElementById("seq0").innerHTML = 'seq: ';//<br>';
         document.getElementById("lcf0").innerHTML = 'LinearFold-C: ';//<br>';
@@ -368,8 +392,6 @@ function cp_lvn(){
 }
 
 
-
-
 function insertForna(data){
 //  document.getElementById('forna1').src = "http://nibiru.tbi.univie.ac.at/forna/forna.html?id=fasta&file=>header%5Cn"+document.getElementById    ('seqEcho').innerHTML+"%5Cn"+document.getElementById('lcEcho').innerHTML;
 //  document.getElementById('forna2').src = "http://nibiru.tbi.univie.ac.at/forna/forna.html?id=fasta&file=>header%5Cn"+document.getElementById    ('seqEcho').innerHTML+"%5Cn"+document.getElementById('lvEcho').innerHTML;
@@ -381,7 +403,7 @@ function insertForna(data){
     document.getElementById('forna1').src = fornaURL1; 
     document.getElementById('forna2').src = fornaURL2;
   } else {
-    document.getElementById('fornaInfo').innerText = "sequence is too long for forna display here, click here to continue:  ";
+    document.getElementById('fornaInfo').innerText = "sequence is too long for forna display here, click to continue in a new window/tab:  ";
     var a1 = document.getElementById('fornalink1');
     var a2 = document.getElementById('fornalink2');
     //console.log(fornaURL1);
@@ -392,6 +414,17 @@ function insertForna(data){
     document.getElementById('forna').remove(); 
     //document.getElementById('forna').style = "display: none"; 
     //document.getElementById('forna2').style = "display: none"; 
-    
   }
+  //window.location.hash = 'pageTitle';    
 }
+//function setFocus(){
+//    document.getElementById('pageTitle').focus();
+//}
+
+// prevent scrollTo() from jumping to iframes
+//window.scrollTo = function () {};
+//window.onload = function(){ window.scrollTo(0,0); }
+//document.addEventListener("DOMContentLoaded", function(){ window.scrollTo(0,0); }, false )
+//window.addEventListener('load', function() {
+//  window.scrollTo(0, 0);
+//});

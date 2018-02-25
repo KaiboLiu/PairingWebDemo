@@ -2,28 +2,36 @@
 
 <html>
 	<head>
-		<title>Interactive sequence demo</title>
+		<title>LinearFold Web Server (beta)</title>
 		<meta charset="utf-8" />
 		<link rel="stylesheet" href="../static/css/interface.css">
 	</head>
 
 	<body>
-		<!--<form action="/action_go.php">-->
-		<br>
-		<form method="POST" class="userSeq" enctype="multipart/form-data">
-	            Paste or type your <b>sequence</b> here: <br>
-    		    <textarea name="seqInput" id="seqInput" rows="10" cols="120" placeholder=">name &#x0a;GGUUAAGCGACUAAGCGUACACGGUGGAUGCCCUGGCAGUCAGAGGCGAUGAAGG" ></textarea>
+            <div id="pageTitle">LinearFold Web Server (beta)</div>
+            <!--<form action="/action_go.php">-->
+            <br><br><br><br>
+
+            <fieldset class="bigfield">
+            <legend>Interactive demo</legend>
+	       <form method="POST" class="userSeq" enctype="multipart/form-data">
+                  <fieldset>
+                    <legend><I>Add a sequence</I></legend>
+	            <b>Paste</b> or <b>type</b> your sequence here: <br>
+    		    <!--<textarea name="seqInput" id="seqInput" rows="10" cols="120" placeholder=">name &#x0a;GGUUAAGCGACUAAGCGUACACGGUGGAUGCCCUGGCAGUCAGAGGCGAUGAAGG" ></textarea>-->
+    		    <textarea name="seqInput" id="seqInput" rows="10" cols="120">>name&#x0a;GGUUAAGCGACUAAGCGUACACGGUGGAUGCCCUGGCAGUCAGAGGCGAUGAAGG</textarea>
 
                     <div class="dropdown-sample">
                       <button class="dropbtn-sample">Samples</button>
                       <div class="dropdown-sample-content">
-                        <span onclick="sampleInput1()" id='sample1'>sample1: tRNA_tdbR00000566-Homo_sapiens-9606-Tyr-9PA (len:76)</span>
-                        <span onclick="sampleInput2()" id='sample2'>sample2: SRP_Oryz.sati._AC079888 (len:311)</span>
-                        <span onclick="sampleInput3()" id='sample3'>sample3: 23S rRNA_T.thermophilus (len:2915)</span>
+                        <span onclick="sampleInput(0)" id='sample1'>sample1: tRNA_tdbR00000566-Homo_sapiens-9606-Tyr-9PA (len:76)</span>
+                        <span onclick="sampleInput(1)" id='sample2'>sample2: SRP_Oryz.sati._AC079888 (len:311)</span>
+                        <span onclick="sampleInput(2)" id='sample3'>sample3: 16S rRNA_A.pyrophilus (len:1564)</span>
+                        <span onclick="sampleInput(3)" id='sample4'>sample4: 23S rRNA_T.thermophilus (len:2915)</span>
                       </div>
-                    </div><br><br>
+                    </div> <br>
 
-		    Or upload a file in FASTA format: <br>
+		    Or <b>upload</b> a file in FASTA format: <br>
 		    <div class="file-upload">
 		      <div class="file-select">
 		        <div class="file-select-button" id="fileName">Choose File</div>
@@ -34,16 +42,40 @@
 		        <input type="file" name="seqFile" id="seqFile" accept=".txt" onchange="form.submit()">
 		    	-->
 		      </div>
-		    </div><br><br>
-		    Beam size (1-800): 
+		    </div> 
+                  </fieldset> <br>
+
+                  <fieldset>
+                    <legend><I>Set beam size</I></legend>
+		    <b>Beam size</b> (1-800): 
 		    <input type="text" name="beamSize" id='beamSize' placeholder="100" maxlength="3" size="10" ><br>
+                  </fieldset> <br>
+
+                  <fieldset>
+                    <legend><I>Choose model(s)</I></legend>
+                    <input type="checkbox" id="cfbox" name="cfbox" value="cfbox" checked>
+                    <label for="cfbox"><b>LinearFold-C</b> (using <a href="http://contra.stanford.edu/contrafold/" target="_blank">CONTRAfold v2.0</a> machine-learned model, Do et al 2006)</label><br>
+                    <input type="checkbox" id="vnbox" name="vnbox" value="vnbox" checked>
+                    <label for="vnbox"><b>LinearFold-V</b> (using <a href="https://www.tbi.univie.ac.at/RNA/" target="_blank">Vienna RNAfold</a> thermodynamic model, Lorenz et al 2011, with parameters from Mathews et al 2004)</label>
+                  </fieldset> <br>
+
 		    <input type="submit" value="Run >>" onclick="loading();">&nbsp &nbsp &nbsp<input type="reset" value="Reset" />
 		</form> <div id='loading'></div>
-		<br><br>
+            </fieldset>
+            <br><br>
+
+            <fieldset class="bigfield">
+                <legend>Preset demo</legend>
 		<p>Example demos for <span class="coloredSeq">16S rRNA</span>/<span class="coloredSeq">23S rRNA</span>/<span class="coloredSeq">Group I Intron</span> are avaialbe, compared with other algorithms. </p>
 		<a href="http://web.engr.oregonstate.edu/~liukaib/demo_json+canvas.html"><button type="button" id="jumpBtn">Go to demos >> </button></a>
+            </fieldset>
 
-		<script src="../static/js/jquery.min.js"></script>
-		<script src="../static/js/seqLoader.js"></script>
-	</body>
+            <div id="bottomPos">  
+               <p>Web Demo designed by <b><a href="https://kaiboliu.github.io" target="_blank">Kaibo Liu</a></b> (liukaib_AT_oregonstate.edu)</p>
+               <div>Software implemented by <b><a href="https://dengdezhong.weebly.com/" target="_blank">Dezhong Deng</a></b>, <b><a href="http://kaizhao.me" target="_blank">Kai Zhao</a></b>, and <b><a href="http://web.engr.oregonstate.edu/~huanlian/" target="_blank">Liang Huang</a></b> from a Linear-time Prediction algorithm*. </div>
+               <div style="font-size:14px">* Dezhong Deng, Kai Zhao, David Hendrix, David H. Mathews, and Liang Huang (2018). <I>Linear-Time Prediction of RNA Secondary Structures</I>. <a href="https://www.biorxiv.org/content/early/2018/02/14/263509" target="_blank">bioRxiv</a>.</div>
+       	    </div>
+	<script src="../static/js/jquery.min.js"></script>
+	<script src="../static/js/interface.js"></script>
+       </body>
 </html>
