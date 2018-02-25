@@ -1,6 +1,6 @@
-scp liukaib@linearfoldtest.eecs.oregonstate.edu:/scratch/webroot/* /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/server_end/linearfold/
-scp -r liukaib@linearfoldtest.eecs.oregonstate.edu:/scratch/webroot/static /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/server_end/linearfold/
-scp -r liukaib@linearfoldtest.eecs.oregonstate.edu:/scratch/webroot/templates /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/server_end/linearfold/
+scp liukaib@linearfold.eecs.oregonstate.edu:/scratch/webroot/* /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/server_end/linearfold/
+scp -r liukaib@linearfold.eecs.oregonstate.edu:/scratch/webroot/static /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/server_end/linearfold/
+scp -r liukaib@linearfold.eecs.oregonstate.edu:/scratch/webroot/templates /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/server_end/linearfold/
 
 scp liukaib@ironcreek.eecs.oregonstate.edu:/scratch/liukaib/server_ironcreek_socket/* /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/server_end/ironcreek/
 git add .

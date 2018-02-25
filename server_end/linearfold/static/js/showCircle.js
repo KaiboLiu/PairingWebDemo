@@ -16,7 +16,7 @@ svg_load_draw_go(d=40,R=250,circleScale=50,halfOpen=20, inFile=$("#path").text()
 //svg_go(d=40,R=250,circleScale=50,halfOpen=20);
 function svg_load_draw_go(d=40,R=250,circleScale=50,halfOpen=20, inFile){
     //var pairingFile = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/demo_pairing_for_js/combine_pairing_"+seriesNo+"."+seqNo; //"16s.seq13";
-    var pairingFile = "http://linearfoldtest.eecs.oregonstate.edu/demo_data_run/" + inFile;
+    var pairingFile = "http://linearfold.eecs.oregonstate.edu/demo_data_run/" + inFile;
     //var pairingFile = "/demo_data_run/" + inFile;
     //console.log('beam size: '+BeamFromBar+', file read: '+seriesNo+"_"+seqNo);
     $.getJSON(pairingFile, function(data,status) {

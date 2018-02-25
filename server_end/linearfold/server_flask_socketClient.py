@@ -179,7 +179,7 @@ if __name__ == '__main__':
     #app.run(host='128.193.36.41', port=8001) #, debug=True) # flip.engr.oregonstate.edu
     #app.run(host='73.67.241.185', port=8080) #, debug=True) # flop.engr.oregonstate.edu
     #app.run(host='128.193.40.12', port=22) #, debug=True)  # web.engr.oregonstate.edu
-    app.run(host='128.193.38.37', port=8080, debug=True)  # linearfoldtest.eecs.oregonstate.edu
+    app.run(host='128.193.38.37', port=8080)#, debug=True)  # linearfoldtest.eecs.oregonstate.edu
     #app.run(host='0.0.0.0', port=8080)# , debug=True)
     #app.run(host='0.0.0.0') #, debug=True)
     #app.run(debug=True)

@@ -106,9 +106,14 @@ def inputSeq():
             f_lc.close()
             f_lv.close()
        
+            t1 = ''.join(re.findall('Time: ([0-9]+[.0-9]{0,3})',lc[4]))
+            t2 = ''.join(re.findall('Time: ([0-9]+[.0-9]{0,3})',lv[4]))
+            score1 = ''.join(re.findall('score: ([\-0-9]+[.0-9]{0,3})',lc[3]))
+            score2 = ''.join(re.findall('score: ([0-9]+[.0-9]{0,3})',lv[3]))
+            print t1,t2,score1,score2
             #write results of lc, lv to a final pairing.res result
             pairingFile = pairingDir + filename + '.pairing.res'   #output with pairingName
-            arc_pairing_single_json.LoadSave(pairingFile,seq,lc[6][:-1],lv[6][:-1],t1,t2,beamsize,seqName)
+            arc_pairing_single_json.LoadSave(pairingFile,seq,lc[6][:-1],lv[6][:-1],t1,t2,beamsize,seqName,score1,score2)
 
             T1 = time.time() - T0 
             print "total time = {}".format(T1)
@@ -131,8 +136,8 @@ def inputSeq():
             logInfo = "[{0}] [len: {1:0>7}] [time: {2:0>12.5f}s] [file: {3}] [IP: {4}]".format(time.asctime(), len(seq) , T1, filename, usrIP) 
             addlog(logInfo)
             global pairingName, total_time 
-            pairingName, total_time = filename+'.pairing.res', T1 
-            newurl = flask.url_for('showRes',name=seqName)
+            pairingName, total_time = filename+'.pairing.res', '%0.2f'%(T1) 
+            newurl = flask.url_for('showRes',name=seqName)#+'#pageTitle'
             #show(newurl)
             return flask.redirect(newurl)
 
