@@ -224,11 +224,11 @@ function svg_fillCircle(svgid,t,P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
         PRFont = "normal";    //italic
         PRSize = 18;
         if (x0 < 400){
-             var newmark = getNode('text', {x: x0-70.5-P_R_F[2].length*3.5, y:y0-R-H_title/2, fontFamily:PRFont, fontSize:PRSize, class:"titles"});
+             var newmark = getNode('text', {x: x0-71-P_R_F[2].length*3.5, y:y0-R-H_title/2, fontFamily:PRFont, fontSize:PRSize, class:"titles"});
              newmark.textContent = "time="+t+"s,  Score="+P_R_F[2];
         } else {
-             var newmark = getNode('text', {x: x0-63.5-P_R_F[2].length*4, y:y0-R-H_title/2, fontFamily:PRFont, fontSize:PRSize, class:"titles"});
-             newmark.textContent = "time="+t+"s,  \u0394G="+P_R_F[2];
+             var newmark = getNode('text', {x: x0-94-P_R_F[2].length*4, y:y0-R-H_title/2, fontFamily:PRFont, fontSize:PRSize, class:"titles"});
+             newmark.textContent = "time="+t+"s,  \u0394G="+P_R_F[2]+"kcal/mol";
         }
         svg.appendChild(newmark);    
     }   

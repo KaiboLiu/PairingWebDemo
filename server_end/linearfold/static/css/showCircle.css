@@ -74,13 +74,14 @@ span.res{
     max-width: 160ch;
     display: inline-block;
     //word-break:break-word; 
-    //word-break: break-all;
+    word-break: break-all;
     width:80%; 
     //word-wrap : normal ;
     overflow-wrap: break-word;
     -ms-word-break: break-all;
     font-family: monospace;
     overflow: auto;
+}
 
 #circleLegend{
     position:absolute;
@@ -184,12 +185,12 @@ text.titles:hover{
 }
 
 
-a.jumpLink {
+.jumpLink {
   background-color:#3bbee2;
   color: white;
 } 
 
-a.jumpLink:hover {
+.jumpLink:hover {
   background-color:#4CAF50;
 }
 
