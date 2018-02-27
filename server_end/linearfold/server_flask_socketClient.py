@@ -75,18 +75,21 @@ def inputSeq():
         else: 
             lineStop = text.find('\n')
             if lineStop == -1:
-                return 'wrong input, supposed to be FASTA format'
+                return flask.redirect(flask.url_for('errorPage',text=text))
+                #return 'wrong input, supposed to be FASTA format'
             # input part
             input_flag = True
             seqName = text[1:lineStop]
             seq     = text[lineStop+1:]
 
         if input_flag:
+            seq0 = seq
             seq = seq.replace('\n','')
             seq = seq.replace('\r','')
             seq = seq.replace(' ','')
             if ''.join(re.findall('[^AUCG]+',seq)):
-                return 'wrong input, only A/U/C/G is supposed in sequences'
+                return flask.redirect(flask.url_for('errorPage',text=text))
+                #return 'wrong input, only A/U/C/G is supposed in sequences'
 
             seqName = secure_filename(seqName)
             filename += seqName 
@@ -138,8 +141,9 @@ def inputSeq():
             os.system('chmod 644 '+pairingFile) 
             logInfo = "[{0}] [len: {1:0>6}] [time: {2:0>12.5f}s] [file: {3}] [IP: {4}]".format(time.asctime(), len(seq) , T1, filename, usrIP) 
             addlog(logInfo)
-            global pairingName, total_time 
-            pairingName, total_time = filename+'.pairing.res', '%0.2f'%(T1) 
+            global pairingName#, total_time 
+            pairingName = filename+'.pairing.res'
+            #total_time  = '%0.2f'%(T1) 
             newurl = flask.url_for('showRes',name=seqName)#+'#pageTitle'
             #show(newurl)
             return flask.redirect(newurl)
@@ -149,8 +153,10 @@ def inputSeq():
             return Info + '<br>name:&nbsp&nbsp' + seqName + '<br>seq:&nbsp&nbsp&nbsp&nbsp' + seq+'<br><br><br>'+resInfo.replace('\n','<br>')+'<br>'+pData['pairing'][6]+'<br><br>'+pData['pairing'][7]
             '''
 
-#def show(newurl):
-#    return flask.redirect(newurl)
+@app.route('/invalid_<text>')
+def errorPage(text):
+    return flask.render_template('errorpage.html', text=text)
+
 
 def addlog(logInfo):
     os.system("echo {} >> {}".format(logInfo, logFile))
