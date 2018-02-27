@@ -138,7 +138,13 @@ div.dropdown-sample{
     position: relative;
     left:200px;
 }
-#bottomPos{
+#LiangGroup{
     position: relative;
     top: 40px;
 }
+
+#other{
+    position: relative;
+    top: 40px;
+}
+

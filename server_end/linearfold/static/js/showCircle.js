@@ -410,12 +410,12 @@ function insertForna(data){
   var fornaURL1 = fornaDomain+data[5]+"%5Cn"+data[6];
   var fornaURL2 = fornaDomain+data[5]+"%5Cn"+data[7];
   if (data[0] <= 1000){
-    document.getElementById('fornaInfo').innerHTML = "forna display: ";
+    document.getElementById('fornaInfo').innerHTML = "<a href='http://rna.tbi.univie.ac.at/forna/'>forna</a> display: ";
     document.getElementById('forna1').src = fornaURL1; 
     document.getElementById('forna2').src = fornaURL2;
   } else {
     document.getElementById('forna').remove(); 
-    document.getElementById('fornaInfo').innerText = "sequence is too long for forna display here, click to continue in a new window/tab:  ";
+    document.getElementById('fornaInfo').innerHTML = "sequence is too long for <a href='http://rna.tbi.univie.ac.at/forna/'>forna</a> display here, click to continue in a new window/tab:  ";
     var a1 = document.getElementById('fornalink1');
     var a2 = document.getElementById('fornalink2');
     //console.log(fornaURL1);
