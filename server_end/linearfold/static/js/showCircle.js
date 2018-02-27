@@ -318,10 +318,24 @@ function fillSeqText(data){
         //document.getElementById("lcf").innerHTML = 'LinearFold-C: <br>' + lines[beamline];
         //document.getElementById("lvn").innerHTML = 'LinearFold-V: <br>' + lines[beamline+4];
 
+        var textWid = 160, t = '';
+        document.getElementById("seq-show").innerHTML = linebreak(data[5],textWid);
+        document.getElementById("lcf-show").innerHTML = linebreak(data[6],textWid);
+        document.getElementById("lvn-show").innerHTML = linebreak(data[7],textWid);
+        
         //DOM or jQuery
         $("#btn_copy_seq").text('Copy to clipboard');
         $("#btn_copy_lcf").text('Copy to clipboard');
         $("#btn_copy_lvn").text('Copy to clipboard');
+}
+
+function linebreak(data, textWid){
+    var t = '', i;
+    for (i=0; i<data.length-textWid; i+=textWid)
+        t = t + data.slice(i,i+textWid) + '<br>';
+    t = t + data.slice(i);
+    console.log(t);
+    return t; 
 }
 
 
@@ -403,6 +417,7 @@ function cp_lvn(){
 }
 
 
+
 function insertForna(data){
 //  document.getElementById('forna1').src = "http://nibiru.tbi.univie.ac.at/forna/forna.html?id=fasta&file=>header%5Cn"+document.getElementById    ('seqEcho').innerHTML+"%5Cn"+document.getElementById('lcEcho').innerHTML;
 //  document.getElementById('forna2').src = "http://nibiru.tbi.univie.ac.at/forna/forna.html?id=fasta&file=>header%5Cn"+document.getElementById    ('seqEcho').innerHTML+"%5Cn"+document.getElementById('lvEcho').innerHTML;
@@ -413,8 +428,10 @@ function insertForna(data){
     document.getElementById('fornaInfo').innerHTML = "<a href='http://rna.tbi.univie.ac.at/forna/'>forna</a> (Kerpedjiev et al 2015) display: ";
     document.getElementById('forna1').src = fornaURL1; 
     document.getElementById('forna2').src = fornaURL2;
+    document.getElementById('dispFornaToggle').focus();
   } else {
     document.getElementById('forna').remove(); 
+    document.getElementById('dispFornaToggle').remove(); 
     document.getElementById('fornaInfo').innerHTML = "sequence is too long for <a href='http://rna.tbi.univie.ac.at/forna/'>forna</a> (Kerpedjiev et al 2015) display here, click to continue in a new window/tab:  ";
     var a1 = document.getElementById('fornalink1');
     var a2 = document.getElementById('fornalink2');
@@ -428,7 +445,6 @@ function insertForna(data){
   }
   //window.location.hash = 'pageTitle';    
 }
-
 document.getElementById("forna1").addEventListener("load", function() {
   console.log('scroll from iframe 1 to top');
   window.scrollTo(0, 0);
@@ -437,6 +453,9 @@ document.getElementById("forna2").addEventListener("load", function() {
   console.log('scroll from iframe 2 to top');
   window.scrollTo(0, 0);
 }, false);
+
+
+
 //function setFocus(){
 //    document.getElementById('pageTitle').focus();
 //}
@@ -448,6 +467,20 @@ document.getElementById("forna2").addEventListener("load", function() {
 //window.addEventListener('load', function() {
 //  window.scrollTo(0, 0);
 //});
+
+function dispForna(){
+  var x = document.getElementById("forna");
+  var btn = document.getElementById("dispFornaToggle");
+  if (x.style.display == "none"){
+    x.style.display = "block";
+    btn.innerHTML = "Hide";
+    document.getElementById('dispFornaToggle').focus();
+  } else {
+    x.style.display = "none";
+    btn.innerHTML = "Show";
+    document.getElementById('dispFornaToggle').focus();
+  } 
+}
 
 
 var btn = $('#return-to-top');

@@ -7,7 +7,7 @@ body{
     position: absolute;
     background-color: #3bbee2;
     //min-width: 500px;
-    width: 80%;
+    width: 1400px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     color: white;
@@ -71,17 +71,18 @@ body{
 
 
 span.res{
+    font-family: monospace;
     max-width: 160ch;
-    display: inline-block;
+    color:#2ca02c;
+    overflow-wrap: break-word;
+    //display: inline-block; // comment on Feb 27, 2018
     //word-break:break-word; 
-    word-break: break-all;
-    white-space: normal;
+    //word-break: break-all;// comment on Feb 27, 2018
+    //white-space: normal;// comment on Feb 27, 2018
     //width:80%; 
     //word-wrap : normal ;
-    overflow-wrap: break-word;
-    -ms-word-break: break-all;
-    font-family: monospace;
-    overflow: auto;
+    //-ms-word-break: break-all;// comment on Feb 27, 2018
+    //overflow: auto;// comment on Feb 27, 2018
 }
 
 #circleLegend{
@@ -185,6 +186,14 @@ text.titles:hover{
   border-top: 10px solid #21669e;
 }
 
+button#dispFornaToggle{
+  background-color:#3bbee2;
+  border-radius: 4px;
+  color: white;
+  padding: 3px 10px;
+  text-align: center;
+  font-size: 14px;
+}
 
 a.jumpLink {
   background-color:#3bbee2;
@@ -194,10 +203,6 @@ a.jumpLink {
 a.jumpLink:hover {
   background-color:#4CAF50;
 }
-
-
-
-
 
 
 #return-to-top {

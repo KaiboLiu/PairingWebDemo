@@ -36,14 +36,16 @@
 </svg>
 
 <p>
-  <span id='fornaInfo'></span><br>
+  <span id='fornaInfo'></span>
+  <button id="dispFornaToggle" onclick="dispForna()">Show</button>
+  <br> 
   <a id='fornalink1' class="jumpLink" href="" target="_blank"></a>
   &nbsp;&nbsp; 
   <a id='fornalink2' class="jumpLink" href="" target="_blank"></a>
 </p>
 
 
-<div id='forna'> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<div id='forna' style="display:none"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 <!--
 <iframe id='forna1' src="about:blank" height="600" width="40%" onload="setFocus()"></iframe>&nbsp;&nbsp;
 <iframe id='forna2' src="about:blank" height="600" width="40%" onload="setFocus()"></iframe>
@@ -53,11 +55,14 @@
 </div>
 
 <p><span id="seq0" style="color:#3bbee2;"></span><button id="btn_copy_seq" onclick="cp_seq()"></button><br>
-  <span id="seq" class="res" style="color:#2ca02c;"></span> </p>
+  <span id="seq" class="res" style="display:none"></span>
+  <span id="seq-show" class="res" style="display: inline-block;"></span> </p>
 <p><span id="lcf0" style="color:#3bbee2;"></span><button id="btn_copy_lcf" onclick="cp_lcf()"></button><br>
-  <span id="lcf" class="res" style="color:#2ca02c;"></span> </p>
+  <span id="lcf" class="res" style="display:none"></span>
+  <span id="lcf-show" class="res" style="display: inline-block;"></span> </p>
 <p><span id="lvn0" style="color:#3bbee2;"></span><button id="btn_copy_lvn" onclick="cp_lvn()"></button><br>
-  <span id="lvn" class="res" style="color:#2ca02c;"></span> </p>
+  <span id="lvn" class="res" style="display:none"></span>
+  <span id="lvn-show" class="res" style="display: inline-block;"></span> </p>
 
 
 <div class="tooltipbox"></div>
