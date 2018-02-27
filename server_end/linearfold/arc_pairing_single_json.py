@@ -73,10 +73,10 @@ def LoadSave(outFile,seq,lc,lv,t1,t2,beam,name,score1,score2):
 def agree(pres, pref, a, b): ## pres[a] = b
     if pref[a] == b:
         return True
-    elif pref.get(a-1,-1) == b or pref.get(a+1,-1) == b:
-        return True
-    elif pref.get(b-1,-1) == a or pref.get(b+1,-1) == a:
-        return True
+#    elif pref.get(a-1,-1) == b or pref.get(a+1,-1) == b:
+#        return True
+#    elif pref.get(b-1,-1) == a or pref.get(b+1,-1) == a:
+#        return True
     else:
         return False
 

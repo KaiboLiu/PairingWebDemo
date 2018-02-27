@@ -42,11 +42,10 @@ function sampleInput(idx){
 
 function loading(){
     console.log('loading gif');
+    document.getElementById('loadingIMG').style = "display:block";
     //document.getElementById('loadingIMG').innerHTML = '<img src="loading1.gif" alt="Loading..." height="160"></img>';
     //document.getElementById('loadingIMG').innerHTML = '<img src="http://linearfold.eecs.oregonstate.edu:8080/static/img/loading1.gif" alt="Loading..." height="160"></img>';
     //document.getElementById('loadingIMG').innerHTML = '<img src="https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/img/loading1.gif" alt="Loading..." height="160"><img>';
     //document.getElementById('loadingIMG').src = "https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/img/loading1.gif";
     //document.getElementById('loadingIMG').height = 160;
-    document.getElementById('loadingIMG').style = "display:block";
-    console.log(document.getElementById('loadingIMG').innerHTML);
 }
