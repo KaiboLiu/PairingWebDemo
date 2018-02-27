@@ -70,21 +70,17 @@ body{
 }
 
 
-
-input[type="range"]{
-width:450px;
-}
 span.res{
+    max-width: 160ch;
     display: inline-block;
-    word-break:break-word; 
-    word-break: break-all;
+    //word-break:break-word; 
+    //word-break: break-all;
     width:80%; 
     //word-wrap : normal ;
     overflow-wrap: break-word;
-    //background: lime;
     -ms-word-break: break-all;
     font-family: monospace;
-}  
+    overflow: auto;
 
 #circleLegend{
     position:absolute;
