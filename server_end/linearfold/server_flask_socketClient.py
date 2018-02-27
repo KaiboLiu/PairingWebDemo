@@ -36,7 +36,8 @@ def my_form():
 @app.route('/<name>')
 def showRes(name):
     #global pairingRes
-    return flask.render_template('showResult.html', pairingRes=pairingName, total_time=total_time)
+    #return flask.render_template('showResult.html', pairingRes=pairingName, total_time=total_time)
+    return flask.render_template('showResult.html', pairingRes=pairingName)
 
 @app.route(demoURL, methods=['GET', 'POST'])
 def inputSeq():
@@ -47,30 +48,30 @@ def inputSeq():
         text = flask.request.form['seqInput']
         filename = str(time.time()) + '_'
         usrIP = flask.request.remote_addr
-        if text == '': 
-            if 'seqFile' not in flask.request.files:
-                seq = 'GGUUAAGCGACUAAGCGUACACGGUGGAUGCCCUGGCAGUCAGAGGCGAUGAAGG'
-                seqName = 'noName'
-                input_flag = True
-                #return 'No input, nor selected file'
-            # upload part
-            else:
-                file = flask.request.files['seqFile']
-                #filename += secure_filename(file.filename)
-                #filename = filename[:-4]
-                tmpPath = os.path.join(fileDir,'tmp')
-                file.save(tmpPath)
-                input_flag = True
 
-                with open(tmpPath) as f:
-                    text = f.readlines()
-                    if len(text) > 2 or len(text) < 1:
-                        os.system("rm -f {}".format(tmpPath))
-                        return 'wrong format in file'
-                    seqName = text[0][1:-1] if text[0][0] == '>' else text[0][:-1]
-                    seq     = text[-1][:-1]
-                    if len(text) == 1: seqName = 'NoName' 
-                os.system("rm -f {}".format(tmpPath))
+        if 'seqFile' in flask.request.files:
+            usrFile = flask.request.files['seqFile']
+            #filename += secure_filename(usrFile.filename)
+            #filename = filename[:-4]
+            tmpPath = os.path.join(fileDir,'tmp')
+            usrFile.save(tmpPath)
+            input_flag = True
+
+            with open(tmpPath) as f:
+                text = f.readlines()
+                if len(text) > 2 or len(text) < 1:
+                    os.system("rm -f {}".format(tmpPath))
+                    return 'wrong format in file'
+                seqName = text[0][1:-1] if text[0][0] == '>' else text[0][:-1]
+                seq     = text[-1][:-1]
+                if len(text) == 1: seqName = 'NoName' 
+            os.system("rm -f {}".format(tmpPath))
+        elif text == '': 
+            seq = 'GGUUAAGCGACUAAGCGUACACGGUGGAUGCCCUGGCAGUCAGAGGCGAUGAAGG'
+            seqName = 'noName'
+            input_flag = True
+            #return 'No input, nor selected file'
+        # upload part
         else: 
             lineStop = text.find('\n')
             if lineStop == -1:
@@ -82,6 +83,7 @@ def inputSeq():
 
         if input_flag:
             seq = seq.replace('\n','')
+            seq = seq.replace('\r','')
             seq = seq.replace(' ','')
             if ''.join(re.findall('[^AUCG]+',seq)):
                 return 'wrong input, only A/U/C/G is supposed in sequences'
@@ -109,7 +111,8 @@ def inputSeq():
             t1 = ''.join(re.findall('Time: ([0-9]+[.0-9]{0,3})',lc[4]))
             t2 = ''.join(re.findall('Time: ([0-9]+[.0-9]{0,3})',lv[4]))
             score1 = ''.join(re.findall('score: ([\-0-9]+[.0-9]{0,3})',lc[3]))
-            score2 = ''.join(re.findall('score: ([0-9]+[.0-9]{0,3})',lv[3]))
+            #score2 = ''.join(re.findall('score: ([\-0-9]+[.0-9]{0,3})',lv[3]))
+            score2 = '{0:.2f}'.format(float(''.join(re.findall('score: ([\-0-9]+[.0-9]{0,3})',lv[3])))/(-100))
             print t1,t2,score1,score2
             #write results of lc, lv to a final pairing.res result
             pairingFile = pairingDir + filename + '.pairing.res'   #output with pairingName
@@ -133,7 +136,7 @@ def inputSeq():
             os.system('cp {} {}'.format(pairingFile,newpairingFile))
             '''
             os.system('chmod 644 '+pairingFile) 
-            logInfo = "[{0}] [len: {1:0>7}] [time: {2:0>12.5f}s] [file: {3}] [IP: {4}]".format(time.asctime(), len(seq) , T1, filename, usrIP) 
+            logInfo = "[{0}] [len: {1:0>6}] [time: {2:0>12.5f}s] [file: {3}] [IP: {4}]".format(time.asctime(), len(seq) , T1, filename, usrIP) 
             addlog(logInfo)
             global pairingName, total_time 
             pairingName, total_time = filename+'.pairing.res', '%0.2f'%(T1) 

@@ -41,15 +41,26 @@ function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
     //get corresponding svg object
     var svg = document.getElementById(svgid);
     //set font and style
-    titleFont = "Courier";    //italic
+    titleFont = "Courier";  
+    legendFont = "Arial";    
     titleSize = 30;
 
     //display legend for shared pairs
-        var x1 = 1.76*R, x2 = 3.2*R, y1 = 10, y2 = 70;
+        var x1 = 1.92*R, x2 = 3.24*R, y1 = 11, y2 = 90;
         var boxstr = 'M '+x1+' '+y1+' L '+x2+' '+y1+' L '+x2+' '+y2+' L '+x1+' '+y2+' L '+x1+' '+y1;
         var attr = {d: boxstr, stroke:"LightGray", fill:"none", strokeWidth:1}; // instead of fill:"transparent"
         svg.appendChild(getNode('path', attr));
         //        svg1.append(getNode('path', attr));
+        var legend = getNode('text', {x: 1.96*R, y:34, fontFamily:legendFont, fontSize:18, fill:'blue'});
+        legend.innerHTML = "⌒ both LinearFold-C and LinearFold-V";
+        svg.appendChild(legend);  
+        var legend = getNode('text', {x: 1.96*R, y:56, fontFamily:legendFont, fontSize:18, fill:'red'});
+        legend.innerHTML = "⌒ LinearFold-C only";
+        svg.appendChild(legend);  
+        var legend = getNode('text', {x: 1.96*R, y:78, fontFamily:legendFont, fontSize:18, fill:'green'});
+        legend.innerHTML = "⌒ LinearFold-V only";
+        svg.appendChild(legend);  
+        /*
         var legend = getNode('text', {x: 1.8*R, y:30, fontFamily:titleFont, fontSize:18, fill:'blue'});
         legend.innerHTML = "⌒ Shared pairs(both predicted)";
         svg.appendChild(legend);  
@@ -62,7 +73,7 @@ function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
         var legend = getNode('text', {x: 3*R, y:55, fontFamily:titleFont, fontSize:18, fill:'orange'});
         legend.innerHTML = "⌒";
         svg.appendChild(legend);  
-
+        */
     if (half == "left"){
         var newtext = getNode('text', {x: R-2*d,   y:d-0.5*H_title, fontFamily:titleFont, fontSize:titleSize});
         newtext.textContent = titles[0];
@@ -190,7 +201,7 @@ function svg_fillCircle(svgid,t,P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
     var missing_pair = missing.length;
     for (var i=0; i<missing_pair; i+=2){
         //svg_drawArc(svgid,missing[i],missing[i+1],N,x0,y0,R,'LightGray',halfOpen); 
-        svg_drawArc(svgid,missing[i],missing[i+1],N,x0,y0,R,'orange',halfOpen); 
+        svg_drawArc(svgid,missing[i],missing[i+1],N,x0,y0,R,'green',halfOpen); 
     }
 
     var hit_pair = hit.length;
@@ -403,6 +414,7 @@ function insertForna(data){
     document.getElementById('forna1').src = fornaURL1; 
     document.getElementById('forna2').src = fornaURL2;
   } else {
+    document.getElementById('forna').remove(); 
     document.getElementById('fornaInfo').innerText = "sequence is too long for forna display here, click to continue in a new window/tab:  ";
     var a1 = document.getElementById('fornalink1');
     var a2 = document.getElementById('fornalink2');
@@ -411,12 +423,20 @@ function insertForna(data){
     a2.innerHTML = "forna for LinearFold-V"; 
     a1.setAttribute("href",fornaURL1); 
     a2.setAttribute("href",fornaURL2); 
-    document.getElementById('forna').remove(); 
     //document.getElementById('forna').style = "display: none"; 
     //document.getElementById('forna2').style = "display: none"; 
   }
   //window.location.hash = 'pageTitle';    
 }
+
+document.getElementById("forna1").addEventListener("load", function() {
+  console.log('scroll from iframe 1 to top');
+  window.scrollTo(0, 0);
+}, false);
+document.getElementById("forna2").addEventListener("load", function() {
+  console.log('scroll from iframe 2 to top');
+  window.scrollTo(0, 0);
+}, false);
 //function setFocus(){
 //    document.getElementById('pageTitle').focus();
 //}
@@ -428,3 +448,21 @@ function insertForna(data){
 //window.addEventListener('load', function() {
 //  window.scrollTo(0, 0);
 //});
+
+
+var btn = $('#return-to-top');
+
+$(window).scroll(function() {
+  if ($(window).scrollTop() > 200) {
+    btn.addClass('show');
+  } else {
+    btn.removeClass('show');
+  }
+});
+
+btn.on('click', function(e) {
+  e.preventDefault();
+  $('html, body').animate({scrollTop:0}, '200');
+});
+
+

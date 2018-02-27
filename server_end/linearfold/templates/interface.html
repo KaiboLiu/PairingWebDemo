@@ -59,8 +59,8 @@
                     <label for="vnbox"><b>LinearFold-V</b> (using <a href="https://www.tbi.univie.ac.at/RNA/" target="_blank">Vienna RNAfold</a> thermodynamic model, Lorenz et al 2011, with parameters from Mathews et al 2004)</label>
                   </fieldset> <br>
 
-		    <input type="submit" value="Run >>" onclick="loading();">&nbsp &nbsp &nbsp<input type="reset" value="Reset" />
-		</form> <div id='loading'></div>
+		    <input type="submit" value="Run >>" onclick="loading()">&nbsp &nbsp &nbsp<input type="reset" value="Reset" />
+		</form> <div id='loadingIMG' style="display:none"><img src='https://raw.githubusercontent.com/KaiboLiu/PairingWebDemo/master/img/loading1.gif' alt='Loading...' height='160'></div>
             </fieldset>
             <br><br>
 
@@ -73,7 +73,10 @@
             <div id="bottomPos">  
                <p>Web Demo designed by <b><a href="https://kaiboliu.github.io" target="_blank">Kaibo Liu</a></b> (liukaib_AT_oregonstate.edu)</p>
                <div>Software implemented by <b><a href="https://dengdezhong.weebly.com/" target="_blank">Dezhong Deng</a></b>, <b><a href="http://kaizhao.me" target="_blank">Kai Zhao</a></b>, and <b><a href="http://web.engr.oregonstate.edu/~huanlian/" target="_blank">Liang Huang</a></b> from a Linear-time Prediction algorithm*. </div>
+               <div style="font-size:14px">* Dezhong Deng, Kai Zhao, David Hendrix, David H. Mathews, and Liang Huang (2018). <I>Linear-Time Prediction of RNA Secondary Structures</I>. <a href="https://doi.org/10.1101/263509" target="_blank">bioRxiv</a>.</div>
+              <!--
                <div style="font-size:14px">* Dezhong Deng, Kai Zhao, David Hendrix, David H. Mathews, and Liang Huang (2018). <I>Linear-Time Prediction of RNA Secondary Structures</I>. <a href="https://www.biorxiv.org/content/early/2018/02/14/263509" target="_blank">bioRxiv</a>.</div>
+              -->
        	    </div>
 	<script src="../static/js/jquery.min.js"></script>
 	<script src="../static/js/interface.js"></script>

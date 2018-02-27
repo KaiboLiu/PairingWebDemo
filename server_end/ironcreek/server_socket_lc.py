@@ -36,9 +36,7 @@ while True:
     print 'input file located at'+inFile
     print time.asctime()+', client address', addr
     #c.send('Hello world, it\'s Kaibo, from server: %s: %s\nYour address is: %s' %(host, port, addr))
-    time0 = time.time()
     outLc = outDir + inFileName + '.lc.res'             # output path for linearFold-C
-    outPairPath = outDir + inFileName + '.pairing.res'  # output path for pairing result 
 
     fileIn  = open(inFile)                              # read seq information from input 
     usrData = fileIn.readlines();

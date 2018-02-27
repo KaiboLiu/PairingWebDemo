@@ -56,7 +56,7 @@ def LoadSave(outFile,seq,lc,lv,t1,t2,beam,name,score1,score2):
     P_R_F_missing_hit_wrong1,P_R_F_missing_hit_wrong2  = pairing(lc, lv, score1, score2)     # pairing linearcf and linearvn    
     data[len(data):len(data)] = P_R_F_missing_hit_wrong1
     data[len(data):len(data)] = P_R_F_missing_hit_wrong2
-    print P_R_F_missing_hit_wrong1,P_R_F_missing_hit_wrong2
+    #print P_R_F_missing_hit_wrong1,P_R_F_missing_hit_wrong2
     '''
     P_R_F_missing_hit_wrong = pairing(lc, score1)     # pairing linearcf
     data[len(data):len(data)] = P_R_F_missing_hit_wrong
@@ -98,7 +98,7 @@ def showRrefFamlies(ref):
         ref_pair.pop()
     return ref_pair
 
-def pairing(ref,res,score1,score2):
+def pairing(res,ref,score1,score2):
     #brackets for pseudoknot
     pairs = []
     refpairs = []

@@ -7,7 +7,7 @@ body{
     position: absolute;
     background-color: #3bbee2;
     //min-width: 500px;
-    width: 90%;
+    width: 80%;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
     z-index: 1;
     color: white;
@@ -16,6 +16,59 @@ body{
     font-family: arial;
     border: none;
 }
+
+
+.btn-back {
+	font: 14px/27px Arial,Helvetica,sans-serif;
+	color: #fff;
+	text-decoration: none;
+	
+	position: relative;
+	display: block;
+	float: left;
+	margin: 11px 0 0 10px;
+}
+.btn-back span {
+	display: inline-block;
+	font-size: 13px;
+	line-height: 27px;
+	height: 27px;
+	padding: 0 10px 0 5px;
+	background: -moz-linear-gradient(top, #5bbfd8, #449fb6);
+	background: -webkit-linear-gradient(top, #5bbfd8, #449fb6);
+	background: -ms-linear-gradient(top, #5bbfd8, #449fb6);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5bbfd8', endColorstr='#449fb6', GradientType='0');
+	border: 1px solid #2c96b2;
+	border-left: 0;
+	border-radius: 2px 5px 5px 2px;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, .4);
+	margin-left: 12px;
+	position: relative;
+	z-index: 2;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, .3) inset, 1px 1px 1px rgba(255, 255, 255, .2);
+}
+.btn-back:before {
+	content: '';
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: -moz-linear-gradient(-45deg, #5bbfd8, #449fb6);/*背景旋转-45°*/
+	background: -webkit-linear-gradient(-45deg, #5bbfd8, #449fb6);
+	background: -ms-linear-gradient(-45deg, #5bbfd8, #449fb6);	
+	border: 1px solid #2c96b2;
+	-webkit-transform-origin: 0 0;/*设置基点为0,0*/
+	-moz-transform-origin: 0 0;
+	-ms-transform-origin: 0 0;
+	-webkit-transform: scaleX(0.8) rotate(45deg);/*X轴烟锁，旋转45°*/
+	-moz-transform: scaleX(0.8) rotate(45deg);
+	-ms-transform: scaleX(0.8) rotate(45deg);
+	border-radius: 3px 2px;
+	
+	position: absolute;
+	left: 13px;
+	top: -1px;
+}
+
 
 
 input[type="range"]{
@@ -72,8 +125,9 @@ svg path:hover{
   stroke-width:1;*/
 } 
 #mySVG path.arcsred:hover{stroke:orange;/*fuchsia;#960000;*/}
-#mySVG path.arcsLightGray:hover{stroke:grey;}
 #mySVG path.arcsorange:hover{stroke:red;}
+#mySVG path.arcsgreen:hover{stroke:red;}
+#mySVG path.arcslime:hover{stroke:aquamarine;/*#15af50;*/}
 
 #mySVGref path.arcslime:hover{stroke:aquamarine;/*#15af50;*/}
 #mySVGref path.arcsmediumblue:hover{stroke:darkblue;}
@@ -144,3 +198,49 @@ a.jumpLink:hover {
 }
 
 
+
+
+
+
+#return-to-top {
+  display: inline-block;
+  background-color: #FF9800;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color .3s, 
+    opacity .5s, visibility .5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+}
+#return-to-top::after {
+  content: "\f077";
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 2em;
+  line-height: 50px;
+  color: #fff;
+}
+#return-to-top:hover {
+  cursor: pointer;
+  background-color: #333;
+}
+#return-to-top:active {
+  background-color: #555;
+}
+#return-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (min-width: 500px) {
+  #return-to-top {
+    margin: 30px;
+  }
+}
