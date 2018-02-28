@@ -1,0 +1,249 @@
+body{
+    background-color: #eff0f2;
+}
+
+
+#pageTitle{
+    position: absolute;
+    background-color: #3bbee2;
+    //min-width: 500px;
+    width: 1400px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    color: white;
+    padding: 12px;
+    font-size: 20px;
+    font-family: arial;
+    border: none;
+}
+
+
+.btn-back {
+	font: 14px/27px Arial,Helvetica,sans-serif;
+	color: #fff;
+	text-decoration: none;
+	
+	position: relative;
+	display: block;
+	float: left;
+	margin: 11px 0 0 10px;
+}
+.btn-back span {
+	display: inline-block;
+	font-size: 13px;
+	line-height: 27px;
+	height: 27px;
+	padding: 0 10px 0 5px;
+	background: -moz-linear-gradient(top, #5bbfd8, #449fb6);
+	background: -webkit-linear-gradient(top, #5bbfd8, #449fb6);
+	background: -ms-linear-gradient(top, #5bbfd8, #449fb6);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5bbfd8', endColorstr='#449fb6', GradientType='0');
+	border: 1px solid #2c96b2;
+	border-left: 0;
+	border-radius: 2px 5px 5px 2px;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, .4);
+	margin-left: 12px;
+	position: relative;
+	z-index: 2;
+	box-shadow: 0 1px 0 rgba(255, 255, 255, .3) inset, 1px 1px 1px rgba(255, 255, 255, .2);
+}
+.btn-back:before {
+	content: '';
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	background: -moz-linear-gradient(-45deg, #5bbfd8, #449fb6);/*背景旋转-45°*/
+	background: -webkit-linear-gradient(-45deg, #5bbfd8, #449fb6);
+	background: -ms-linear-gradient(-45deg, #5bbfd8, #449fb6);	
+	border: 1px solid #2c96b2;
+	-webkit-transform-origin: 0 0;/*设置基点为0,0*/
+	-moz-transform-origin: 0 0;
+	-ms-transform-origin: 0 0;
+	-webkit-transform: scaleX(0.8) rotate(45deg);/*X轴烟锁，旋转45°*/
+	-moz-transform: scaleX(0.8) rotate(45deg);
+	-ms-transform: scaleX(0.8) rotate(45deg);
+	border-radius: 3px 2px;
+	
+	position: absolute;
+	left: 13px;
+	top: -1px;
+}
+
+
+span.res{
+    font-family: monospace;
+    max-width: 160ch;
+    color:#2ca02c;
+    overflow-wrap: break-word;
+    //display: inline-block; // comment on Feb 27, 2018
+    //word-break:break-word; 
+    //word-break: break-all;// comment on Feb 27, 2018
+    //white-space: normal;// comment on Feb 27, 2018
+    //width:80%; 
+    //word-wrap : normal ;
+    //-ms-word-break: break-all;// comment on Feb 27, 2018
+    //overflow: auto;// comment on Feb 27, 2018
+}
+
+#circleLegend{
+    position:absolute;
+    left:280px;
+    width: 650px;
+    height: 20px;
+    border: 1px solid gray;
+}
+
+
+div.scale_botton_411{
+    position: absolute;
+    /*try relative?
+    top: 170px;
+    left: 1450px;
+    top: 80%;*/
+    top: 178px;
+    left: 1520px;
+    width: 380px;
+    /*height: 20px;*/
+}
+
+/*
+svg path:hover{
+    pointer-events: none;
+    stroke-width:1;
+    stroke: #7CFC00;  lawngreen;
+    transition: all 0.25s ease-out;
+    cursor: pointer;
+    fill: green;
+    color: yellow;
+}
+*/
+
+#mySVG path.arcsblue:hover{
+  stroke:cyan;
+  /*stroke:darkblue;
+  stroke-width:1;*/
+} 
+#mySVG path.arcsred:hover{stroke:orange;/*fuchsia;#960000;*/}
+#mySVG path.arcsorange:hover{stroke:red;}
+#mySVG path.arcsgreen:hover{stroke:red;}
+#mySVG path.arcslime:hover{stroke:aquamarine;/*#15af50;*/}
+
+#mySVGref path.arcslime:hover{stroke:aquamarine;/*#15af50;*/}
+#mySVGref path.arcsmediumblue:hover{stroke:darkblue;}
+#mySVGref path.arcsfuchsia:hover{stroke:#8315af;}
+#mySVGref path.arcsdodgerblue:hover{stroke:#0c0096;}
+#mySVGref path.arcsblueviolet:hover{stroke:#422796;}
+
+text.titles:hover{    
+    cursor: pointer;
+    fill: red;
+}
+
+#mySVG{/*position:absolute;*/}
+
+#mySVGref{
+    position:relative;
+    left:300px;
+    height:600px;
+}
+
+
+.tooltips-arcs:hover {cursor: pointer;}
+
+.tooltipbox {
+  pointer-events: none;
+  position: absolute;
+  font-size: 18px;
+  text-align: center;
+  background: #21669e;
+  padding: 10px 15px;
+  z-index: 5;
+  height: 30px;
+  left: 50%;
+  margin-left: -75px; /* Use half of the width (150/2 = 75), to center the tooltip */
+  line-height: 30px;
+  min-width:150px;
+  /*margin: 0 auto;*/
+  color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 0 1px #eee;
+  display: none;
+}
+
+.tooltipbox.active {
+  display: block;
+}
+.tooltipbox:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;  /* Arrow at the bottom of the tooltip */
+  width: 0;
+  height: 0;
+  margin-left: -10px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid #21669e;
+}
+
+button#dispFornaToggle{
+  background-color:#3bbee2;
+  border-radius: 4px;
+  color: white;
+  padding: 3px 10px;
+  text-align: center;
+  font-size: 14px;
+}
+
+a.jumpLink {
+  background-color:#3bbee2;
+  color: white;
+} 
+
+a.jumpLink:hover {
+  background-color:#4CAF50;
+}
+
+
+#return-to-top {
+  display: inline-block;
+  background-color: #FF9800;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color .3s, 
+    opacity .5s, visibility .5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+}
+#return-to-top::after {
+  content: "\f077";
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 2em;
+  line-height: 50px;
+  color: #fff;
+}
+#return-to-top:hover {
+  cursor: pointer;
+  background-color: #333;
+}
+#return-to-top:active {
+  background-color: #555;
+}
+#return-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (min-width: 500px) {
+  #return-to-top {
+    margin: 30px;
+  }
+}
