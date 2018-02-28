@@ -47,7 +47,7 @@
 
                   <fieldset>
                     <legend><I>Set beam size</I></legend>
-		    <b>Beam size</b> (1-800): 
+		    <b>Beam size</b> (1-200): 
 		    <input type="text" name="beamSize" id='beamSize' placeholder="100" maxlength="3" size="10" ><br>
                   </fieldset> <br>
 
@@ -66,7 +66,7 @@
 
             <fieldset class="bigfield">
                 <legend>Preset demo</legend>
-		<p>Example demos for <span class="coloredSeq">16S rRNA</span>/<span class="coloredSeq">23S rRNA</span>/<span class="coloredSeq">Group I Intron</span> are avaialbe, compared with other algorithms. </p>
+		<p>Example demos for <span class="coloredSeq">16S rRNA</span>/<span class="coloredSeq">23S rRNA</span>/<span class="coloredSeq">Group I Intron</span> are available, compared with <a href="http://contra.stanford.edu/contrafold/" target="_blank">CONTRAfold v2.0</a> and <a href="https://www.tbi.univie.ac.at/RNA/" target="_blank">Vienna RNAfold</a> algorithms. </p>
 		<a href="http://web.engr.oregonstate.edu/~liukaib/demo_json+canvas.html"><button type="button" id="jumpBtn">Go to demos >> </button></a>
             </fieldset>
 
@@ -81,11 +81,15 @@
             <div id="other">
                 Some Other RNA Secondary Structure Prediction Web Servers
                 <br>
-                <a href="http://rna.tbi.univie.ac.at/cgi-bin/RNAWebSuite/RNAfold.cgi" target="_blank">RNAfold (Vienna)</a>&nbsp&nbsp
-                <a href="https://rna.urmc.rochester.edu/RNAstructure.html" target="_blank">RNAstructure (Rochester)</a>&nbsp&nbsp
-                <a href="http://contra.stanford.edu/contrafold/" target="_blank">CONTRAfold (Stanford)</a>&nbsp&nbsp
-                <a href="http://unafold.rna.albany.edu/?q=mfold" target="_blank">Mfold (Albany)</a>&nbsp&nbsp
-                <a href="https://www.ncrna.org/centroidfold/" target="_blank">CentroidFold (JBIC)</a>&nbsp&nbsp
+                <a href="http://rna.tbi.univie.ac.at/cgi-bin/RNAWebSuite/RNAfold.cgi" target="_blank">RNAfold</a> (Vienna)&nbsp&nbsp
+                <a href="https://rna.urmc.rochester.edu/RNAstructureWeb/Servers/Predict1/Predict1.html" target="_blank">RNAstructure</a> (Rochester)&nbsp&nbsp
+                <a href="http://contra.stanford.edu/contrafold/server.html" target="_blank">CONTRAfold</a> (Stanford)&nbsp&nbsp
+                <a href="http://unafold.rna.albany.edu/?q=mfold" target="_blank">Mfold</a> (Albany)&nbsp&nbsp
+                <a href="https://www.ncrna.org/centroidfold/" target="_blank">CentroidFold</a> (JBIC)&nbsp&nbsp
+            </div>
+            <br><br><br>
+            <div id="mapdiv">
+               <script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?d=ZtnRjkL99NMbfMgaSSL1LJZ64YIkxgdbe7h5eSS1G9s&cl=ffffff&w=a" height='160'></script>
             </div>
 	<script src="../static/js/jquery.min.js"></script>
 	<script src="../static/js/interface.js"></script>

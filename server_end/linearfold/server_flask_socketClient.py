@@ -45,6 +45,7 @@ def inputSeq():
         input_flag = False
         beamsize = flask.request.form['beamSize']
         if not beamsize: beamsize = '100'
+        if int(beamsize) > 200: beamsize = '200'
         text = flask.request.form['seqInput']
         filename = str(time.time()) + '_'
         usrIP = flask.request.remote_addr
