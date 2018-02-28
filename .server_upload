@@ -3,7 +3,6 @@
 
 scp -r /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/css liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
 scp -r /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/js liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
-scp -r /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/socket liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
 scp /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/demo_preset_all.html liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
 scp /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/demo_json+svg.html liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/demo_json+canvas.html
 scp /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/demo_json+svg.html liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/

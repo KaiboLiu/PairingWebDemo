@@ -147,3 +147,7 @@ text.titles:hover{
   border-top: 10px solid #21669e;
 }
 
+
+div#clustrmapsDiv{
+  width: 500px;
+}
