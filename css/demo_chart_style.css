@@ -109,6 +109,53 @@ text.titles:hover{
 }
 
 
+
+
+#return-to-top {
+  display: inline-block;
+  background-color: #FF9800;
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border-radius: 4px;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  transition: background-color .3s, 
+    opacity .5s, visibility .5s;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 1000;
+}
+#return-to-top::after {
+  content: "\f077";
+  font-family: FontAwesome;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 2em;
+  line-height: 50px;
+  color: #fff;
+}
+#return-to-top:hover {
+  cursor: pointer;
+  background-color: #333;
+}
+#return-to-top:active {
+  background-color: #555;
+}
+#return-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (min-width: 500px) {
+  #return-to-top {
+    margin: 30px;
+  }
+}
+
+
+
 .tooltips-arcs:hover {cursor: pointer;}
 
 .tooltipbox {
@@ -146,6 +193,9 @@ text.titles:hover{
   border-right: 10px solid transparent;
   border-top: 10px solid #21669e;
 }
+
+
+
 
 
 div#clustrmapsDiv{
