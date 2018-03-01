@@ -363,11 +363,12 @@ function filterSeq(){
     var toMove = $("#seqNo").children("[data-c1!='"+series+"']"); // selects seqNo elements to move out
     toMove.appendTo("#option-container"); // moves seqNo elements in #option-container
     $("#seqNo").removeAttr("disabled"); // enables select   
-    comfirmSeq();
+    confirmSeq();
     document.getElementById('demoVideo').remove(); 
+    document.getElementById("slideDiv").style.display = "block";
 }
 
-function comfirmSeq(){
+function confirmSeq(){
     var series = $("#series").find('option:selected').text(); // stores series
     seriesNo = $("#series").find('option:selected').val();
     seqNo = "seq" + $("#seqNo").find('option:selected').val();//.slice(-2);

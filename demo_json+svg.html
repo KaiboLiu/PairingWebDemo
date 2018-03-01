@@ -160,9 +160,11 @@
 -->
 <!--<button type="button" onclick="fillPage_go(d=40,R=250,circleScale=50,halfOpen=20)">draw</button>-->
 <p>Sequence to be demostrated: <span id="seqShown" style="color:red;font-size:130%;">Not selected</span></p>
-<p>Slide to adjust the beam size: 
+<div id="slideDiv" style="display:none">
+  <p>Slide to adjust the beam size: 
 	&nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp
 	<input id="beamslidebar" type="range" list="beammarks" min="1" max="206" value="100" oninput="tempBeam()" onchange="change('')"/>&nbsp 800&nbsp&nbsp:  &nbsp&nbsp <span id="beamsize" style="color:red;font-size:140%;">100</span><span id="slidebarHint"></span></p>
+</div>
   <!--onchange="change()" oninput="change()"/ -->
 
 <datalist id="beammarks">
