@@ -364,6 +364,7 @@ function filterSeq(){
     toMove.appendTo("#option-container"); // moves seqNo elements in #option-container
     $("#seqNo").removeAttr("disabled"); // enables select   
     comfirmSeq();
+    document.getElementById('demoVideo').remove(); 
 }
 
 function comfirmSeq(){
