@@ -1,7 +1,6 @@
 #!/bin/bash
 # scp files to OSU server for web demo
 
-scp /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/img/demo_preset_video_800.gif liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
 scp -r /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/css liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
 scp -r /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/js liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
 scp /Users/kaibo/LKB@OSU/Research/RNA/WebDemo/demo_preset_all.html liukaib@flop.engr.oregonstate.edu:/nfs/stak/users/liukaib/public_html/
