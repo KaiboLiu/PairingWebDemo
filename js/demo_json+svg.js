@@ -366,7 +366,7 @@ function filterSeq(){
     confirmSeq();
     var videoDiv = document.getElementById('demoVideo');
     if (videoDiv != null) videoDiv.remove(); 
-    document.getElementById("slideDiv").style.display = "block";
+    document.getElementById("activeDispDiv").style.display = "block";
 }
 
 function confirmSeq(){

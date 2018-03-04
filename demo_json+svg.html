@@ -160,88 +160,89 @@
 -->
 <!--<button type="button" onclick="fillPage_go(d=40,R=250,circleScale=50,halfOpen=20)">draw</button>-->
 <p>Sequence to be demostrated: <span id="seqShown" style="color:red;font-size:130%;">Not selected</span></p>
-<div id="slideDiv" style="display:none">
-  <p>Slide to adjust the beam size: 
-	&nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp
-	<input id="beamslidebar" type="range" list="beammarks" min="1" max="206" value="100" oninput="tempBeam()" onchange="change('')"/>&nbsp 800&nbsp&nbsp:  &nbsp&nbsp <span id="beamsize" style="color:red;font-size:140%;">100</span><span id="slidebarHint"></span></p>
-</div>
-  <!--onchange="change()" oninput="change()"/ -->
-
-<datalist id="beammarks">
-  <option value="1" label="1">
-  <option value="100" label="100">
-  <option value="200" label="200">
-  <option value="201" label="300">
-  <option value="202" label="400">
-  <option value="203" label="500">
-  <option value="204" label="600">
-  <option value="205" label="700">
-  <option value="206" label="800">
-</datalist>
-
-<span id="legendHolder"></span><br>
 <img id="demoVideo" src="./img/demo_preset_video_800.gif" width=800px alt="Instruction Loading..." border="1" />
 <!--
 <iframe id="demoVideo" width="1500px" height="685px"
 src="https://www.youtube.com/embed/Q1fMiw4EsO4?autoplay=1&playlist=Q1fMiw4EsO4&loop=1">
 </iframe>
 -->
+<div id="activeDispDiv" style="display:none">
+  <p>Slide to adjust the beam size: 
+	&nbsp&nbsp&nbsp&nbsp&nbsp 1 &nbsp
+	<input id="beamslidebar" type="range" list="beammarks" min="1" max="206" value="100" oninput="tempBeam()" onchange="change('')"/>&nbsp 800&nbsp&nbsp:  &nbsp&nbsp <span id="beamsize" style="color:red;font-size:140%;">100</span><span id="slidebarHint"></span></p>    
 
-<!-- canvas with red border -->
-<!--
-<canvas id="myCanvas" width="1200px" height="1200px" style="border: 1px solid red;">
-Your browser doesn't support canvas tag.
-</canvas>
--->
+      <!--onchange="change()" oninput="change()"/ -->   
 
+    <datalist id="beammarks">
+      <option value="1" label="1">
+      <option value="100" label="100">
+      <option value="200" label="200">
+      <option value="201" label="300">
+      <option value="202" label="400">
+      <option value="203" label="500">
+      <option value="204" label="600">
+      <option value="205" label="700">
+      <option value="206" label="800">
+    </datalist>   
+    
 
-<div id="chart_div_412" class="absolute412"></div>
-<div id="chart_div_411" class="absolute411"></div>
-<div id="chart_div_422" class="absolute422"></div>
-<div id="chart_div_421" class="absolute421"></div>
+    <!-- canvas with red border -->
+    <!--
+    <canvas id="myCanvas" width="1200px" height="1200px" style="border: 1px solid red;">
+    Your browser doesn't support canvas tag.
+    </canvas>
+    -->   
+    
 
-<div  class="scale_botton_411"><button id="change_chart_411"></button></div>
-<div  class="scale_botton_421"><button id="change_chart_421"></button></div>
+    <div id="chart_div_412" class="absolute412"></div>
+    <div id="chart_div_411" class="absolute411"></div>
+    <div id="chart_div_422" class="absolute422"></div>
+    <div id="chart_div_421" class="absolute421"></div>    
 
-<svg version="1.1" id="mySVG" width="1700" height="1200"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<!--<svg id="mySVG" viewBox="0 0 500 1200"  xmlns="http://www.w3.org/2000/svg">-->
-  Your browser doesn't support svg tag.
-</svg>
+    <div  class="scale_botton_411"><button id="change_chart_411"></button></div>
+    <div  class="scale_botton_421"><button id="change_chart_421"></button></div>    
 
-<br>
-<svg id="mySVGref" width="900" height="600"  xmlns="http://www.w3.org/2000/svg">
-<!--<svg id="mySVG" viewBox="0 0 500 1200"  xmlns="http://www.w3.org/2000/svg">-->
-  Your browser doesn't support svg tag.
-</svg>
+    <svg version="1.1" id="mySVG" width="1700" height="1200"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!--<svg id="mySVG" viewBox="0 0 500 1200"  xmlns="http://www.w3.org/2000/svg">-->
+      Your browser doesn't support svg tag.
+    </svg>    
 
-<p><span id="seqName0"></span><button id="btn_copy_seq" onclick="cp_seq()"></button><br>
-  <code id="seqName" style="color:#2ca02c;"></code> </p>
-  <!--<code id="seqName" style="color:#2ca02c;font-size:small;"></code> </p>-->
-<p><span id="ref0"></span><button id="btn_copy_ref" onclick="cp_ref()"></button><br>
-  <code id="ref" style="color:#2ca02c;"></code> </p>
-  <!--<span id="ref" style="color:#2ca02c;font-family:Courier;font-size:small;"></span> </p>-->
-<p><span id="cf0"></span><button id="btn_copy_cf" onclick="cp_cf()"></button><br>
-  <code id="cf" style="color:#2ca02c;"></code> </p>
-<p><span id="vn0"></span><button id="btn_copy_vn" onclick="cp_vn()"></button><br>
-  <code id="vn" style="color:#2ca02c;"></code> </p>
-<p><span id="lcf0"></span><button id="btn_copy_lcf" onclick="cp_lcf()"></button><br>
-  <code id="lcf" style="color:#2ca02c;"></code> </p>
-<p><span id="lvn0"></span><button id="btn_copy_lvn" onclick="cp_lvn()"></button><br>
-  <code id="lvn" style="color:#2ca02c;"></code> </p>
+    <br>
+    <svg id="mySVGref" width="900" height="600"  xmlns="http://www.w3.org/2000/svg">
+    <!--<svg id="mySVG" viewBox="0 0 500 1200"  xmlns="http://www.w3.org/2000/svg">-->
+      Your browser doesn't support svg tag.
+    </svg>    
 
-<!--
-<p>seq: <br><span id="seqName"></span></p>
-<p>ref: <br><span id="ref"></span></p>
-<p>CONTRAfold MFE: <br><span id="cf"></span></p>
-<p>Vienna RNAfold: <br><span id="vn"></span></p>
-<p>LinearFold-C: <br><span id="lcf"></span></p>
-<p>LinearFold-V: <br><span id="lvn"></span></p>
--->
+    <p><span id="seqName0"></span><button id="btn_copy_seq" onclick="cp_seq()"></button><br>
+      <code id="seqName" style="color:#2ca02c;"></code> </p>
+      <!--<code id="seqName" style="color:#2ca02c;font-size:small;"></code> </p>-->
+    <p><span id="ref0"></span><button id="btn_copy_ref" onclick="cp_ref()"></button><br>
+      <code id="ref" style="color:#2ca02c;"></code> </p>
+      <!--<span id="ref" style="color:#2ca02c;font-family:Courier;font-size:small;"></span> </p>-->
+    <p><span id="cf0"></span><button id="btn_copy_cf" onclick="cp_cf()"></button><br>
+      <code id="cf" style="color:#2ca02c;"></code> </p>
+    <p><span id="vn0"></span><button id="btn_copy_vn" onclick="cp_vn()"></button><br>
+      <code id="vn" style="color:#2ca02c;"></code> </p>
+    <p><span id="lcf0"></span><button id="btn_copy_lcf" onclick="cp_lcf()"></button><br>
+      <code id="lcf" style="color:#2ca02c;"></code> </p>
+    <p><span id="lvn0"></span><button id="btn_copy_lvn" onclick="cp_lvn()"></button><br>
+      <code id="lvn" style="color:#2ca02c;"></code> </p>    
+
+    <!--
+    <p>seq: <br><span id="seqName"></span></p>
+    <p>ref: <br><span id="ref"></span></p>
+    <p>CONTRAfold MFE: <br><span id="cf"></span></p>
+    <p>Vienna RNAfold: <br><span id="vn"></span></p>
+    <p>LinearFold-C: <br><span id="lcf"></span></p>
+    <p>LinearFold-V: <br><span id="lvn"></span></p>
+    -->
+    <div class="tooltipbox"></div>
+
+</div>
+
 
 <!-- Back to top button -->
 <a id="return-to-top"></a>
-
-<div class="tooltipbox"></div>
 
 <div id="clustrmapsDiv">
   <script type="text/javascript" id="clustrmaps" src="//cdn.clustrmaps.com/map_v2.js?d=4qq5X8Q20B1fVqxgBIwfCsNqk5-qMCcE5H-ZWKzCvsk&cl=ffffff&w=a"></script>
