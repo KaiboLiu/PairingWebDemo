@@ -1,4 +1,6 @@
 ## LinearFold Server Project
+![](https://img.shields.io/badge/language-HTML-green.svg) ![](https://img.shields.io/badge/language-JavaScript-blue.svg) ![](https://img.shields.io/badge/language-CSS-yellow.svg) ![](https://img.shields.io/badge/language-python-orange.svg)
+
 A [web demo server](http://linearfold.eecs.oregonstate.edu) for linear-time prediction algorithm of RNA Secondary Structures
 - [Interactive demo](http://linearfold.eecs.oregonstate.edu)
 - [Preset demo](http://web.engr.oregonstate.edu/~liukaib/demo_json+canvas.html)
