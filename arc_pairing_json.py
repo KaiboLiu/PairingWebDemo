@@ -80,7 +80,7 @@ def LoadSave(RNAtype,seqNo):
     
     data = []
     fileIn  = open(dataDir+dataFile+number)
-    lines = fileIn.readlines();
+    lines = fileIn.readlines()
     fileIn.close()
 
     seq = lines[1][:-1]
