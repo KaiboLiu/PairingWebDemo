@@ -24,17 +24,19 @@ function svg_load_draw_go(d=40,R=250,circleScale=50,halfOpen=20){
 
 function svg_draw_graphs(pairingList, d,R,circleScale,halfOpen=20) {
         //disp_circle_legend();
-        svg_drawFrame("mySVG",pairingList[0],d,R,circleScale,halfOpen,half="left");
-        svg_fillCircles("mySVG",pairingList,d,R,circleScale,halfOpen,0);
 
-        svg_drawFrame("mySVG",pairingList[0],d,R,circleScale,halfOpen,half="right");
+        // non-linear
+        svg_drawFrame("mySVG",pairingList[0],pairingList[1],d,R,circleScale,halfOpen,half="left");
+        svg_fillCircles("mySVG",pairingList,d,R,circleScale,halfOpen,0);
+        // linear
+        svg_drawFrame("mySVG",pairingList[0],pairingList[1],d,R,circleScale,halfOpen,half="right");
         svg_fillCircles("mySVG",pairingList,d,R,circleScale,halfOpen,BeamFromBar);
-        
-        svg_drawFrame("mySVGref",pairingList[0],d,R,circleScale,halfOpen,half="showRef");
+        // gold
+        svg_drawFrame("mySVGref",pairingList[0],pairingList[1],d,R,circleScale,halfOpen,half="showRef");
         svg_fillCircles("mySVGref",pairingList,d,R,circleScale,halfOpen,-1);    
 }
 
-function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
+function svg_drawFrame(svgid,N,seq,d,R,circleScale,halfOpen=20,half="left"){
     var a = R+d;
     var b =3*R + 3*d;   //2*d is also ok
     var extDis = d/2.8;
@@ -80,8 +82,8 @@ function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
         newtext.textContent = titles[1];
         svg.appendChild(newtext);
 
-        svg_drawCircle(svgid,a,a+H_title,R,halfOpen);
-        svg_drawCircle(svgid,a,b+2*H_title,R,halfOpen);
+        svg_drawCircle(svgid,N,seq,a,a+H_title,R,halfOpen);
+        svg_drawCircle(svgid,N,seq,a,b+2*H_title,R,halfOpen);
         svg_drawCircleMarks(svgid,N,a,a+H_title,R,extDis,circleScale,halfOpen);
         svg_drawCircleMarks(svgid,N,a,b+2*H_title,R,extDis,circleScale,halfOpen);
 
@@ -93,8 +95,8 @@ function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
         newtext.textContent = titles[3];
         svg.appendChild(newtext);
 
-        svg_drawCircle(svgid,b,a+H_title,R,halfOpen);
-        svg_drawCircle(svgid,b,b+2*H_title,R,halfOpen);
+        svg_drawCircle(svgid,N,seq,b,a+H_title,R,halfOpen);
+        svg_drawCircle(svgid,N,seq,b,b+2*H_title,R,halfOpen);
         svg_drawCircleMarks(svgid,N,b,a+H_title,R,extDis,circleScale,halfOpen);
         svg_drawCircleMarks(svgid,N,b,b+2*H_title,R,extDis,circleScale,halfOpen);
     }else{      // half == "showRef"
@@ -103,14 +105,15 @@ function svg_drawFrame(svgid,N,d,R,circleScale,halfOpen=20,half="left"){
         newtext.textContent = titles[4];
         svg.appendChild(newtext);
 
-        svg_drawCircle(svgid,a,a+H_title,R,halfOpen);
+        svg_drawCircle(svgid,N,seq,a,a+H_title,R,halfOpen);
         svg_drawCircleMarks(svgid,N,a,a+H_title,R,extDis,circleScale,halfOpen);
     }
 }
 
 
+
 // draw the open circle
-function svg_drawCircle(svgid,x0,y0,R,halfOpen=20){
+function svg_drawCircle(svgid,N,seq,x0,y0,R,halfOpen=20){
     //get svg object
     var svg = document.getElementById(svgid);
     //check if current explorer support svg object, to avoid sytax error in some html5-unfriendly explorers.
@@ -124,10 +127,34 @@ function svg_drawCircle(svgid,x0,y0,R,halfOpen=20){
         var attr = {d: pathstr, stroke:"black", fill:"none", strokeWidth:1}; //instead of fill:"transparent"
         var newarc = getNode('path', attr);
         svg.appendChild(newarc);
+        
     }
 }
 
+// draw nucleotide on the perimeter
+function svg_drawNucleotide(svgid,N,seq,x0,y0,R,halfOpen=20){
+    //get svg object
+    var svg = document.getElementById(svgid);
+    //check if current explorer support svg object, to avoid sytax error in some html5-unfriendly explorers.
+    var radius = adaptive_Width(N)*1.5;
+    if(svg != null)
+    {  
+        var p = new Object;
+        var theta = halfOpen/360 * 2 * Math.PI;
+        var d_alpha = (360-2*halfOpen)/360 * 2 * Math.PI / (N-1);
 
+        var alpha;
+        for (var i = 0; i < N; i++){
+            p.x = x0 + R*Math.sin(theta);
+            p.y = y0 - R*Math.cos(theta);
+            theta += d_alpha;
+
+            var newdot = getNode('circle', {cx:p.x, cy:p.y, r:radius,strokewidth:radius,class:'nt_'+seq[i]});//, stroke:color_dot_stroke, fill:color_dot_fill, strokewidth:5}); // later: add id and class
+            svg.appendChild(newdot);
+        }
+
+    }
+}
 
 function svg_drawCircleMarks(svgid,N,x0,y0,R,extDis,circleScale=50,halfOpen=20){
 
@@ -196,37 +223,37 @@ function svg_fillCircles(svgid,data,d,R,circleScale,halfOpen=20,beamsize=0){
     //console.log(l+'+'+data.length);
     if (beamsize == 0){
         //fill circle top-left with cf_missing, cf_hit, cf_wrong
-        svg_fillCircle(svgid,data[l],data[l+1],data[l+2],data[l+3],N,a,a+H_title,R,halfOpen);
+        svg_fillCircle(svgid, data[1], data[l],data[l+1],data[l+2],data[l+3],N,a,a+H_title,R,halfOpen);
         //fill circle bottom-left with vn_missing, vn_hit, vn_wrong
-        svg_fillCircle(svgid,data[l+4],data[l+5],data[l+6],data[l+7],N,a,b+2*H_title,R,halfOpen);
+        svg_fillCircle(svgid, data[1], data[l+4],data[l+5],data[l+6],data[l+7],N,a,b+2*H_title,R,halfOpen);
     }else if (beamsize > 0){
         //fill circle top-right with linearcf_missing, linearcf_hit, linearcf_wrong
-        svg_fillCircle(svgid,data[l],data[l+1],data[l+2],data[l+3],N,b,a+H_title,R,halfOpen);
+        svg_fillCircle(svgid, data[1], data[l],data[l+1],data[l+2],data[l+3],N,b,a+H_title,R,halfOpen);
         //fill circle bottom-right with linearvn_missing, linearvn_hit, linearvn_wrong
-        svg_fillCircle(svgid,data[l+4],data[l+5],data[l+6],data[l+7],N,b,b+2*H_title,R,halfOpen);
+        svg_fillCircle(svgid, data[1], data[l+4],data[l+5],data[l+6],data[l+7],N,b,b+2*H_title,R,halfOpen);
     }else{
         //fill circle for show_ref with linearcf_missing, linearcf_hit, linearcf_wrong
-        svg_fillCircle_ref(svgid,data[l],N,a,a+H_title,R,halfOpen);
+        svg_fillCircle_ref(svgid, data[1], data[l],N,a,a+H_title,R,halfOpen);
     }
 }
 
 
-function svg_fillCircle(svgid,P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
+function svg_fillCircle(svgid,seq,P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
 
     var missing_pair = missing.length;
     for (var i=0; i<missing_pair; i+=2){
-        svg_drawArc(svgid,missing[i],missing[i+1],N,x0,y0,R,'LightGray',halfOpen); 
+        svg_drawArc(svgid,seq,missing[i],missing[i+1],N,x0,y0,R,'LightGray',halfOpen); 
     }
 
     var hit_pair = hit.length;
     for (var i=0; i<hit_pair; i+=2){
-        svg_drawArc(svgid,hit[i],hit[i+1],N,x0,y0,R,'blue',halfOpen);
+        svg_drawArc(svgid,seq,hit[i],hit[i+1],N,x0,y0,R,'blue',halfOpen);
     }
 
     var wrong_pair = wrong.length;
     for (var i=0; i<wrong_pair; i+=2){
         //svg_drawArc(wrong[i],wrong[i+1],N,x0,y0,R,'red',halfOpen);
-        svg_drawArc(svgid,wrong[i],wrong[i+1],N,x0,y0,R,'red',halfOpen);
+        svg_drawArc(svgid,seq,wrong[i],wrong[i+1],N,x0,y0,R,'red',halfOpen);
     }
 
     //get corresponding svg object
@@ -242,9 +269,11 @@ function svg_fillCircle(svgid,P_R_F,missing,hit,wrong,N,x0,y0,R,halfOpen=20){
                      " (F="+(P_R_F[2]*100).toFixed(2)+", Pair="+((hit_pair+wrong_pair)/2).toString()+")";
         svg.appendChild(newmark);    
     }   
+
+    svg_drawNucleotide(svgid,N,seq,x0,y0,R,halfOpen=20);
 }
 
-function svg_fillCircle_ref(svgid,gold,N,x0,y0,R,halfOpen=20){
+function svg_fillCircle_ref(svgid,seq,gold,N,x0,y0,R,halfOpen=20){
     colors = ['lime','mediumblue','orangered','fuchsia','dodgerblue','blueviolet'];
     brackets = ['()','[]','<>','{}'];
     var n_page = gold.length;
@@ -257,7 +286,7 @@ function svg_fillCircle_ref(svgid,gold,N,x0,y0,R,halfOpen=20){
         l = gold[i].length;
         n_pairs += l/2
         for (var j = 0; j < l; j += 2 )
-            svg_drawArc(svgid,gold[i][j],gold[i][j+1],N,x0,y0,R,colors[i],halfOpen);
+            svg_drawArc(svgid,seq,gold[i][j],gold[i][j+1],N,x0,y0,R,colors[i],halfOpen);
     }
 
     for (var i = 0; i < n_page; i += 1){
@@ -280,10 +309,11 @@ function svg_fillCircle_ref(svgid,gold,N,x0,y0,R,halfOpen=20){
         newmark.textContent = "Pairs: "+n_pairs+", Pseudoknot pairs: "+ ((n_pairs-n_free_pairs)/n_pairs*100).toFixed(2)+"%";
         svg.appendChild(newmark);    
     }   
+    svg_drawNucleotide(svgid,N,seq,x0,y0,R,halfOpen=20);
     
 }
 
-function svg_drawArc(svgid,n1,n2,N,x0,y0,R,color,halfOpen=20){
+function svg_drawArc(svgid,seq,n1,n2,N,x0,y0,R,color,halfOpen=20){
 
     var p1 = new Object;
     var p2 = new Object;
@@ -292,6 +322,7 @@ function svg_drawArc(svgid,n1,n2,N,x0,y0,R,color,halfOpen=20){
     var alpha2 = n2/(N-1) * (360-2*halfOpen)/360 * 2*Math.PI;
     
     R -= 0.5;
+    // arcs are lower level than open circle, make R shorter == make arc ends towards circle center a litter
     p1.x = x0 + R*Math.sin(theta+alpha1);
     p1.y = y0 - R*Math.cos(theta+alpha1);
 
@@ -315,22 +346,13 @@ function svg_drawArc(svgid,n1,n2,N,x0,y0,R,color,halfOpen=20){
     if(svg != null)
     {  
         var clockwise = 0;
-        var arcWidth = 1;
-        if (N <= 500){arcWidth = 2.25-N/400.0;}//100: 2, 500: 1   -(x-100)/400+2=2.25-x/400
-        if (N > 500){
-            if (N <= 2100){   
-                arcWidth = 1.25-N/2000.0;// 500: 1, 2100:0.2
-                //300/N;//0.2;
-            }else if(N < 4000) arcWidth = 0.2;
-            else arcWidth = 800.0 / N;
-        }
-        //console.log('arcWidth: '+arcWidth);
+        var arcWidth = adaptive_Width(N);
         if (arc){
             if (deltaAlpha-Math.PI > 1e-4) clockwise = 1;
             //d="M x1 y1 A rx ry, x-axis-rotation, large-arc-flag,sweep-flag, x2 y2"
             //arc is a part of an eclipse with rx,ry and rotated, starts from (x1,y1) and ends at (x2,y2), small arc if large-arc-flag== 0, colockwise arc if sweep-flag == 1
             pathstr = 'M '+p1.x+' '+p1.y+' A '+r+' '+r+' 0 0 '+clockwise+' '+p2.x+' '+p2.y;
-            arcid = 'd='+(n2-n1)+', ['+(n1+1)+', '+(n2+1)+']';
+            arcid = seq[n1]+seq[n2]+', d='+(n2-n1)+', ['+(n1+1)+', '+(n2+1)+']';
             var attr = {d: pathstr, stroke:color, fill:"none", strokeWidth:arcWidth, class:"tooltips-arcs arcs"+color, id:arcid};   //instead of fill:"transparent"
             var newarc = getNode('path', attr);
             svg.appendChild(newarc);
@@ -341,7 +363,19 @@ function svg_drawArc(svgid,n1,n2,N,x0,y0,R,color,halfOpen=20){
     }
 }
 
-
+function adaptive_Width(N) {
+   var arcWidth = 1;
+   if (N <= 500){arcWidth = 2.25-N/400.0;}//100: 2, 500: 1   -(x-100)/400+2=2.25-x/400
+   if (N > 500){
+       if (N <= 2100){   
+           arcWidth = 1.25-N/2000.0;// 500: 1, 2100:0.2
+           //300/N;//0.2;
+       }else if(N < 4000) arcWidth = 0.2;
+       else arcWidth = 800.0 / N;
+   }
+   //console.log('arcWidth: '+arcWidth);
+   return arcWidth;
+}
 
 var H_title = 20;
 var seriesNo = "grp1";

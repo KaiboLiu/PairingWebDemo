@@ -148,6 +148,11 @@ svg path:hover{
 #mySVGref path.arcsdodgerblue:hove{stroke:#0c0096;}
 #mySVGref path.arcsblueviolet:hover{stroke:#422796;}
 
+circle.nt_A { stroke:#F8D239; fill:#F8D239; }       /*yellow*/
+circle.nt_U { stroke:#2262A5;   fill:#2262A5; }     /*blue*/
+circle.nt_G { stroke:#D5001B;    fill:#D5001B; }    /*red*/
+circle.nt_C { stroke:green;  fill:green; }
+
 text.titles:hover{    
     cursor: pointer;
     fill: red;
