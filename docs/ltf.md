@@ -17,7 +17,7 @@
 	```
 	4. [everytime for running] start the web server locally with this command
 	```bash
-	linearfold_ltf.py
+	python linearfold_ltf.py
 	```
   	then open website with url: http://127.0.0.1:5000/
   
