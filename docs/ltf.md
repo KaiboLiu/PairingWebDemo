@@ -4,7 +4,7 @@
 2. In terminal
 	1. [one time] create environment named ltf with conda
 	```bash
-  cd linearLTF_package  # enter the working folder
+  	cd linearLTF_package  # enter the working folder
 	conda create --name ltf --file requirements.txt
 	```
 	2. [everytime for running] activate the ltf
