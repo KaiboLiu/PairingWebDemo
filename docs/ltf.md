@@ -20,6 +20,8 @@
 	linearfold_ltf.py
 	```
   then open website with url: http://127.0.0.1:5000/
+  
+  
 3. change code
 	1. `static/js/showLTF.js` - `var _var`: change the dict content when necessary
 	2. `static/js/showLTF.js` - `function groupRes()`: change the layout of sequence and structure
