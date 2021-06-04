@@ -41,6 +41,7 @@
 	  "seq2": { "seq": 'CUCGGCA', "struc": '.(.)..)' },
 	  "seq3": { "seq": 'UUCGGCA', "struc": '.......' }
 	      }
+	//////////// or ///////////
 	// list,
 	// every element in the list is a dict with seq and struc
 	var data_array = [
@@ -51,7 +52,7 @@
 	```
 	so the function becomes `function groupRes(mydata, textWid)`
 	
-	3. if you follow my suggestion of `mydata`, then you can construct the long string in `groupRes` as below (just pseudocode, you need to verify the code):
+	3. if you follow my suggestion of `mydata_array`, then you can construct the long string in `groupRes` as below (just pseudocode, you need to verify the code):
 	```javascript
 	final_string = ''
 	Lmax = data_array[0].seq.length
