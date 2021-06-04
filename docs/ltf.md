@@ -57,7 +57,7 @@
 	Lmax = data_array[0].seq.length
 	pos_start = 0
 	pos_end = textWid
-	while pos_end < Lmax:
+	while pos_start < Lmax:
 		for i_seq=0 in 1..data_array.length
 
 			sequence = data_array[i_seq].seq     // or data_array[i_seq]["seq"]
@@ -74,3 +74,6 @@
 		pos_end += textWid
 	```
 	
+	4. some explanation:
+		1. `markup` can be <span class="..." id="...">
+		2. `sequence[pos_start:pos_end]` is array slicing
