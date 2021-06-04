@@ -34,15 +34,15 @@
 	1. this function is used to generate a long string, with html tags, to be filled in a position whose id is `#res-show`
 	2. you can change the parameters of this function, currently it's `seqAA, seqNt, struc, textWid, tup,...`, you can use a dictionary like this:
 	```javascript
-	# dict, 
-	# keys: seq1, seq2, seq3; value: a dict with seq and struc
+	// dict, 
+	// keys: seq1, seq2, seq3; value: a dict with seq and struc
 	var data_dict=  {
 	  "seq1": { "seq": 'AUCGGCA', "struc": '.((.).)' },
 	  "seq2": { "seq": 'CUCGGCA', "struc": '.(.)..)' },
 	  "seq3": { "seq": 'UUCGGCA', "struc": '.......' }
 	      }
-	# list,
-	# every element in the list is a dict with seq and struc
+	// list,
+	// every element in the list is a dict with seq and struc
 	var data_array = [
 	  { "seq": 'AUCGGCA', "struc": '.((.).)' },   // seq1
 	  { "seq": 'CUCGGCA', "struc": '.(.)..)' },   // seq2 
@@ -52,7 +52,7 @@
 	so the function becomes `function groupRes(mydata, textWid)`
 	
 	3. if you follow my suggestion of `mydata`, then you can construct the long string in `groupRes` as below (just pseudocode, you need to verify the code):
-	```bash
+	```javascript
 	final_string = ''
 	Lmax = data_array[0].seq.length
 	pos_start = 0
