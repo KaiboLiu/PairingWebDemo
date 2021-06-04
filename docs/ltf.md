@@ -50,6 +50,7 @@
 	]
 	```
 	so the function becomes `function groupRes(mydata, textWid)`
+	
 	3. if you follow my suggestion of `mydata`, then you can construct the long string in `groupRes` as below (just pseudocode, you need to verify the code):
 	```bash
 	final_string = ''
