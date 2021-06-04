@@ -59,7 +59,7 @@
 	pos_start = 0
 	pos_end = textWid
 	while pos_start < Lmax:
-		for i_seq=0 in 1..data_array.length
+		for i_seq in 1..data_array.length
 
 			sequence = data_array[i_seq].seq     // or data_array[i_seq]["seq"]
 			structure = data_array[i_seq].struc  // or data_array[i_seq]["struc"]
