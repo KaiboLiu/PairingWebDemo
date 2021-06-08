@@ -25,7 +25,7 @@
 3. change code
 	1. `static/js/showLTF.js` - `var _var =`: change the dict content when necessary
 	2. `static/js/showLTF.js` - `function groupRes(...)`: change the layout of sequence and structure
-	3. `static/js/showLTF.js` - `$("#res-show").html(groupRes(...));`: use `groupRes` function to create layout format and put it into element named `res-show`, which is rendered in the website http://127.0.0.1:5000/linearturbofold
+	3. `static/js/showLTF.js` - `$("#res-show").html(groupRes(...));`: use `groupRes` function to create layout format and put it into element named `res-show`, which is rendered in the website http://127.0.0.1:5000
 
 
 
