@@ -21,8 +21,12 @@
 	```
   	then open website with url: http://127.0.0.1:5000
   
-  
-3. change code
+3. workflow of this framework after server starts(`python linearfold_ltf.py`):
+	1. when you open the right url in browser, the python program renders the html file with the function `render_template('showResult_linearturbofold.html')`
+	2. the html file reads the js file named `static/js/showLTF.js`
+	3. `showLTF.js` will handle the content and display them in html
+
+4. change code
 	1. `static/js/showLTF.js` - `var _var =`: change the dict content when necessary
 	2. `static/js/showLTF.js` - `function groupRes(...)`: change the layout of sequence and structure
 	3. `static/js/showLTF.js` - `$("#res-show").html(groupRes(...));`: use `groupRes` function to create layout format and put it into element named `res-show`, which is rendered in the website http://127.0.0.1:5000
