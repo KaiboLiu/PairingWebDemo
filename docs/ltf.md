@@ -19,7 +19,7 @@
 	```bash
 	python linearfold_ltf.py
 	```
-  	then open website with url: http://127.0.0.1:5000/linearturbofold
+  	then open website with url: http://127.0.0.1:5000
   
   
 3. change code
