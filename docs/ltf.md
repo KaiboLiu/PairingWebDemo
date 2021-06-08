@@ -76,5 +76,5 @@
 	```
 	
 	4. some explanation:
-		1. `markup` can be <span class="..." id="...">
+		1. `markup` can be `<span class="..." id="...">` or other html element tag
 		2. `sequence[pos_start:pos_end]` is array slicing
