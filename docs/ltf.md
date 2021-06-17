@@ -82,3 +82,71 @@
 	4. some explanation:
 		1. `markup` can be `<span class="..." id="...">` or other html element tag
 		2. `sequence[pos_start:pos_end]` is array slicing
+
+
+### 06/16/2021 Wed
+1. align the layout with fixed width of seq name and anchor idx
+2. highlight the letter
+    1. add pairing info to `id` of span element for nucleotide/strcture letter, in `static/js/showLTF.js`
+    ```bash
+    stack_=[]
+    ...((((((((((((((((.((....)))))))).))
+       ++++++++++++++++ ++    --
+       ^^^            ^ ^^    ^^
+    012345.....      192021  2627
+
+    when you reach pos 26, get a ')', pop stack_ ([3,4,5,.....,18,20,21]) from tail, got 21, 
+    then you have (21,26), add it to a variable pairs_, now your stack_ is stack=[3,4,5,.....,18,20]
+
+    when you reach pos 27, get a ')', pop stack_ ([3,4,5,.....,18,20]) from tail, got 20, 
+    then you have (20,27), add it to a variable pairs_, now your stack_ is stack=[3,4,5,.....,18]
+    ...
+    pairs_ = [(21,26), (20,27),...]
+    
+    //construct sequence elements:
+    21: <span class='res LTF1' id='seq1_21-26_A_('>A</span>
+        <span class='res LTF1' id='stru1_21-26_A_('>(</span>
+    26: <span class='res LTF1' id='seq1_26-21_U_)'>U</span>
+        <span class='res LTF1' id='stru1_26-21_U_)'>)</span>
+    20: ...;
+    27: ...;
+    ```
+
+    2. highlight the pointed letter, the complementary pair, and their columns with same position, in `static/js/demo_tooltips.js`
+
+        - add event listener like:
+        ```js
+        $('span').on('mouseover',  '.LTF1', function(e){ tooltip_on_for_pair(e, 'tooltipbox tooltipbox-sm tooltipbox-blue');  });
+        $('span').on('mouseleave', '.LTF1', function(e){ tooltip_off(e); });
+        ```
+        - add a funtion named `tooltip_on_for_pair`, similiar to `tooltip_on`:
+            - if you mouse on pos 21 of seq1, read `id` of the event: `var id_ = $(e.target).attr('id')`, `seq1_21-26_A_(`
+            - extract pos `21` (where mouse on) and `26`(paired pos) from `id_`
+            - reconstruct the `id` for 12 elements:  (seq`1`/`2`/`3` + stru`1`/`2`/`3`) * (pos`21`/pos`26`)
+            - add class name "myhover" to them
+
+    3. change highlight style on your preference, in `static/css/showCircle_with_boots.css`
+    ```css
+    // change color for tooltipbox
+    .tooltipbox-red         { background: rgba(179, 41, 48, 0.85) !important;}
+    .tooltipbox-red:after   { border-top: 10px solid rgba(179, 41, 48, 0.85);}
+
+    .tooltipbox-grey        { background: rgba(128,128,128, 0.85) !important;}
+    .tooltipbox-grey:after  { border-top: 10px solid rgba(128,128,128, 0.85);}
+
+
+    // change color for pointed letter/parentithis
+    .LTF1{ color: black!important;}
+    .LTF1:hover, .myhover{
+      cursor: pointer;
+      background:grey;
+      color:white!important;
+    }
+
+    .LTF2{ color: red!important;}
+    .LTF2:hover, .myhover2{
+      cursor: pointer;
+      background:red;
+      color:white!important;
+    }
+    ```
