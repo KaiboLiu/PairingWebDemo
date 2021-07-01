@@ -154,23 +154,19 @@
 
 ### 07/01/2021 Thu
 This week's target: user defined region display with starting index input  
->> user input: 5000-5300
->> 
->> how many - before 5000? e.g. 100, and 50 between 5000 and 5300
->> then the new idex should be 5100
->> 
->> starting postion:
->> ori_idx1: 5000
->> new_idx1: 5100 (100 more)
->> 
->> 
->> ending postion:
->> ori_idx2: 5300
->> new_idx2: 5450 (100+50 more)
->> 
->> 
->> 
->> get the user_seq from the whole seq (0-30,000) with slicing [5100,5450]
+> user input: 5000-5300   
+> how many - before 5000? e.g. 100, and 50 between 5000 and 5300     
+> then the new idex should be 5100   
+>    
+> starting postion:   
+> ori_idx1: 5000   
+> new_idx1: 5100 (100 more)   
+>    
+> ending postion:   
+> ori_idx2: 5300   
+> new_idx2: 5450 (100+50 more)  
+
+> get the user_seq from the whole seq (0-30,000) with slicing [5100,5450]   
 
 
 1. Please refer to covseq sample [page](http://covseq.baidu.com/upload/res_1625179268.3289835_sample1-SARS-CoV-2_WA6-UW3_human_2020_USA)
