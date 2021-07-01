@@ -150,3 +150,45 @@
       color:white!important;
     }
     ```
+
+
+### 07/01/2021 Thu
+This week's target: user defined region display with starting index input  
+>> user input: 5000-5300
+>> 
+>> how many - before 5000? e.g. 100, and 50 between 5000 and 5300
+>> then the new idex should be 5100
+>> 
+>> starting postion:
+>> ori_idx1: 5000
+>> new_idx1: 5100 (100 more)
+>> 
+>> 
+>> ending postion:
+>> ori_idx2: 5300
+>> new_idx2: 5450 (100+50 more)
+>> 
+>> 
+>> 
+>> get the user_seq from the whole seq (0-30,000) with slicing [5100,5450]
+
+
+1. Please refer to covseq sample [page](http://covseq.baidu.com/upload/res_1625179268.3289835_sample1-SARS-CoV-2_WA6-UW3_human_2020_USA)
+2. Use long sequence data from Sizhen
+	1. hard code in js, or read data from file
+	2. pre-process data, generate a mapping from old_idx to new_idx by insertion/deletion in alignment
+3. Add two text boxes for users, and one click button to confirm input & triger update, e.g. `#typePos1` and `#typePos1`
+	1. html sample
+	```
+	Start: <input type="text" id="typePos1" name="typePos1" size=5> 
+	End: <input type="text" id="typePos2" name="typePos2" size=5> 
+        <button type="button" class="btn btn-primary btn-sm" onclick="applyRange()">Apply Range</button>
+	```
+	2. define `applyRange()` in js script like:
+	```
+	var old_index1=parseInt($('#typePos1').val());
+	var old_index2=parseInt($('#typePos2').val());
+	// get new_index1 and new_index2 
+	// slice the region [new_index1, new_index2] from raw sequences 
+	// display and highlight them with your existed scripts
+	```
