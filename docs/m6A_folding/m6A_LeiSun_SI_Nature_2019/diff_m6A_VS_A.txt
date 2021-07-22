@@ -1,0 +1,13 @@
+HOXB9_m6A_fold.fasta
+
+NUP153_m6A_fold.fasta
+< UUUGUUUUGGGAAGG6CAGAAGAGAAACAG
+< .((.(((((.......))))).))......
+---
+> UUUGUUUUGGGAAGGACAGAAGAGAAACAG
+> ((((((((....))))))))..........
+
+SERBP1_m6A_fold.fasta
+
+SPRED2_m6A_fold.fasta
+
