@@ -1,4 +1,5 @@
 HOXB9_m6A_fold.fasta
+no structure change from m6A --> A
 
 NUP153_m6A_fold.fasta
 < UUUGUUUUGGGAAGG6CAGAAGAGAAACAG
@@ -8,6 +9,7 @@ NUP153_m6A_fold.fasta
 > ((((((((....))))))))..........
 
 SERBP1_m6A_fold.fasta
+no structure change from m6A --> A
 
 SPRED2_m6A_fold.fasta
-
+no structure change from m6A --> A
