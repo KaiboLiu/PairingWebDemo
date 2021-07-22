@@ -4,7 +4,7 @@
 
 
 #### Folding results 
-1. data1: Lei Sun, et al. Nature 2019, SI
+1. [data1](./m6A_LeiSun_SI_Nature_2019): Lei Sun, et al. Nature 2019, SI
 ```bash
 ./m6A_LeiSun_SI_Nature_2019
 	├── HOXB9_m6A.ct
