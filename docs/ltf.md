@@ -188,3 +188,38 @@ This week's target: user defined region display with starting index input
 	// slice the region [new_index1, new_index2] from raw sequences 
 	// display and highlight them with your existed scripts
 	```
+### 08/14/2021 Sat
+
+1. fix bug for the shink function: instead of shink range, just replace all the unpaired `(` and `)`
+```js
+//      case 1               case 2
+// ..((((..)..))))     ..((((....))))...(..
+//               ^                      ^
+
+function shink(startidx, endidx, stru){
+  leftidx = [];
+  toreplace = [];
+  stru_lst = stru.split('');
+
+  for (var i=startidx; i<=endidx; i++){  //read the structure from left to right	
+    if (stru[i] == '(')
+      leftidx.push(i);
+    else if (stru[i] == ')'){
+      if (leftidx.length == 0){ // case 1, empty stack, you get an unpaired ")"
+        toreplace.push(i);
+      }else{
+        ii = leftidx.pop();  // you get a pair [ii,i]
+      }
+    }
+  }
+
+  toreplace.concat(leftidx); // case 2, if there is any left idx left, add them to to replace
+  for (var i=0; i<toreplace.length; i++){
+    stru_lst[i] = '.'
+  }  
+  return stru_lst.join('');
+}
+
+// same range, but filtered structure
+
+```
