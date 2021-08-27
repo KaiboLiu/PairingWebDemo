@@ -227,20 +227,14 @@ function shink(startidx, endidx, stru){
 
 
 ### 08/27/2021 Fri
-```mermaid
-graph TD;
-    A-->B;
-```
+- **vm-linearfold** server: process front end data from user, send request to ironcreek, receive result, and sent result back to user
+- **ironcreek** server: backend heavy calculation
 
-vm-linearfold server: process front end data from user and sent result back
-ironcreek server: backend dirty work
+![diagram](ltf_resource/LTF_service_diagram.png)
 
-
-run linearTurboFold, check the output (line number or other format), 
-possibly change your layout rendering script based on the LTF program's output
-
-
-setup 2 pages: input page and result page(from your current layout rendering page)
-
-input page: modified from templates/interface_linearfold_v.html
-result page: you almost already finished
+##### To-do this week
+1. run linearTurboFold on flip or ironcreek, check the output file (line layout and other format)  
+2. possibly change your layout rendering script based on the LTF program's output  
+3. setup 2 pages: input page and result page(from your current layout rendering page)  
+	1. input page: modified from templates/interface_linearfold_v.html
+	2. result page: you almost already finished
