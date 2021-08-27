@@ -223,3 +223,24 @@ function shink(startidx, endidx, stru){
 // same range, but filtered structure
 
 ```
+
+
+
+### 08/27/2021 Fri
+```mermaid
+graph TD;
+    A-->B;
+```
+
+vm-linearfold server: process front end data from user and sent result back
+ironcreek server: backend dirty work
+
+
+run linearTurboFold, check the output (line number or other format), 
+possibly change your layout rendering script based on the LTF program's output
+
+
+setup 2 pages: input page and result page(from your current layout rendering page)
+
+input page: modified from templates/interface_linearfold_v.html
+result page: you almost already finished
