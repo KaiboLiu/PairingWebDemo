@@ -238,3 +238,21 @@ function shink(startidx, endidx, stru){
 3. setup 2 pages: input page and result page(from your current layout rendering page)  
 	1. input page: modified from templates/interface_linearfold_v.html
 	2. result page: you almost already finished
+
+
+### 09/03/2021 Fri
+
+##### To-do this week
+
+1. modify LTF input page, add necessary parameter  (beam1, beam2, N_iterations, etc) for user to input/select, test the page on your laptop
+2. check `<yourID>@vm-linearfold.eecs.oregonstate.edu:/scratch/webroot/linearfold_wsgi/server_flask_socketClient.py: line 473`
+	1. copy the file to your laptop, or your home dir on OSU server, before editting
+	2. this part processes the data from user and runs backend program with the data, which can be triggered with either browser or server scripts:
+		1. browser route `demoURL` with `POST/GET` method
+		2. python function `inputSeq()` from other functions
+3. copy from above part, generate a new function for LinearTurboFold job submission
+	1. route url: same with LTF input page, with `POST/GET` method
+	2. function name: name it yourself, should avoid duplicate of any other function names
+	3. read all necessary parameters for LTF from input page (beam1, beam2, N_iterations, etc) with `flask.request.form[<key>]`, put all info (seqName1, seq1, seqName2, seq2,..., parameters) into a userFile, like `line 567-571` do
+4. borrow the idea from `LF_v_core`(line 169) and `request_ironcreek_v`(line 171). Since you will use the LTF output file in your final result page instead of parsing the LTF output here, just combine them and simplify them as a new function `request_ironcreek_LTF` used in above function. port2 can be `11118`
+5. test the `request_ironcreek_LTF` function with test case on OSU server, paste either successful or error message in Sizhen's doc
