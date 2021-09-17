@@ -256,3 +256,12 @@ function shink(startidx, endidx, stru){
 	3. read all necessary parameters for LTF from input page (beam1, beam2, N_iterations, etc) with `flask.request.form[<key>]`, put all info (seqName1, seq1, seqName2, seq2,..., parameters) into a userFile, like `line 567-571` do
 4. borrow the idea from `LF_v_core`(line 169) and `request_ironcreek_v`(line 171). Since you will use the LTF output file in your final result page instead of parsing the LTF output here, just combine them and simplify them as a new function `request_ironcreek_LTF` used in above function. port2 can be `11118`
 5. test the `request_ironcreek_LTF` function with test case on OSU server, paste either successful or error message in Sizhen's doc
+
+
+
+
+#### Validate user's sequence data 
+
+- if user uploads a file: `if 'seqFile' in flask.request.files and flask.request.files['seqFile'].filename != u''`, then read content of user's upload
+- if user types text: `lines = text.split('\n')`, then parse the content of user's input
+then validate name and sequence info for each seq, from above data
