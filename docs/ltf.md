@@ -265,3 +265,32 @@ function shink(startidx, endidx, stru){
 - if user uploads a file: `if 'seqFile' in flask.request.files and flask.request.files['seqFile'].filename != u''`, then read content of user's upload
 - if user types text: `lines = text.split('\n')`, then parse the content of user's input
 then validate name and sequence info for each seq, from above data
+
+
+### 09/17/2021 Fri
+##### request_ironcreek
+- listening process on ironcreek side is finished (`ironcreek:/scratch/liukaib/server_ironcreek_socket/server_socket_ltf.py`)
+- test following python script in your folder on OSU machine, to communicate with ironcreek, the returned `t` is the file path you can use in the result page
+```py
+import socket
+
+def request_ironcreek_ltf(seqfile_prefix):
+    s2 = socket.socket()         # creat socket object
+    host = 'ironcreek.eecs.oregonstate.edu'
+    port2 = 11118                # set port
+
+    s2.connect((host, port2))
+    #seqfile_prefix_s = bytes(seqfile_prefix,'UTF-8')
+    s2.send(seqfile_prefix)
+    t2 = s2.recv(1024)
+
+    s2.close()
+
+    return t2
+
+
+if __name__ == '__main__':
+    seqfile_prefix = '/nfs/stak/users/liukaib/public_html/usrData/test_ltf'
+    t = request_ironcreek_ltf(seqfile_prefix)
+    print(t)
+```
