@@ -291,6 +291,18 @@ def request_ironcreek_ltf(seqfile_prefix):
 
 if __name__ == '__main__':
     seqfile_prefix = '/nfs/stak/users/liukaib/public_html/usrData/test_ltf'
+    # <seqfile_prefix>.fasta and <seqfile_prefix>.para should exist, in your /nfs/stak/users/<usrname>/public_html
+    # and both files should be accessed for all users,
+    # this can be ensured in your file generation process: os.system('chmod a+r <seqfile_prefix>.fasta') 
+    # or in command line: chmod a+r <seqfile_prefix>.fasta
+    
     t = request_ironcreek_ltf(seqfile_prefix)
     print(t)
 ```
+- input data can be checked
+	- on servr: `<access or flop>:/nfs/stak/users/liukaib/public_html/usrData`
+	- in browser: https://web.engr.oregonstate.edu/~liukaib/usrData
+- the results can be accessed by all users
+	- on server: `<access or flop>:/nfs/stak/users/liukaib/public_html/demo_ironcreekOut_LTF/`
+	- in browser: https://web.engr.oregonstate.edu/~liukaib/demo_ironcreekOut_LTF/ or 
+
